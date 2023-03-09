@@ -6,6 +6,7 @@ public class BasicEnemy : MonoBehaviour
 {
     public Transform player;
     public float moveSpeed = 1.1f;
+    public float minDistance = 1f;
 
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
@@ -17,15 +18,18 @@ public class BasicEnemy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        MoveTo(player.position);
+        if (Vector2.Distance(rb.position, player.position) >= minDistance)
+            MoveTo(player.position);
+        else
+            Debug.Log("Too close");
     }
 
     void MoveTo(Vector2 _targetPosition)
     {
         Vector2 direction = _targetPosition - rb.position;
+        direction.Normalize();
         rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * direction);
     }
-
 }
