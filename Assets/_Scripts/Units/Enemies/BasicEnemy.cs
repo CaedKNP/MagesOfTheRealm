@@ -22,8 +22,6 @@ public class BasicEnemy : MonoBehaviour
     {
         if (Vector2.Distance(rb.position, player.position) >= minDistance)
             MoveTo(player.position);
-        else
-            Debug.Log("Too close");
     }
 
     void MoveTo(Vector2 _targetPosition)
