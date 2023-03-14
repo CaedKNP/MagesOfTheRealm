@@ -2611,7 +2611,7 @@ Transform:
   - {fileID: 177448339}
   - {fileID: 1547520404}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1452158572
 PrefabInstance:
@@ -2622,7 +2622,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4157345621276619178, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4157345621276619178, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2804,7 +2804,7 @@ GameObject:
   - component: {fileID: 1547520407}
   - component: {fileID: 1547520406}
   - component: {fileID: 1547520405}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4887,21 +4887,3 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1878008830 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6262015385233187950, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
-  m_PrefabInstance: {fileID: 1108280738}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1878008836
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1878008830}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 497773a9edb54164ca62660168721c36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tilemap: {fileID: 177448341}
