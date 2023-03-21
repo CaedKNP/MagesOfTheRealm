@@ -17,11 +17,18 @@ public class PlayerController : MonoBehaviour
 
     bool canMove = true;
 
+    //stats.CurrentHp -= Convert.ToInt32(dmg * stats.Armor);
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
     }
 
     private void FixedUpdate()
@@ -80,11 +87,6 @@ public class PlayerController : MonoBehaviour
 
         // Can't move if there's no direction to move in
         return false;
-    }
-
-    void OnMove(InputValue movementValue)
-    {
-        movementInput = movementValue.Get<Vector2>();
     }
 
     public void LockMovement()

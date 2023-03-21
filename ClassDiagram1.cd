@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CameraManager" Collapsed="true">
+    <Position X="21" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAIAAAAACAAAIAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Managers\CameraManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="7.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAIAAAAAiAABAAAAAAAAAACAAAAAQAAAAAABACAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Managers\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitManager" Collapsed="true">
+    <Position X="16.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAgAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Managers\UnitManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="21" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAEiAgACAEAAABAQAAQAAAAAgAAAECAAAAAgA=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptableExampleHero" Collapsed="true">
+    <Position X="12.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\ScriptableExampleHero.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptableExampleUnitBase" Collapsed="true">
+    <Position X="12.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAABAAgAAAAAgAACAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\ScriptableExampleUnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Casting" Collapsed="true">
+    <Position X="22.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAACAAAAAAAAAAAAAAEAAAAEAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Spells\Casting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioSystem" Collapsed="true">
+    <Position X="10" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAkAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Systems\AudioSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceSystem" Collapsed="true">
+    <Position X="14.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABAAAEAAAgAAAAAAAAAAABEEA=</HashCode>
+      <FileName>Assets\_Scripts\Systems\ResourceSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Systems" Collapsed="true">
+    <Position X="12.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Systems\Systems.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BasicEnemy" Collapsed="true">
+    <Position X="19.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEiABACAEAAAAAAAAAAAIAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Units\Enemies\BasicEnemy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyUnitBase" Collapsed="true">
+    <Position X="7.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Units\Enemies\EnemyUnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeroUnitBase" Collapsed="true">
+    <Position X="9.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAABAAAAAAAAAEAAAAAAAAAAAEAIAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Scripts\Units\Heroes\HeroUnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tarodev" Collapsed="true">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAEAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Units\Heroes\Tarodev.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnitBase" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAEAA=</HashCode>
+      <FileName>Assets\_Scripts\Units\UnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Helpers" Collapsed="true">
+    <Position X="19.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Utilities\Helpers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StaticInstance&lt;T&gt;" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Scripts\Utilities\StaticInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Singleton&lt;T&gt;" Collapsed="true">
+    <Position X="12.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Scripts\Utilities\StaticInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PersistentSingleton&lt;T&gt;" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Scripts\Utilities\StaticInstance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Stats" Collapsed="true">
+    <Position X="19.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAgAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\ScriptableExampleUnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="GameState" Collapsed="true">
+    <Position X="22.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAEAAAAAAAAUAEAAAAAAAAAAABABAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Scripts\Managers\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ExampleHeroType" Collapsed="true">
+    <Position X="19.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAABAAA=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\ScriptableExampleHero.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Faction" Collapsed="true">
+    <Position X="21" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\_Scripts\Scriptables\ScriptableExampleUnitBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

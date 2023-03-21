@@ -1,34 +1,62 @@
+using Assets._Scripts.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HeroUnitBase : UnitBase {
+public class HeroUnitBase : UnitBase
+{
     private bool _canMove;
+    private Stats statistics;
+    //private List<Spells> spells;
 
     private void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
     private void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
-    private void OnStateChanged(GameState newState) {
-        if (newState == GameState.HeroTurn) _canMove = true;
+    private void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Playing) _canMove = true;
     }
 
-    private void OnMouseDown() {
-        // Only allow interaction when it's the hero turn
-        if (GameManager.Instance.State != GameState.HeroTurn) return;
-
-        // Don't move if we've already moved
-        if (!_canMove) return;
-
-        // Show movement/attack options
-
-        // Eventually either deselect or ExecuteMove(). You could split ExecuteMove into multiple functions
-        // like Move() / Attack() / Dance()
-
-        Debug.Log("Unit clicked");
+    public override void SetStats(Stats stats)
+    {
+        statistics = stats;
     }
 
-    public virtual void ExecuteMove() {
-        // Override this to do some hero-specific logic, then call this base method to clean up the turn
+    public override void Attack()
+    {
+        //Attack implementation
+    }
 
+    public override void TakeDamage(int dmg)
+    {
+        statistics.CurrentHp -= dmg;
+
+        if (statistics.CurrentHp < 0)
+            Die();
+    }
+
+    public override bool TryMove(Vector2 direction)
+    {
+        if (_canMove)
+        {
+
+        }
+
+        return _canMove;
+    }
+
+    public override void LockMovement()
+    {
         _canMove = false;
+    }
+
+    public override void UnlockMovement()
+    {
+        _canMove = true;
+    }
+
+    public override void Die()
+    {
+        //Die management
     }
 }
