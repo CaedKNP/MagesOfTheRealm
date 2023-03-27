@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 639514538004180303}
   - component: {fileID: -766159839102585204}
   - component: {fileID: 1343789464}
-  - component: {fileID: 4769410748247290066}
+  - component: {fileID: 1305789690271010945}
   m_Layer: 6
-  m_Name: fireBallSpell
+  m_Name: SpellFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0bf8264c1cf7b014eb0cdfbc22107506, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 106faff971da8704a84b5a62f945b192, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,7 +104,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.1, y: 0.06}
+    oldSize: {x: 0.2, y: 0.06}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -134,7 +134,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &4769410748247290066
+--- !u!114 &1305789690271010945
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,6 +143,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c622d0ecf58620b4788b534d333664d5, type: 3}
+  m_Script: {fileID: 11500000, guid: cc7dc6302ae6e3646a320fa7008cf672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

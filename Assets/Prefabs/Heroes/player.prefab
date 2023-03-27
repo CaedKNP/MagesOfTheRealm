@@ -214,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89815e362b06a0544b02e24e935e1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfSpell: {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
+  pfSpell: {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
   spellTransform: {fileID: 473902858}
   canFire: 1
   timeBeetwenCasting: 0
