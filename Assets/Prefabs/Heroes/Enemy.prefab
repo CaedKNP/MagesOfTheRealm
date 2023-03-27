@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8324945444546159093}
   - component: {fileID: 7061813054309352363}
   - component: {fileID: 8109268066809691}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -148,3 +148,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   moveSpeed: 1.1
+  minDistance: 1
