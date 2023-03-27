@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FireballSpell : MonoBehaviour
+public class SpellFireball : MonoBehaviour
 {
     float speed = 1f; // prędkość ruchu prefaba
 
