@@ -12,7 +12,7 @@ public abstract class ScriptableExampleUnitBase : ScriptableObject {
     public Stats BaseStats => _stats;
 
     // Used in game
-    public HeroUnitBase Prefab;
+    public UnitBase Prefab;
     
     // Used in menus
     public string Description;

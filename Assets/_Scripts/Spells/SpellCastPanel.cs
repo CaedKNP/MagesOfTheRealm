@@ -9,6 +9,7 @@ public class SpellCastPanel : MonoBehaviour
 
     void Start()
     {
+        Invoke("FindSpellRotator", 0.5f);
         FindSpellRotator();
     }
 
@@ -51,7 +52,7 @@ public class SpellCastPanel : MonoBehaviour
         Debug.Log("Casting spell " + index);
         if (spellRotator != null)
         {
-            Instantiate(spells[index], spellRotator.spellTransform.position, spellRotator.transform.rotation);
+            Instantiate(spells[index], this.transform.position, this.transform.rotation);
         }
         else
         {
