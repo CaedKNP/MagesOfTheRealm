@@ -10,14 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb5c23fd834c21743bf7677711b06d5e, type: 3}
-  m_Name: Tarodev
+  m_Name: SimpleMage
   m_EditorClassIdentifier: 
-  Faction: 0
-  _stats:
-    Health: 55
-    AttackPower: 69
-    TravelDistance: 3
-  Prefab: {fileID: 2359815085648871730, guid: f9265962c9689014fbd7a3f8d40f0aa8, type: 3}
-  Description: Subscribe to him immediately
-  MenuSprite: {fileID: 21300000, guid: c108ff40cd842334bbef5f1be113e603, type: 3}
+  Prefab: {fileID: -7794513531059996055, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
+  Description: Some Mage
+  MenuSprite: {fileID: -1218311553, guid: 8154b4b5e9e5b484997338bb3e2c4142, type: 3}
   HeroType: 0

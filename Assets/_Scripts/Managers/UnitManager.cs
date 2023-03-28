@@ -1,24 +1,30 @@
 using UnityEngine;
 
 /// <summary>
-/// An example of a scene-specific manager grabbing resources from the resource system
-/// Scene-specific managers are things like grid managers, unit managers, environment managers etc
+/// An scene-specific manager spawning units
 /// </summary>
-public class UnitManager : StaticInstance<UnitManager> {
-
-    public void SpawnHeroes() {
-        SpawnUnit(ExampleHeroType.Tarodev, new Vector3(1, 0, 0));
+public class UnitManager : StaticInstance<UnitManager>
+{
+    public void SpawnHero()
+    {
+        SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
     }
 
-    void SpawnUnit(ExampleHeroType t, Vector3 pos) {
-        var tarodevScriptable = ResourceSystem.Instance.GetExampleHero(t);
+    void SpawnUnit(ExampleHeroType t, Vector3 pos)
+    {
+        var simpleMageScriptable = ResourceSystem.Instance.GetExampleHero(t);
 
-        var spawned = Instantiate(tarodevScriptable.Prefab, pos, Quaternion.identity,transform);
+        if (simpleMageScriptable != null)
+        {
 
-        // Apply possible modifications here such as potion boosts, team synergies, etc
-        var stats = tarodevScriptable.BaseStats;
-        stats.Health += 20;
+            var spawned = Instantiate(simpleMageScriptable.Prefab, pos, Quaternion.identity, transform);
+            Camera.main.gameObject.GetComponent<CameraManager>().target = spawned.transform;
 
-        spawned.SetStats(stats);
+            var stats = simpleMageScriptable.BaseStats;
+            // Apply possible modifications here (artifacts, clothets...)
+            //stats.MaxHp += 3;
+
+            spawned.SetStats(stats);
+        }
     }
 }
