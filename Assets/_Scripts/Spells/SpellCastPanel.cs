@@ -40,6 +40,10 @@ public class SpellCastPanel : MonoBehaviour
         {
             CastSpell(3); // rzucanie czwartego czaru
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            CastSpell(4); // rzucanie czwartego czaru
+        }
     }
 
     void CastSpell(int index)
@@ -53,7 +57,8 @@ public class SpellCastPanel : MonoBehaviour
         {
             Debug.LogWarning("SpellRotator is not assigned!");
             FindSpellRotator();
-            //Instantiate(spells[index], spellRotator.spellTransform.position, spellRotator.transform.rotation);
+            //za pierwszym razem zawsze jest null
+            Instantiate(spells[index], spellRotator.spellTransform.position, spellRotator.transform.rotation);
         }
     }
 }

@@ -2517,28 +2517,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &890876182 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1857436576573490824, guid: 2c5f1286a559e0849ab6089ff5faa7d4, type: 3}
-  m_PrefabInstance: {fileID: 1975192080}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &890876187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890876182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537ca56f35a4efd47a9547f542b695be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spells:
-  - {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
 --- !u!1001 &1177004485
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2601,6 +2579,10 @@ PrefabInstance:
     - target: {fileID: 6262015385233187950, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262015385233187950, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
@@ -9608,10 +9590,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1857436576508203941, guid: 2c5f1286a559e0849ab6089ff5faa7d4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 28b1b20e7691b104fbcc93c06cdfc7b4, type: 3}
     - target: {fileID: 1857436576788865255, guid: 2c5f1286a559e0849ab6089ff5faa7d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9636,10 +9614,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1857436576869115568, guid: 2c5f1286a559e0849ab6089ff5faa7d4, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 22a9d18bafc25e94080a8d6ef03219ed, type: 3}
     - target: {fileID: 1857436576869115569, guid: 2c5f1286a559e0849ab6089ff5faa7d4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
