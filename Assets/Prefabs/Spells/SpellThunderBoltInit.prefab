@@ -146,3 +146,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291922bb0c7a81f49b8e167188bf9d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pfSpell: {fileID: 639514538004180302, guid: 4eac23c1773566144be42d594f6785c4, type: 3}
+  hight: 1.72
