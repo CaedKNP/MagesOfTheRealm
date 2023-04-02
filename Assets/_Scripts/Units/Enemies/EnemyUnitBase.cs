@@ -5,15 +5,10 @@ public class EnemyUnitBase : UnitBase
 {
     public override void SetStats(Stats stats)
     {
-        throw new System.NotImplementedException();
+        //throw new System.NotImplementedException();
     }
 
     public override void TakeDamage(int dmg)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void Attack()
     {
         throw new System.NotImplementedException();
     }

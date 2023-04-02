@@ -10,6 +10,8 @@ public class GameManager : StaticInstance<GameManager>
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
 
+    public static GameObject Player;
+
     public GameState State { get; private set; }
 
     // Kick the game off with the first state
@@ -58,14 +60,14 @@ public class GameManager : StaticInstance<GameManager>
 
     private void HandleSpawningHero()
     {
-        UnitManager.Instance.SpawnHero();
+        Player = UnitManager.Instance.SpawnHero();
 
         ChangeState(GameState.SpawningEnemies);
     }
 
     private void HandleSpawningEnemies()
     {
-        // Spawn enemies
+        UnitManager.Instance.SpawnEnemy();
 
         ChangeState(GameState.Playing);
     }

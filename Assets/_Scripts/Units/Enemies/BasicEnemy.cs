@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BasicEnemy : MonoBehaviour
 {
-    public Transform player;
     public float moveSpeed = 1.1f;
     public float minDistance = 1f;
 
@@ -20,8 +19,8 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Vector2.Distance(rb.position, player.position) >= minDistance)
-            MoveTo(player.position);
+        if (Vector2.Distance(rb.position, GameManager.Player.transform.position) >= minDistance)
+            MoveTo(GameManager.Player.transform.position);
     }
 
     void MoveTo(Vector2 _targetPosition)

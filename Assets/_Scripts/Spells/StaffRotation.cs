@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class StffRotation : MonoBehaviour
+public class StaffRotation : MonoBehaviour
 {
     private Camera mainCam;
     private Vector2 mousePos;
