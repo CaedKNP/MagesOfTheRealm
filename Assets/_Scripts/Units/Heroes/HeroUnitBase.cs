@@ -14,12 +14,12 @@ public class HeroUnitBase : UnitBase
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new();
 
-    private bool _canMove;
-    private Stats statistics;
+    bool _canMove;
+    Stats statistics;
 
-    private void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
+    void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
-    private void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
+    void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
     void Start()
     {
@@ -27,61 +27,55 @@ public class HeroUnitBase : UnitBase
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
+    {
+        TryMove();
+    }
+
+    #region Movement
+
+    void TryMove()
     {
         if (_canMove)
         {
-            // If movement input is not 0, try to move
-            if (movementInput != Vector2.zero)
-            {
-
-                bool success = TryMove(movementInput);
-
-                if (!success)
-                {
-                    success = TryMove(new Vector2(movementInput.x, 0));
-                }
-
-                if (!success)
-                {
-                    _ = TryMove(new Vector2(0, movementInput.y));
-                }
-
-            }
-
-            // Set direction of sprite to movement direction
-            if (movementInput.x < 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (movementInput.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+            Move();
         }
     }
 
-    void OnMove(InputValue movementValue)
+    void Move()
     {
-        movementInput = movementValue.Get<Vector2>();
-    }
+        // If movement input is not 0, try to move
+        if (movementInput != Vector2.zero)
+        {
 
-    private void OnStateChanged(GameState newState)
-    {
-        if (newState == GameState.Playing) _canMove = true;
-    }
+            bool success = TryMove(movementInput);
 
-    public override void SetStats(Stats stats)
-    {
-        statistics = stats;
-    }
+            //Gliding around walls
+            #region Gliding
 
-    public override void TakeDamage(int dmg)
-    {
-        statistics.CurrentHp -= dmg;
+            if (!success)
+            {
+                success = TryMove(new Vector2(movementInput.x, 0));
+            }
 
-        if (statistics.CurrentHp < 0)
-            Die();
+            if (!success)
+            {
+                _ = TryMove(new Vector2(0, movementInput.y));
+            }
+
+            #endregion
+
+        }
+
+        // Set direction of sprite to movement direction
+        if (movementInput.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (movementInput.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public override bool TryMove(Vector2 direction)
@@ -108,6 +102,11 @@ public class HeroUnitBase : UnitBase
         return false;
     }
 
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
+
     public override void LockMovement()
     {
         _canMove = false;
@@ -118,10 +117,32 @@ public class HeroUnitBase : UnitBase
         _canMove = true;
     }
 
+    #endregion
+
+    void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Playing) _canMove = true;
+    }
+
+    public override void SetStats(Stats stats)
+    {
+        statistics = stats;
+    }
+
+    public override void TakeDamage(int dmg)
+    {
+        statistics.CurrentHp -= dmg;
+
+        if (statistics.CurrentHp < 0)
+            Die();
+    }
+
     public override void Die()
     {
         //Die management
     }
+
+    #region Attack
 
     void OnPrimaryAttack()
     {
@@ -147,4 +168,6 @@ public class HeroUnitBase : UnitBase
     {
 
     }
+
+    #endregion
 }

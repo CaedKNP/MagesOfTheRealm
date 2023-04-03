@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SpellCastPanel : MonoBehaviour
 {
     public GameObject[] spells; // tablica czarów
-    private StaffRotation spellRotator; // referencja do rotatora
-    private GameObject player; // referencja do obiektu gracza
+    
+    StaffRotation spellRotator; // referencja do rotatora
+    GameObject player; // referencja do obiektu gracza
 
     void Start()
     {
@@ -16,14 +16,17 @@ public class SpellCastPanel : MonoBehaviour
     void FindSpellRotator()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameManager.Player;
+
         spellRotator = player.GetComponentInChildren<StaffRotation>();
+
         if (spellRotator == null)
         {
             Debug.LogWarning("spellRotator is null!");
         }
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -50,6 +53,7 @@ public class SpellCastPanel : MonoBehaviour
     void CastSpell(int index)
     {
         Debug.Log("Casting spell " + index);
+
         if (spellRotator != null)
         {
             Instantiate(spells[index], this.transform.position, this.transform.rotation);

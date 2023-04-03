@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Tilemaps;
 
 #if UNITY_EDITOR
@@ -8,20 +6,23 @@ using UnityEditor;
 #endif
 
 public class LevelGenerator : MonoBehaviour {
+
 	[Tooltip("The Tilemap to draw onto")]
 	public Tilemap tilemap;
+
 	[Tooltip("The Tile to draw (use a RuleTile for best results)")]
 	public TileBase tile;
 
 	[Tooltip("Width of our map")]
 	public int width;
+
 	[Tooltip("Height of our map")]
 	public int height;
 	
 	[Tooltip("The settings of our map")]
 	public MapSettings mapSetting;
 	
-	private void Update()
+	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.N))
 		{
@@ -34,8 +35,10 @@ public class LevelGenerator : MonoBehaviour {
 	public void GenerateMap()
 	{
 		ClearMap();
+
 		int[,] map = new int[width, height];
 		float seed;
+
 		if (mapSetting.randomSeed)
 		{
 			seed = Time.time;
@@ -53,6 +56,7 @@ public class LevelGenerator : MonoBehaviour {
 		//Render the result
 		MapFunctions.RenderMap(map, tilemap, tile);
 	}
+
 	public void ClearMap()
 	{
 		tilemap.ClearAllTiles();
