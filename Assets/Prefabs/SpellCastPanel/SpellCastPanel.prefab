@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 1857436576573490836}
   - component: {fileID: 1857436576573490837}
   - component: {fileID: 1857436576573490826}
-  - component: {fileID: 890876187}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -259,23 +258,6 @@ MonoBehaviour:
   m_Spacing: {x: 3.1, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &890876187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1857436576573490824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 537ca56f35a4efd47a9547f542b695be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spells:
-  - {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
 --- !u!1 &1857436576788865252
 GameObject:
   m_ObjectHideFlags: 0
