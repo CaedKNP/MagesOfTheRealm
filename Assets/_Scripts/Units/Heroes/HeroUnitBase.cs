@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +15,10 @@ public class HeroUnitBase : UnitBase
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new();
 
+    [SerializeField]
+    GameObject[] spells = new GameObject[6]; // tablica czarów
+    StaffRotation spellRotator; // referencja do rotatora
+
     bool _canMove;
     Stats statistics;
 
@@ -25,6 +30,8 @@ public class HeroUnitBase : UnitBase
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spellRotator = GetComponentInChildren<StaffRotation>();
     }
 
     void FixedUpdate()
@@ -146,28 +153,41 @@ public class HeroUnitBase : UnitBase
 
     void OnPrimaryAttack()
     {
-
+        CastSpell(0);
     }
 
     void OnSecondaryAttack()
     {
-
+        CastSpell(1);
     }
 
     void OnQSpell()
     {
-
+        CastSpell(2);
     }
 
     void OnESpell()
     {
-
+        CastSpell(3);
     }
 
     void OnDodge()
     {
-
+        CastSpell(4);
     }
 
+    void CastSpell(int index)
+    {
+        Debug.Log("Casting spell " + index);
+
+        if (spellRotator != null)
+        {
+            Instantiate(spells[index], transform.position, spellRotator.transform.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("SpellRotator is not assigned!");
+        }
+    }
     #endregion
 }
