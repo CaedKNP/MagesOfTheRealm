@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class SpellFrost : MonoBehaviour
 {
     float speed = 2f; // prędkość ruchu prefaba
+    Rigidbody2D rb;
 
     private Rigidbody2D rb;
     private TrailRenderer trailRenderer;

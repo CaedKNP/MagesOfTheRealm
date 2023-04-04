@@ -3,6 +3,9 @@ using System.ComponentModel;
 
 namespace Assets._Scripts.Utilities
 {
+    /// <summary>
+    /// Keeping base stats as a struct on the scriptable keeps it flexible and easily editable.
+    /// </summary>
     [Serializable]
     public struct Stats
     {
