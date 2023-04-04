@@ -1,34 +1,150 @@
+using Assets._Scripts.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public abstract class HeroUnitBase : UnitBase {
+public class HeroUnitBase : UnitBase
+{
+    public float moveSpeed = 1f;
+    public float collisionOffset = 0.05f;
+    public ContactFilter2D movementFilter;
+
+    Vector2 movementInput;
+    SpriteRenderer spriteRenderer;
+    Rigidbody2D rb;
+    List<RaycastHit2D> castCollisions = new();
+
     private bool _canMove;
+    private Stats statistics;
 
     private void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
     private void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
-    private void OnStateChanged(GameState newState) {
-        if (newState == GameState.HeroTurn) _canMove = true;
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnMouseDown() {
-        // Only allow interaction when it's the hero turn
-        if (GameManager.Instance.State != GameState.HeroTurn) return;
+    private void FixedUpdate()
+    {
+        if (_canMove)
+        {
+            // If movement input is not 0, try to move
+            if (movementInput != Vector2.zero)
+            {
 
-        // Don't move if we've already moved
-        if (!_canMove) return;
+                bool success = TryMove(movementInput);
 
-        // Show movement/attack options
+                if (!success)
+                {
+                    success = TryMove(new Vector2(movementInput.x, 0));
+                }
 
-        // Eventually either deselect or ExecuteMove(). You could split ExecuteMove into multiple functions
-        // like Move() / Attack() / Dance()
+                if (!success)
+                {
+                    _ = TryMove(new Vector2(0, movementInput.y));
+                }
 
-        Debug.Log("Unit clicked");
+            }
+
+            // Set direction of sprite to movement direction
+            if (movementInput.x < 0)
+            {
+                spriteRenderer.flipX = true;
+            }
+            else if (movementInput.x > 0)
+            {
+                spriteRenderer.flipX = false;
+            }
+        }
     }
 
-    public virtual void ExecuteMove() {
-        // Override this to do some hero-specific logic, then call this base method to clean up the turn
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
 
+    private void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Playing) _canMove = true;
+    }
+
+    public override void SetStats(Stats stats)
+    {
+        statistics = stats;
+    }
+
+    public override void TakeDamage(int dmg)
+    {
+        statistics.CurrentHp -= dmg;
+
+        if (statistics.CurrentHp < 0)
+            Die();
+    }
+
+    public override bool TryMove(Vector2 direction)
+    {
+        if (direction != Vector2.zero)
+        {
+            // Check for potential collisions
+            int count = rb.Cast(
+                direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
+                movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
+                castCollisions, // List of collisions to store the found collisions into after the Cast is finished
+                moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+
+            if (count == 0)
+            {
+                rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * direction);
+                return true;
+            }
+
+            return false;
+        }
+
+        // Can't move if there's no direction to move in
+        return false;
+    }
+
+    public override void LockMovement()
+    {
         _canMove = false;
+    }
+
+    public override void UnlockMovement()
+    {
+        _canMove = true;
+    }
+
+    public override void Die()
+    {
+        //Die management
+    }
+
+    void OnPrimaryAttack()
+    {
+
+    }
+
+    void OnSecondaryAttack()
+    {
+
+    }
+
+    void OnQSpell()
+    {
+
+    }
+
+    void OnESpell()
+    {
+
+    }
+
+    void OnDodge()
+    {
+
     }
 }

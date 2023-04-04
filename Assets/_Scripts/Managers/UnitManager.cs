@@ -1,24 +1,51 @@
 using UnityEngine;
 
 /// <summary>
-/// An example of a scene-specific manager grabbing resources from the resource system
-/// Scene-specific managers are things like grid managers, unit managers, environment managers etc
+/// An scene-specific manager spawning units
 /// </summary>
-public class UnitManager : StaticInstance<UnitManager> {
-
-    public void SpawnHeroes() {
-        SpawnUnit(ExampleHeroType.Tarodev, new Vector3(1, 0, 0));
+public class UnitManager : StaticInstance<UnitManager>
+{
+    public GameObject SpawnHero()
+    {
+        return SpawnHeroUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
     }
 
-    void SpawnUnit(ExampleHeroType t, Vector3 pos) {
-        var tarodevScriptable = ResourceSystem.Instance.GetExampleHero(t);
+    public void SpawnEnemy()
+    {
+        SpawnEnemyUnit(ExampleEnemyType.SimpleEnemy, new Vector3(-1.38f, 0.371f, 0));
+    }
 
-        var spawned = Instantiate(tarodevScriptable.Prefab, pos, Quaternion.identity,transform);
+    GameObject SpawnHeroUnit(ExampleHeroType t, Vector3 pos)
+    {
+        var ScriptableHero = ResourceSystem.Instance.GetExampleHero(t);
 
-        // Apply possible modifications here such as potion boosts, team synergies, etc
-        var stats = tarodevScriptable.BaseStats;
-        stats.Health += 20;
+        if (ScriptableHero != null)
+        {
+            var heroSpawned = Instantiate(ScriptableHero.Prefab, pos, Quaternion.identity, transform);
+            Camera.main.gameObject.GetComponent<CameraManager>().target = heroSpawned.transform;
 
-        spawned.SetStats(stats);
+            var stats = ScriptableHero.BaseStats;
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
+
+            heroSpawned.SetStats(stats);
+
+            return heroSpawned.gameObject;
+        }
+
+        return null;
+    }
+
+    void SpawnEnemyUnit(ExampleEnemyType t, Vector3 pos)
+    {
+        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(t);
+
+        if (ScriptableEnemy != null)
+        {
+            var enemySpawned = Instantiate(ScriptableEnemy.Prefab, pos, Quaternion.identity, transform);
+
+            var stats = ScriptableEnemy.BaseStats;
+
+            enemySpawned.SetStats(stats);
+        }
     }
 }
