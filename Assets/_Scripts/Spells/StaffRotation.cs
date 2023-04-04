@@ -1,22 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StaffRotation : MonoBehaviour
 {
-    private Camera mainCam;
-    private Vector2 mousePos;
-    private Vector2 rotation;
     public GameObject pfSpell;
     public Transform spellTransform;
     public bool canFire = true;
-    private float timer;
     public float timeBeetwenCasting;
+
+    Camera mainCam;
+    Vector2 mousePos;
+    Vector2 rotation;
+    float timer;
+
     void Start()
     {
         mainCam = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
     }
+
     void Update()
     {
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -42,6 +42,7 @@ public class StaffRotation : MonoBehaviour
             CastSpell();
         }
     }
+
     void CastSpell()
     {
         Instantiate(pfSpell, spellTransform.position, transform.rotation);

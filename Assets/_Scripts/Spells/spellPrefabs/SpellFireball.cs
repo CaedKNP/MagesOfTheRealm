@@ -3,10 +3,9 @@
 public class SpellFireball : MonoBehaviour
 {
     float speed = 1f; // prędkość ruchu prefaba
+    Rigidbody2D rb;
 
-    private Rigidbody2D rb;
-
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu
         rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu

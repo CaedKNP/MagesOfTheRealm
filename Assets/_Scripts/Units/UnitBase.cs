@@ -7,8 +7,6 @@ public abstract class UnitBase : MonoBehaviour
 {
     public abstract void SetStats(Stats stats);
 
-    public abstract void Attack();
-
     public abstract void TakeDamage(int dmg);
 
     public abstract bool TryMove(Vector2 direction);
