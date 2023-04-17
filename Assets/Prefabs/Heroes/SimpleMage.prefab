@@ -193,7 +193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675500399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.08, z: 0}
+  m_LocalPosition: {x: 0, y: -0.023, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -232,7 +232,6 @@ GameObject:
   - component: {fileID: 8328539516825410194}
   - component: {fileID: 7069621003308234956}
   - component: {fileID: -7794513531059996055}
-  - component: {fileID: -6294159151078887802}
   m_Layer: 8
   m_Name: SimpleMage
   m_TagString: Player
@@ -372,7 +371,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0049899444, y: -0.1538687}
+  m_Offset: {x: 0.0113800205, y: -0.061643198}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -383,7 +382,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.091388315, y: 0.036912143}
+  m_Size: {x: 0.07860816, y: 0.040198535}
   m_EdgeRadius: 0
 --- !u!114 &-7794513531059996055
 MonoBehaviour:
@@ -413,19 +412,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
---- !u!114 &-6294159151078887802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6267861171628039945}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89815e362b06a0544b02e24e935e1c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pfSpell: {fileID: 0}
-  spellTransform: {fileID: 0}
-  canFire: 1
-  timeBeetwenCasting: 0
+  spells:
+  - {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
+  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
+  - {fileID: 639514538004180302, guid: 63d3dfe7044a4994b9942728f71a3f60, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -7,24 +7,26 @@ public class UnitManager : StaticInstance<UnitManager>
 {
     public GameObject SpawnHero()
     {
-        return SpawnHeroUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
+        return SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
     }
 
-    public void SpawnEnemy()
+    public GameObject SpawnEnemy()
     {
-        SpawnEnemyUnit(ExampleEnemyType.SimpleEnemy, new Vector3(-1.38f, 0.371f, 0));
+        return SpawnUnit(ExampleEnemyType.SimpleEnemy, new Vector3(-1.38f, 0.371f, 0));
     }
 
-    GameObject SpawnHeroUnit(ExampleHeroType t, Vector3 pos)
+    GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
     {
         var ScriptableHero = ResourceSystem.Instance.GetExampleHero(t);
 
         if (ScriptableHero != null)
         {
             var heroSpawned = Instantiate(ScriptableHero.Prefab, pos, Quaternion.identity, transform);
+
             Camera.main.gameObject.GetComponent<CameraManager>().target = heroSpawned.transform;
 
             var stats = ScriptableHero.BaseStats;
+
             // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
 
             heroSpawned.SetStats(stats);
@@ -35,7 +37,7 @@ public class UnitManager : StaticInstance<UnitManager>
         return null;
     }
 
-    void SpawnEnemyUnit(ExampleEnemyType t, Vector3 pos)
+    GameObject SpawnUnit(ExampleEnemyType t, Vector3 pos)
     {
         var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(t);
 
@@ -45,7 +47,13 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableEnemy.BaseStats;
 
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
+
             enemySpawned.SetStats(stats);
+
+            return enemySpawned.gameObject;
         }
+
+        return null;
     }
 }

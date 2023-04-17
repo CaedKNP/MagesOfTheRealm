@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 public class SpellFrost : MonoBehaviour
 {
     float speed = 2f; // prędkość ruchu prefaba
 
     private Rigidbody2D rb;
+    private TrailRenderer trailRenderer;
 
     private void Awake()
     {
@@ -19,6 +20,5 @@ public class SpellFrost : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //Destroy(collision.gameObject);
     }
 }

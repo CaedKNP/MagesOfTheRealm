@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,74 +15,74 @@ public class HeroUnitBase : UnitBase
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new();
 
-    private bool _canMove;
-    private Stats statistics;
+    [SerializeField]
+    GameObject[] spells = new GameObject[6]; // tablica czarów
+    StaffRotation spellRotator; // referencja do rotatora
 
-    private void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
+    bool _canMove;
+    Stats statistics;
 
-    private void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
+    void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
+
+    void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spellRotator = GetComponentInChildren<StaffRotation>();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
+    {
+        TryMove();
+    }
+
+    #region Movement
+
+    void TryMove()
     {
         if (_canMove)
         {
-            // If movement input is not 0, try to move
-            if (movementInput != Vector2.zero)
-            {
-
-                bool success = TryMove(movementInput);
-
-                if (!success)
-                {
-                    success = TryMove(new Vector2(movementInput.x, 0));
-                }
-
-                if (!success)
-                {
-                    _ = TryMove(new Vector2(0, movementInput.y));
-                }
-
-            }
-
-            // Set direction of sprite to movement direction
-            if (movementInput.x < 0)
-            {
-                spriteRenderer.flipX = true;
-            }
-            else if (movementInput.x > 0)
-            {
-                spriteRenderer.flipX = false;
-            }
+            Move();
         }
     }
 
-    void OnMove(InputValue movementValue)
+    void Move()
     {
-        movementInput = movementValue.Get<Vector2>();
-    }
+        // If movement input is not 0, try to move
+        if (movementInput != Vector2.zero)
+        {
 
-    private void OnStateChanged(GameState newState)
-    {
-        if (newState == GameState.Playing) _canMove = true;
-    }
+            bool success = TryMove(movementInput);
 
-    public override void SetStats(Stats stats)
-    {
-        statistics = stats;
-    }
+            //Gliding around walls
+            #region Gliding
 
-    public override void TakeDamage(int dmg)
-    {
-        statistics.CurrentHp -= dmg;
+            if (!success)
+            {
+                success = TryMove(new Vector2(movementInput.x, 0));
+            }
 
-        if (statistics.CurrentHp < 0)
-            Die();
+            if (!success)
+            {
+                _ = TryMove(new Vector2(0, movementInput.y));
+            }
+
+            #endregion
+
+        }
+
+        // Set direction of sprite to movement direction
+        if (movementInput.x < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (movementInput.x > 0)
+        {
+            spriteRenderer.flipX = false;
+        }
     }
 
     public override bool TryMove(Vector2 direction)
@@ -108,6 +109,11 @@ public class HeroUnitBase : UnitBase
         return false;
     }
 
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
+
     public override void LockMovement()
     {
         _canMove = false;
@@ -118,33 +124,70 @@ public class HeroUnitBase : UnitBase
         _canMove = true;
     }
 
+    #endregion
+
+    void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Playing) _canMove = true;
+    }
+
+    public override void SetStats(Stats stats)
+    {
+        statistics = stats;
+    }
+
+    public override void TakeDamage(int dmg)
+    {
+        statistics.CurrentHp -= dmg;
+
+        if (statistics.CurrentHp < 0)
+            Die();
+    }
+
     public override void Die()
     {
         //Die management
     }
 
+    #region Attack
+
     void OnPrimaryAttack()
     {
-
+        CastSpell(0);
     }
 
     void OnSecondaryAttack()
     {
-
+        CastSpell(1);
     }
 
     void OnQSpell()
     {
-
+        CastSpell(2);
     }
 
     void OnESpell()
     {
-
+        CastSpell(3);
     }
 
     void OnDodge()
     {
-
+        CastSpell(4);
     }
+
+    void CastSpell(int index)
+    {
+        Debug.Log("Casting spell " + index);
+
+        if (spellRotator != null)
+        {
+            Instantiate(spells[index], transform.position, spellRotator.transform.rotation);
+        }
+        else
+        {
+            Debug.LogWarning("SpellRotator is not assigned!");
+        }
+    }
+    #endregion
 }

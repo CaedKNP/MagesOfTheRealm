@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// Create a scriptable hero 
+/// Create a scriptable enemy 
 /// </summary>
 [CreateAssetMenu(fileName = "ExampleEnemy")]
 public class ScriptableExampleEnemy : ScriptableExampleUnitBase
