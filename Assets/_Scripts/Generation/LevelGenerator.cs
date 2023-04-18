@@ -21,8 +21,8 @@ public class LevelGenerator : MonoBehaviour {
 	
 	[Tooltip("The settings of our map")]
 	public MapSettings mapSetting;
-	
-	void Update()
+
+    void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.N))
 		{
@@ -35,8 +35,8 @@ public class LevelGenerator : MonoBehaviour {
 	public void GenerateMap()
 	{
 		ClearMap();
-
-		int[,] map = new int[width, height];
+		int[,] map = GameManager.map;
+		map = new int[width, height];
 		float seed;
 
 		if (mapSetting.randomSeed)

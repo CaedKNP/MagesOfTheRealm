@@ -15,7 +15,7 @@ public class HeroUnitBase : UnitBase
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
-    GameObject[] spells = new GameObject[5]; // tablica czarów
+    GameObject[] spells = new GameObject[5]; // tablica czarï¿½w
     StaffRotation spellRotator; // referencja do rotatora
 
     bool _canMove;
