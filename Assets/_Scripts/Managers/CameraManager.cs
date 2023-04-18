@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraManager : MonoBehaviour
@@ -10,7 +8,7 @@ public class CameraManager : MonoBehaviour
     public Vector2 minPos;
     public Vector2 maxPos;
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if(transform.position != target.position)
         {
