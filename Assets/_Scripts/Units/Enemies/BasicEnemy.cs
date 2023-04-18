@@ -1,6 +1,7 @@
 using Assets._Scripts.Utilities;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class BasicEnemy : UnitBase
@@ -26,6 +27,8 @@ public class BasicEnemy : UnitBase
     float coneDirection = 180;
 
     private float lastAttack = 0;
+    private Vector2 randomDestination = Vector3.zero;
+    private float lastPatrol = 0;
 
     public enum States
     {
@@ -35,6 +38,7 @@ public class BasicEnemy : UnitBase
     }
 
     private States currentState;
+    private Stats statistics;
 
     void Start()
     {
@@ -83,10 +87,19 @@ public class BasicEnemy : UnitBase
     private void Idle()
     {
         dotColor = Color.green;
+        Patrol();
         if (SeeSense(coneDirection))
             ChangeState(States.Moving);
     }
-
+    private void Patrol()
+    {
+        TryMove(randomDestination);
+        if (Time.time - lastPatrol <= 1)
+            return;
+        randomDestination = new Vector2(Random.Range(-1, 2), Random.Range(-1, 2));
+        //Debug.Log(randomDestination);
+        lastPatrol = Time.time;
+    }
     private void Moving()
     {
         TryMove(player.position - transform.position);
@@ -134,12 +147,14 @@ public class BasicEnemy : UnitBase
 
     public override void SetStats(Stats stats)
     {
-        throw new System.NotImplementedException();
+        statistics = stats;
     }
 
     public override void TakeDamage(int dmg)
     {
-        throw new System.NotImplementedException();
+        statistics.CurrentHp -= dmg;
+        if (statistics.CurrentHp <= 0)
+            Die();
     }
 
     /// <summary>
@@ -151,7 +166,7 @@ public class BasicEnemy : UnitBase
     {
         direction.Normalize();
         if (direction != Vector2.zero)
-        {
+        { 
             // Check for potential collisions
             int count = rb.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
@@ -161,7 +176,9 @@ public class BasicEnemy : UnitBase
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * direction);
+                Vector3 pos = rb.position + moveSpeed * Time.fixedDeltaTime * direction;
+                rb.MovePosition(pos);
+                //Debug.Log(direction);
                 return true;
             }
 
@@ -183,7 +200,7 @@ public class BasicEnemy : UnitBase
 
     public override void Die()
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"{name} is dead");
     }
     public void Attack()
     {

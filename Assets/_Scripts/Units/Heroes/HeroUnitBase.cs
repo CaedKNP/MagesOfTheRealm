@@ -146,6 +146,7 @@ public class HeroUnitBase : UnitBase
 
     public override void Die()
     {
+        Debug.Log($"{name} is dead");
         //Die management
     }
 
