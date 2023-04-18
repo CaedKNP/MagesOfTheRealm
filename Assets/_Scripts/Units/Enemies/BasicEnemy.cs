@@ -202,6 +202,7 @@ public class BasicEnemy : UnitBase
     {
         Debug.Log($"{name} is dead");
     }
+
     public void Attack()
     {
         if (Time.time - lastAttack <= attackCooldown)

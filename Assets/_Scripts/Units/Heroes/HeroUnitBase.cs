@@ -145,7 +145,7 @@ public class HeroUnitBase : UnitBase
 
     public override void Die()
     {
-        //Die management
+        Debug.Log($"{name} is dead");
     }
 
     #region Attack
