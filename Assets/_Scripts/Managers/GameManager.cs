@@ -10,6 +10,8 @@ public class GameManager : StaticInstance<GameManager>
     public static event Action<GameState> OnAfterStateChanged;
 
     public static GameObject Player;
+    public static int[,] map;
+
 
     public GameState State { get; private set; }
 
