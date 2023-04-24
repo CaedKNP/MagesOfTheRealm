@@ -18,6 +18,7 @@ public class HeroUnitBase : UnitBase
     GameObject[] spells = new GameObject[5]; // tablica czar�w
     StaffRotation spellRotator; // referencja do rotatora
 
+    HealthBarManager healthBarManager;
     bool _canMove;
     Stats statistics;
 
@@ -29,8 +30,9 @@ public class HeroUnitBase : UnitBase
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         spellRotator = GetComponentInChildren<StaffRotation>();
+
+        healthBarManager.SetMaxHealth(statistics.MaxHp);//initialize max value UI HealthBar
     }
 
     void FixedUpdate()
@@ -138,6 +140,8 @@ public class HeroUnitBase : UnitBase
     public override void TakeDamage(int dmg)
     {
         statistics.CurrentHp -= dmg;
+
+        healthBarManager.SetHealth(statistics.CurrentHp);//set new hp as value in Health Bar :)
 
         if (statistics.CurrentHp < 0)
             Die();
