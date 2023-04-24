@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef9441cb3edd0647bdfd6214935e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PatrolPoint: {x: 5, y: 5}
+  PatrolRadius: 5
   moveSpeed: 1.1
   minDistance: 0.3
   seeDistance: 1
