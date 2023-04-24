@@ -35,8 +35,7 @@ public class LevelGenerator : MonoBehaviour {
 	public void GenerateMap()
 	{
 		ClearMap();
-		int[,] map = GameManager.map;
-		map = new int[width, height];
+		int[,] map = new int[width, height];
 		float seed;
 
 		if (mapSetting.randomSeed)

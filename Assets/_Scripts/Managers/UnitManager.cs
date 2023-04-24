@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Linq;
 
 /// <summary>
 /// An scene-specific manager spawning units
@@ -7,12 +8,12 @@ public class UnitManager : StaticInstance<UnitManager>
 {
     public GameObject SpawnHero()
     {
-        return SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
+        return SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0,0,0));
     }
 
     public GameObject SpawnEnemy()
     {
-        return SpawnUnit(ExampleEnemyType.SimpleEnemy, new Vector3(-1.38f, 0.371f, 0));
+        return SpawnUnit(ExampleEnemyType.SimpleEnemy, new Vector3(0,2,0));
     }
 
     GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
@@ -55,5 +56,21 @@ public class UnitManager : StaticInstance<UnitManager>
         }
 
         return null;
+    }
+
+    Vector3 GetRandomVector()
+    {
+        int width = GameManager.map.GetLength(1);
+        int height = GameManager.map.GetLength(0);
+
+        int randomX = Random.Range(0, width);
+        int randomY = Random.Range(0, height);
+
+        while (GameManager.map[randomY, randomX] != 0)
+        {
+            randomX = Random.Range(0, width);
+            randomY = Random.Range(0, height);
+        }
+        return new Vector3(randomX, randomY);
     }
 }
