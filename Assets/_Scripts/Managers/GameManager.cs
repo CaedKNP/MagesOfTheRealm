@@ -54,6 +54,7 @@ public class GameManager : StaticInstance<GameManager>
     void HandleStarting()
     {
         //May do some start setup, could be environment, cinematics etc
+        map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }
 
