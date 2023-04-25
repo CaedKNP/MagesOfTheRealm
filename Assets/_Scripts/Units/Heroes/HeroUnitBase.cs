@@ -1,5 +1,4 @@
 using Assets._Scripts.Utilities;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,9 +15,11 @@ public class HeroUnitBase : UnitBase
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
-    GameObject[] spells = new GameObject[6]; // tablica czarów
+    GameObject[] spells = new GameObject[5]; // tablica czarï¿½w
     StaffRotation spellRotator; // referencja do rotatora
-
+    [SerializeField]
+    public GameObject healthBarManagerObj;
+    HealthBarManager healthBar;
     bool _canMove;
     Stats statistics;
 
@@ -30,13 +31,18 @@ public class HeroUnitBase : UnitBase
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
         spellRotator = GetComponentInChildren<StaffRotation>();
+
+        healthBar = FindObjectOfType<HealthBarManager>();
+        healthBar.SetMaxHealth(statistics.MaxHp);//initialize max value UI HealthBar
+
+
     }
 
     void FixedUpdate()
     {
         TryMove();
+
     }
 
     #region Movement
@@ -140,6 +146,8 @@ public class HeroUnitBase : UnitBase
     {
         statistics.CurrentHp -= dmg;
 
+        healthBar.SetHealth(statistics.CurrentHp);//set new hp as value in Health Bar :)
+
         if (statistics.CurrentHp < 0)
             Die();
     }
@@ -147,7 +155,6 @@ public class HeroUnitBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
-        //Die management
     }
 
     #region Attack
