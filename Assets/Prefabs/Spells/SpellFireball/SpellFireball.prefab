@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 639514538004180303}
   - component: {fileID: -766159839102585204}
   - component: {fileID: 1343789464}
-  - component: {fileID: 1305789690271010945}
-  - component: {fileID: -826060483672696747}
+  - component: {fileID: 4769410748247290066}
+  - component: {fileID: -5179455020467653721}
   m_Layer: 6
-  m_Name: SpellFrost
+  m_Name: SpellFireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639514538004180302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.093, y: 0, z: 0}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 106faff971da8704a84b5a62f945b192, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 725f13145588c7543b462eead578227a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.1, y: 0.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,8 +105,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2, y: 0.06}
-    newSize: {x: 1, y: 1}
+    oldSize: {x: 0.1, y: 0.06}
+    newSize: {x: 0.1, y: 0.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1305789690271010945
+--- !u!114 &4769410748247290066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +144,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc7dc6302ae6e3646a320fa7008cf672, type: 3}
+  m_Script: {fileID: 11500000, guid: c622d0ecf58620b4788b534d333664d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!96 &-826060483672696747
+  speed: 0
+  destroyTime: 0
+  rb: {fileID: 0}
+--- !u!96 &-5179455020467653721
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -168,7 +171,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,7 +192,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.3
+  m_Time: 0.4
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -197,30 +200,30 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.05
+        time: 0.22557071
+        value: 0.03539651
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9512195
+        time: 0.5421129
         value: 0
-        inSlope: 0
-        outSlope: 0
+        inSlope: -0.03362915
+        outSlope: -0.03362915
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0
+        inWeight: 0.6651055
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.1812922, g: 0.6826761, b: 0.990566, a: 1}
-      key1: {r: 0.78679246, g: 0.96037954, b: 1, a: 0}
+      key0: {r: 1, g: 0, b: 0, a: 1}
+      key1: {r: 1, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -228,16 +231,16 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 33731
+      ctime1: 65535
       ctime2: 0
       ctime3: 0
       ctime4: 0
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 31226
-      atime1: 49730
-      atime2: 57825
+      atime0: 0
+      atime1: 65535
+      atime2: 0
       atime3: 0
       atime4: 0
       atime5: 0
@@ -245,7 +248,7 @@ TrailRenderer:
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 3
+      m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
