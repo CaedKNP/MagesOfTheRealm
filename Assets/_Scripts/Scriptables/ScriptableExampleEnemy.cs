@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,10 +7,4 @@ using UnityEngine;
 public class ScriptableExampleEnemy : ScriptableExampleUnitBase
 {
     public ExampleEnemyType EnemyType;
-}
-
-[Serializable]
-public enum ExampleEnemyType
-{
-    SimpleEnemy = 0
 }

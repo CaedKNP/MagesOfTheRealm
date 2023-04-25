@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 
-public abstract class Spell
+[CreateAssetMenu(fileName = "Spell")]
+public class Spell : ScriptableObject
 {
-    public GameObject Prefab { get; set; }
+    public GameObject Prefab; //MonoBehaviour
+    public int ID;
+    public float cooldown;
+    public SpellSlot spellSlot;
 
-    public string Name { get; set; }
-
-    public float Cooldown { get; set; }
-
-    public abstract void Cast();
+    // Used in menus
+    public string Name;
+    public string Description;
 }

@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Ultimate",
-                    "type": "Button",
-                    "id": "a2b95b83-4c3c-443a-8428-4f8b138e28fc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "QSpell",
                     "type": "Button",
                     "id": "ad90f83a-c0eb-4d23-b406-f9d2fefc965d",
@@ -232,17 +223,6 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "SecondaryAttack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ec18eb50-f203-4943-b9a5-a5d79db0d947",
-                    "path": "<Keyboard>/r",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Ultimate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
