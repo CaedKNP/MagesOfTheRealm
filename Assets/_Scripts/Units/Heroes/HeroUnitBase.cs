@@ -18,7 +18,7 @@ public class HeroUnitBase : UnitBase
     GameObject[] spells = new GameObject[5]; // tablica czar�w
     StaffRotation spellRotator; // referencja do rotatora
     [SerializeField]
-    GameObject healthBarManagerObj;
+    public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
     bool _canMove;
     Stats statistics;
@@ -33,17 +33,16 @@ public class HeroUnitBase : UnitBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         spellRotator = GetComponentInChildren<StaffRotation>();
 
-        healthBarManagerObj = GameObject.FindGameObjectWithTag("HealthBar");
-        healthBar = healthBarManagerObj.GetComponentInChildren<HealthBarManager>();
+        healthBar = FindObjectOfType<HealthBarManager>();
         healthBar.SetMaxHealth(statistics.MaxHp);//initialize max value UI HealthBar
-    
+
 
     }
 
     void FixedUpdate()
     {
         TryMove();
-        
+
     }
 
     #region Movement
