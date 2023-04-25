@@ -5,7 +5,6 @@ public class SpellFireball : MonoBehaviour
     float speed = 1f; // prędkość ruchu prefaba
     Rigidbody2D rb;
 
-    
     public void Cast()
     {
         throw new System.NotImplementedException();
