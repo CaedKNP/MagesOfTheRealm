@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 0}
-  ID: 0
-  cooldown: 0
-  spellSlot: 0
-  Name: 
-  Description: 
+  Prefab: {fileID: 639514538004180302, guid: 4c5c1d2bce784124eaf4a7a2c275cf62, type: 3}
+  ID: 3
+  cooldown: 1.3
+  spellSlot: 4
+  Name: Dash
+  Description: Cast a spell and you are pulled by it

@@ -6,8 +6,8 @@ public class SpellBase : MonoBehaviour
 {
     public string Name { get; set; }
 
-    public float speed;
-    public float destroyTime;
+    protected float speed;
+    protected float destroyTime;
 
     protected void SetSpeedDestroyTime(float speed, float destroyTime)
     {
@@ -15,7 +15,7 @@ public class SpellBase : MonoBehaviour
         this.destroyTime = destroyTime;
     }
 
-    public Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     protected void MyAwake()
     {
