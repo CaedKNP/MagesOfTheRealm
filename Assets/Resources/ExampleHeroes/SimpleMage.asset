@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SimpleMage
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 5
-    _CurrentHp: 5
+    _MaxHp: 20
+    _CurrentHp: 20
     _Armor: 1
     _MovementSpeed: 1
     _DmgModifier: 1
