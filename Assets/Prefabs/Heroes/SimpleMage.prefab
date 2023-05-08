@@ -275,12 +275,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ec2ea9c71ef464342abf46a5f94f5083, type: 3}
+  m_Sprite: {fileID: 21300000, guid: cf253c72a81e31741bc97e8a403f0559, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.64, y: 0.64}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -530,9 +530,9 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   spells:
-  - {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
-  - {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
-  - {fileID: 639514538004180302, guid: 63d3dfe7044a4994b9942728f71a3f60, type: 3}
+  - {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
+  - {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
