@@ -196,7 +196,7 @@ public class HeroUnitBase : UnitBase
 
         if (spellRotator != null)
         {
-            Instantiate(spells[index].Prefab, transform.position, spellRotator.transform.rotation);
+            Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
         }
         else
         {

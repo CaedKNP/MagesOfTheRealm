@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1380045880806631336}
   - component: {fileID: -5179455020467653721}
   - component: {fileID: 241022860976215630}
-  - component: {fileID: 7109599762668221013}
+  - component: {fileID: -439254162528765381}
   m_Layer: 6
   m_Name: SpellDarkMeteor
   m_TagString: Untagged
@@ -237,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec6479572fa6ca48820cd319d21c7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &7109599762668221013
+--- !u!95 &-439254162528765381
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ Animator:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1f85b29dd80499c489e0586058a0ada5, type: 2}
+  m_Controller: {fileID: 9100000, guid: 60f572dcf9ad5ed4eac298a6dc844d74, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

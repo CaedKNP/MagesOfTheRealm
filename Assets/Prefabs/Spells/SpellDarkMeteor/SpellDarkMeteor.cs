@@ -12,9 +12,9 @@ public class SpellDarkMeteor : SpellBase
 
     protected override void BeforeDelete()
     {
-        animation.CrossFade("Default", 0.1f); // Wybierz domyślną animację, czas przejścia wynosi 0,1 sekundy
-        rb.simulated = false; // Wyłącz symulację Rigidbody, aby pocisk przestał się poruszać
-        Invoke("DestroyObject", animation.clip.length); // Wywołaj metodę DestroyObject() po zakończeniu drugiej animacji
+        //animation.CrossFade("Default", 0.1f); // Wybierz domyślną animację, czas przejścia wynosi 0,1 sekundy
+        //rb.simulated = false; // Wyłącz symulację Rigidbody, aby pocisk przestał się poruszać
+        //Invoke("DestroyObject", animation.clip.length); // Wywołaj metodę DestroyObject() po zakończeniu drugiej animacji
     }
 
 
