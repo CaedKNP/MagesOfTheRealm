@@ -104,6 +104,6 @@ public class BasicEnemy : EnemyBase
             return;
         dotColor = Color.red;
         lastAttack = Time.time;
-        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 10, 10, 1);
+        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(10);
     }
 }

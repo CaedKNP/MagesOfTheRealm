@@ -532,7 +532,8 @@ MonoBehaviour:
   spells:
   - {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
   - {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
-  - {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
