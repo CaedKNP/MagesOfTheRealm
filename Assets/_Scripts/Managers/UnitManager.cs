@@ -71,8 +71,8 @@ public class UnitManager : StaticInstance<UnitManager>
             randomX = Random.Range(0, width);
             randomY = Random.Range(0, height);
 
-            //Debug.Log($"X: {randomX} - Y: {randomY} || X: {randomX * 0.16f - 2f} - Y: {randomY * 0.16f - 2f}");
+            Debug.Log($"X: {randomX} - Y: {randomY} || X: {randomX * 0.16f - 2f} - Y: {randomY * 0.16f - 2f}");
         }
-        return new Vector3((randomX * 0.16f) + 0.08f, (randomY * 0.16f) + 0.08f, 0);
+        return new Vector3(randomX * 0.16f, randomY * 0.16f, 0);
     }
 }
