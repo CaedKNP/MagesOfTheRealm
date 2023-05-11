@@ -4,8 +4,7 @@ public class StaffRotation : MonoBehaviour
 {
     public GameObject pfSpell;
     public Transform spellTransform;
-    public bool canFire = true;
-    public float timeBeetwenCasting;
+    public Transform WizandStaffFirePint;
 
     Camera mainCam;
     Vector2 mousePos;
@@ -13,7 +12,6 @@ public class StaffRotation : MonoBehaviour
 
     void Start()
     {
-        //mainCam = GameObject.FindGameObjectsWithTag("MainCamera")[0].GetComponent<Camera>();
         mainCam = Camera.main;
     }
 

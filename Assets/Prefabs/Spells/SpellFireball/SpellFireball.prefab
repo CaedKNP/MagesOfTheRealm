@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0bf8264c1cf7b014eb0cdfbc22107506, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 725f13145588c7543b462eead578227a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.1, y: 0.06}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -106,7 +106,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.1, y: 0.06}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.1, y: 0.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c622d0ecf58620b4788b534d333664d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
+  destroyTime: 0
+  rb: {fileID: 0}
 --- !u!96 &-5179455020467653721
 TrailRenderer:
   serializedVersion: 2

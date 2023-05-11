@@ -1,5 +1,6 @@
 using Assets._Scripts.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,19 +10,21 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
+    Stats statistics;
+    bool _canMove;
+
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
-    GameObject[] spells = new GameObject[5]; // tablica czar�w
+    Spell[] spells = new Spell[5]; // tablica czar�w
     StaffRotation spellRotator; // referencja do rotatora
+
     [SerializeField]
     public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
-    bool _canMove;
-    Stats statistics;
 
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
@@ -33,16 +36,19 @@ public class HeroUnitBase : UnitBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         spellRotator = GetComponentInChildren<StaffRotation>();
 
+        spells[0] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Primary).FirstOrDefault();
+        spells[1] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Secondary).FirstOrDefault();
+        spells[2] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellE).FirstOrDefault();
+        spells[3] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellQ).FirstOrDefault();
+        spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
+
         healthBar = FindObjectOfType<HealthBarManager>();
         healthBar.SetMaxHealth(statistics.MaxHp);//initialize max value UI HealthBar
-
-
     }
 
     void FixedUpdate()
     {
         TryMove();
-
     }
 
     #region Movement
@@ -146,7 +152,7 @@ public class HeroUnitBase : UnitBase
     {
         statistics.CurrentHp -= dmg;
 
-        healthBar.SetHealth(statistics.CurrentHp);//set new hp as value in Health Bar :)
+        healthBar.SetHealth(statistics.CurrentHp);//set new hp as value in Health Bar :D
 
         if (statistics.CurrentHp < 0)
             Die();
@@ -190,7 +196,7 @@ public class HeroUnitBase : UnitBase
 
         if (spellRotator != null)
         {
-            Instantiate(spells[index], transform.position, spellRotator.transform.rotation);
+            Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
         }
         else
         {

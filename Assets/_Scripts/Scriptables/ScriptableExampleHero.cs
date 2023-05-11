@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 /// <summary>
@@ -8,10 +7,4 @@ using UnityEngine;
 public class ScriptableExampleHero : ScriptableExampleUnitBase
 {
     public ExampleHeroType HeroType;
-}
-
-[Serializable]
-public enum ExampleHeroType
-{
-    SimpleMage = 0
 }
