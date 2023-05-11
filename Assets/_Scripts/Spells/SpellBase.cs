@@ -16,24 +16,25 @@ public class SpellBase : MonoBehaviour
     }
 
     protected Rigidbody2D rb;
-    protected Animation animation;
 
     protected void MyAwake()
     {
-        animation = GetComponent<Animation>();
         rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu
         rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu
         Destroy(gameObject, destroyTime);
     }
 
-    protected virtual void BeforeDelete() { 
+    protected virtual bool BeforeDelete() {
+        return false;
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 9)
         {
-            BeforeDelete();
-            Destroy(gameObject);
+            if (!BeforeDelete())
+            {
+                Destroy(gameObject);
+            }
         }
         //Destroy(collision.gameObject);
     }
