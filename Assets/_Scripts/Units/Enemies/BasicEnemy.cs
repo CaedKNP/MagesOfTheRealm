@@ -7,7 +7,7 @@ using UnityEngine;
 public class BasicEnemy : EnemyBase
 {
     public float minDistance = 0.1f;
-    public float attackCooldown;
+    public float attackCooldown = 100;
 
     SpriteRenderer spriteRenderer;
 
@@ -105,6 +105,7 @@ public class BasicEnemy : EnemyBase
             return;
         dotColor = Color.red;
         lastAttack = Time.time;
-        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 10, 10, 1);
+        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>() { Conditions.Burn}, 0, 3, 1);
+        //Debug.Log("HIT!");
     }
 }
