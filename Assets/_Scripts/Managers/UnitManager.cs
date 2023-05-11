@@ -13,7 +13,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnEnemy()
     {
-        return SpawnUnit(ExampleEnemyType.SimpleEnemy, new Vector3(0,0,0));
+        return SpawnUnit(ExampleEnemyType.SimpleEnemy,GetRandomVector());
     }
 
     GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
@@ -73,6 +73,6 @@ public class UnitManager : StaticInstance<UnitManager>
 
             Debug.Log($"X: {randomX} - Y: {randomY} || X: {randomX * 0.16f - 2f} - Y: {randomY * 0.16f - 2f}");
         }
-        return new Vector3(randomX * 0.16f - 2f, randomY * 0.16f - 2f, 0);
+        return new Vector3(randomX * 0.16f, randomY * 0.16f, 0);
     }
 }
