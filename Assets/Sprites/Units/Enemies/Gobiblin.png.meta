@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1066932d49d60ed4686efcb254c27da2
+guid: 35b056ce51dbe0e4580bf2bda7eda2a0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,7 +105,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SimpleMage_0
+      name: Gobiblin_0
       rect:
         serializedVersion: 2
         x: 0
@@ -119,14 +119,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4cdda1b7016d5d429dbe71723fec063
-      internalID: 1525746112
+      spriteID: 94cb0efc712a7a04e9ae0907a4c45dd5
+      internalID: -1553920866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_1
+      name: Gobiblin_1
       rect:
         serializedVersion: 2
         x: 0
@@ -140,14 +140,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7128730cb6c70f42a0e6c907f3a6679
-      internalID: 1908140701
+      spriteID: 901ed133c950d8f4f903802e2876e3c5
+      internalID: 359380032
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_2
+      name: Gobiblin_2
       rect:
         serializedVersion: 2
         x: 0
@@ -161,14 +161,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 091b89378fd66e14ab77ba7fc5d9850d
-      internalID: -2138515754
+      spriteID: 3b27845090e8acf4b96df510cfd4b42d
+      internalID: 1120348805
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_3
+      name: Gobiblin_3
       rect:
         serializedVersion: 2
         x: 0
@@ -182,14 +182,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea78908c9ca310647a1dca32320f4f09
-      internalID: 1693537799
+      spriteID: 2a842d6ee4f76b141b85398b0c49be36
+      internalID: -394245615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_4
+      name: Gobiblin_4
       rect:
         serializedVersion: 2
         x: 0
@@ -203,14 +203,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7f2fdce3817b07408df7afe718f347e
-      internalID: -275230453
+      spriteID: c8f7eb81243d0824cb81ed72d65fdd59
+      internalID: 707574879
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_5
+      name: Gobiblin_5
       rect:
         serializedVersion: 2
         x: 0
@@ -224,14 +224,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0a130610abef114ba244bb733c137f1
-      internalID: -791027512
+      spriteID: 7561f23255e1e844fb0ec872a8007dbf
+      internalID: -1492042161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_6
+      name: Gobiblin_6
       rect:
         serializedVersion: 2
         x: 0
@@ -245,14 +245,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bfca0a9b740b728478fa7096abf42dfc
-      internalID: -2143575767
+      spriteID: 0d45f2bf1ee6e0c43984a8ccead9268a
+      internalID: 1144413560
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SimpleMage_7
+      name: Gobiblin_7
       rect:
         serializedVersion: 2
         x: 0
@@ -266,8 +266,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 224c4b73656d0b74eac8edcdc16b8d54
-      internalID: -562043850
+      spriteID: 74db18909c3b41f4c8ae8f8440e38c70
+      internalID: 592961514
       vertices: []
       indices: 
       edges: []
@@ -283,14 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SimpleMage_0: 1525746112
-      SimpleMage_1: 1908140701
-      SimpleMage_2: -2138515754
-      SimpleMage_3: 1693537799
-      SimpleMage_4: -275230453
-      SimpleMage_5: -791027512
-      SimpleMage_6: -2143575767
-      SimpleMage_7: -562043850
+      Gobiblin_0: -1553920866
+      Gobiblin_1: 359380032
+      Gobiblin_2: 1120348805
+      Gobiblin_3: -394245615
+      Gobiblin_4: 707574879
+      Gobiblin_5: -1492042161
+      Gobiblin_6: 1144413560
+      Gobiblin_7: 592961514
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
