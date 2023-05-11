@@ -32,11 +32,11 @@ public class LevelGenerator : MonoBehaviour {
 	}
 
 	[ExecuteInEditMode]
-	public int[,] GenerateMap()
+	public void GenerateMap()
 	{
 		ClearMap();
-
-        int[,] map = new int[width, height];
+		int[,] map = GameManager.map;
+		map = new int[width, height];
 		float seed;
 
 		if (mapSetting.randomSeed)
@@ -55,9 +55,7 @@ public class LevelGenerator : MonoBehaviour {
 				map = MapFunctions.RandomWalkCave(map, seed, mapSetting.clearAmount);		
 		//Render the result
 		MapFunctions.RenderMap(map, tilemap, tile);
-
-		return map;
-    }
+	}
 
 	public void ClearMap()
 	{

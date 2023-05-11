@@ -147,6 +147,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1.1
+  minDistance: 0.3
+  seeDistance: 1
+  attackCooldown: 1
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -162,8 +165,3 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   collisionOffset: 0.05
-  PatrolPoint: {x: 5, y: 5}
-  PatrolRadius: 5
-  seeDistance: 1
-  minDistance: 0.3
-  attackCooldown: 1
