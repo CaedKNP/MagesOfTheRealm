@@ -26,7 +26,8 @@ public class BasicEnemy : EnemyBase
     private States currentState;
 
     void Start()
-    {
+    {
+
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
