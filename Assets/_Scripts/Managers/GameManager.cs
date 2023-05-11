@@ -12,7 +12,6 @@ public class GameManager : StaticInstance<GameManager>
     public static GameObject Player;
     public static int[,] map;
 
-
     public GameState State { get; private set; }
 
     // Kick the game off with the first state
@@ -55,7 +54,7 @@ public class GameManager : StaticInstance<GameManager>
     void HandleStarting()
     {
         //May do some start setup, could be environment, cinematics etc
-
+        map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }
 
