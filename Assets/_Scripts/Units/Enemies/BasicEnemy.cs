@@ -211,4 +211,9 @@ public class BasicEnemy : UnitBase
         lastAttack = Time.time;
         GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(10);
     }
+
+    public override void ConditionAffect()
+    {
+        throw new System.NotImplementedException();
+    }
 }
