@@ -5,26 +5,55 @@ using UnityEngine;
 /// </summary>
 public class UnitManager : StaticInstance<UnitManager>
 {
-    public void SpawnHero()
+    public GameObject SpawnHero()
     {
-        SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
+        return SpawnUnit(ExampleHeroType.SimpleMage, new Vector3(0, 0, 0));
     }
 
-    void SpawnUnit(ExampleHeroType t, Vector3 pos)
+    public GameObject SpawnEnemy()
     {
-        var simpleMageScriptable = ResourceSystem.Instance.GetExampleHero(t);
+        return SpawnUnit(ExampleEnemyType.SimpleEnemy, new Vector3(-1.38f, 0.371f, 0));
+    }
 
-        if (simpleMageScriptable != null)
+    GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
+    {
+        var ScriptableHero = ResourceSystem.Instance.GetExampleHero(t);
+
+        if (ScriptableHero != null)
         {
+            var heroSpawned = Instantiate(ScriptableHero.Prefab, pos, Quaternion.identity, transform);
 
-            var spawned = Instantiate(simpleMageScriptable.Prefab, pos, Quaternion.identity, transform);
-            Camera.main.gameObject.GetComponent<CameraManager>().target = spawned.transform;
+            Camera.main.gameObject.GetComponent<CameraManager>().target = heroSpawned.transform;
 
-            var stats = simpleMageScriptable.BaseStats;
-            // Apply possible modifications here (artifacts, clothets...)
-            //stats.MaxHp += 3;
+            var stats = ScriptableHero.BaseStats;
 
-            spawned.SetStats(stats);
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
+
+            heroSpawned.SetStats(stats);
+
+            return heroSpawned.gameObject;
         }
+
+        return null;
+    }
+
+    GameObject SpawnUnit(ExampleEnemyType t, Vector3 pos)
+    {
+        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(t);
+
+        if (ScriptableEnemy != null)
+        {
+            var enemySpawned = Instantiate(ScriptableEnemy.Prefab, pos, Quaternion.identity, transform);
+
+            var stats = ScriptableEnemy.BaseStats;
+
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
+
+            enemySpawned.SetStats(stats);
+
+            return enemySpawned.gameObject;
+        }
+
+        return null;
     }
 }

@@ -10,6 +10,12 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     public List<ScriptableExampleHero> ExampleHeroes { get; private set; }
     private Dictionary<ExampleHeroType, ScriptableExampleHero> _ExampleHeroesDict;
 
+    public List<ScriptableExampleEnemy> ExampleEnemies { get; private set; }
+    private Dictionary<ExampleEnemyType, ScriptableExampleEnemy> _ExampleEnemiesDict;
+
+    public List<Spell> AllSpells { get; private set; }
+    private Dictionary<int, Spell> _AllSpellsDict;
+
     protected override void Awake()
     {
         base.Awake();
@@ -19,10 +25,24 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     private void AssembleResources()
     {
         ExampleHeroes = Resources.LoadAll<ScriptableExampleHero>("ExampleHeroes").ToList();
-        _ExampleHeroesDict = ExampleHeroes.ToDictionary(r => r.HeroType, r => r);
+        _ExampleHeroesDict = ExampleHeroes.ToDictionary(h => h.HeroType, h => h);
+
+        ExampleEnemies = Resources.LoadAll<ScriptableExampleEnemy>("ExampleEnemies").ToList();
+        _ExampleEnemiesDict = ExampleEnemies.ToDictionary(e => e.EnemyType, e => e);
+
+        AllSpells = Resources.LoadAll<Spell>("Spells").ToList();
+        _AllSpellsDict = AllSpells.ToDictionary(s => s.ID, s => s);
     }
 
-    public ScriptableExampleHero GetExampleHero(ExampleHeroType t) => _ExampleHeroesDict[t];
+    public ScriptableExampleHero GetExampleHero(ExampleHeroType heroType) => _ExampleHeroesDict[heroType];
+
+    public ScriptableExampleEnemy GetExampleEnemy(ExampleEnemyType enemyType) => _ExampleEnemiesDict[enemyType];
+
+    public Spell GetExampleSpell(int spellID) => _AllSpellsDict[spellID];
 
     public ScriptableExampleHero GetRandomHero() => ExampleHeroes[Random.Range(0, ExampleHeroes.Count)];
+
+    public ScriptableExampleEnemy GetRandomEnemy() => ExampleEnemies[Random.Range(0, ExampleEnemies.Count)];
+
+    public Spell GetRandomSpell(SpellSlot spellSlot) => AllSpells.Where(s => s.spellSlot == spellSlot).ElementAt(Random.Range(0, AllSpells.Count));
 }
