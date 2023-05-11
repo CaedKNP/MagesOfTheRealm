@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,6 +27,7 @@ public class SpellBase : MonoBehaviour
     protected virtual bool BeforeDelete() {
         return false;
     }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 9)
@@ -37,5 +38,17 @@ public class SpellBase : MonoBehaviour
             }
         }
         //Destroy(collision.gameObject);
+
+        var conditions = new List<Conditions>
+        {
+            Conditions.Burn
+        };
+
+        if (collision.gameObject.CompareTag("Unit"))
+        {
+            var unit = collision.GetComponent<UnitBase>();
+
+            unit.TakeDamage(conditions, 3, 5, 1);
+        }
     }
 }
