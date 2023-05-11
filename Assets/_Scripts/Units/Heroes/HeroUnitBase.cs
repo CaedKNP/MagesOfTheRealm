@@ -31,12 +31,6 @@ public class HeroUnitBase : UnitBase
 
     void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
-    public bool noCooldownOnPrimaryAttack = true;
-    void DisablePrimaryAttackCooldown()
-    {
-        noCooldownOnPrimaryAttack = true;
-    }
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -312,12 +306,7 @@ public class HeroUnitBase : UnitBase
 
     void OnPrimaryAttack()
     {
-        if (noCooldownOnPrimaryAttack)
-        {
-            noCooldownOnPrimaryAttack = false;
-            CastSpell(0);
-            Invoke("DisablePrimaryAttackCooldown", 1f);
-        }
+        CastSpell(0);
     }
 
     void OnSecondaryAttack()
@@ -340,7 +329,6 @@ public class HeroUnitBase : UnitBase
         CastSpell(4);
     }
 
-
     void CastSpell(int index)
     {
         Debug.Log("Casting spell " + index);
@@ -353,7 +341,6 @@ public class HeroUnitBase : UnitBase
         {
             Debug.LogWarning("SpellRotator is not assigned!");
         }
-
     }
     #endregion
 }
