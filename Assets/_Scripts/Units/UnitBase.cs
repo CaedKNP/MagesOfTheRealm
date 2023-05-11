@@ -1,11 +1,13 @@
 using Assets._Scripts.Utilities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour
 {
     public abstract void SetStats(Stats stats);
 
-    public abstract void TakeDamage(int dmg);
+    public abstract Task TakeDamage(List<Conditions> conditions, int dmg, float affectTime, int dmgToTake);
 
     public abstract bool TryMove(Vector2 direction);
 
