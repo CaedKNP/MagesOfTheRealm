@@ -1,6 +1,7 @@
 using Assets._Scripts.Utilities;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,8 +20,8 @@ public class HeroUnitBase : UnitBase
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
-    Spell[] spells = new Spell[5]; // tablica czar�w
-    StaffRotation spellRotator; // referencja do rotatora
+    Spell[] spells = new Spell[5];
+    StaffRotation spellRotator;
 
     [SerializeField]
     public GameObject healthBarManagerObj;
@@ -43,7 +44,7 @@ public class HeroUnitBase : UnitBase
         spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
 
         healthBar = FindObjectOfType<HealthBarManager>();
-        healthBar.SetMaxHealth(statistics.MaxHp);//initialize max value UI HealthBar
+        healthBar.SetMaxHealth(statistics.MaxHp);
     }
 
     void FixedUpdate()
@@ -148,14 +149,152 @@ public class HeroUnitBase : UnitBase
         statistics = stats;
     }
 
-    public override void TakeDamage(int dmg)
+    public override async Task TakeDamage(List<Conditions> conditions, int dmgToTake, float conAffectTime, int affectDmgPerTick)
     {
-        statistics.CurrentHp -= dmg;
+        statistics.CurrentHp -= dmgToTake;
 
-        healthBar.SetHealth(statistics.CurrentHp);//set new hp as value in Health Bar :D
+        await ConditionAffect(conditions, conAffectTime, affectDmgPerTick);
+
+        healthBar.SetHealth(statistics.CurrentHp);
 
         if (statistics.CurrentHp < 0)
             Die();
+
+        return;
+    }
+
+    private async Task ConditionAffect(List<Conditions> conditions, float conAffectTime, int affectDmgPerTick)
+    {
+        foreach (Conditions con in conditions)
+        {
+            await Affect(con, conAffectTime, affectDmgPerTick);
+        }
+
+        return;
+    }
+
+    private async Task Affect(Conditions con, float conAffectTime, int affectDmgPerTick)
+    {
+        float end;
+
+        switch (con)
+        {
+            case global::Conditions.Burn:
+
+                await GetTickDmg(conAffectTime, affectDmgPerTick);
+
+                break;
+            case global::Conditions.Slow:
+
+                end = Time.time + conAffectTime;
+                var tempSpeed = statistics.MovementSpeed;
+
+                while (Time.time < end)
+                {
+                    statistics.MovementSpeed -= affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                statistics.MovementSpeed = tempSpeed;
+
+                break;
+            case global::Conditions.Freeze:
+
+                end = Time.time + conAffectTime;
+
+                while (Time.time < end)
+                {
+                    _canMove = false;
+                    await Task.Yield();
+                }
+
+                break;
+            case global::Conditions.Poison:
+                await GetTickDmg(conAffectTime, affectDmgPerTick);
+                break;
+            case global::Conditions.SpeedUp:
+
+                end = Time.time + conAffectTime;
+                var tempMoveSpeed = _canMove;
+
+                while (Time.time < end)
+                {
+                    statistics.MovementSpeed += affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                _canMove = tempMoveSpeed;
+
+                break;
+            case global::Conditions.ArmorUp:
+
+                end = Time.time + conAffectTime;
+                var tempArmor = statistics.Armor;
+
+                while (Time.time < end)
+                {
+                    statistics.Armor += affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                statistics.Armor = tempArmor;
+
+                break;
+            case global::Conditions.ArmorDown:
+
+                end = Time.time + conAffectTime;
+                var tempArmorDown = statistics.Armor;
+
+                while (Time.time < end)
+                {
+                    statistics.Armor -= affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                statistics.Armor = tempArmorDown;
+
+                break;
+            case global::Conditions.Haste:
+
+                end = Time.time + conAffectTime;
+                var tempCooldown = statistics.CooldownModifier;
+
+                while (Time.time < end)
+                {
+                    statistics.CooldownModifier += affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                statistics.CooldownModifier = tempCooldown;
+
+                break;
+            case global::Conditions.DmgUp:
+
+                end = Time.time + conAffectTime;
+                var tempDmg = statistics.DmgModifier;
+
+                while (Time.time < end)
+                {
+                    statistics.DmgModifier += affectDmgPerTick;
+                    await Task.Yield();
+                }
+
+                statistics.DmgModifier = tempDmg;
+
+                break;
+            default:
+                break;
+        }
+    }
+
+    private async Task GetTickDmg(float conAffectTime, int affectDmgPerTick)
+    {
+        var end = Time.time + conAffectTime;
+        while (Time.time < end)
+        {
+            statistics.CurrentHp -= affectDmgPerTick;
+            await Task.Delay(1000);
+        }
     }
 
     public override void Die()
@@ -196,7 +335,7 @@ public class HeroUnitBase : UnitBase
 
         if (spellRotator != null)
         {
-            Instantiate(spells[index].Prefab, transform.position, spellRotator.transform.rotation);
+            Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
         }
         else
         {
