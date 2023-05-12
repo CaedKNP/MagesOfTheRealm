@@ -1,43 +1,47 @@
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellDash : SpellBase
+public class SpellDash : MonoBehaviour
 {
     GameObject player;
+    StaffRotation staffrotator;
+    Camera mainCam;
+    Vector2 mousePos;
+    public float maxDistance = 20;
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(15f, 0.3f); // Nowe wartosci dla speed i destroyTime
-
-        base.MyAwake();
-
         player = GameManager.Player;
+        mainCam = Camera.main;
+        transform.rotation = Quaternion.identity; // Ustawienie braku rotacji
+        SpawnInPlace();
+    }
+
+    void SpawnInPlace()
+    {
+        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        transform.position = mousePos;
     }
 
     void Update()
     {
-        Vector3 direction = transform.position - player.transform.position;
-        player.transform.position += direction.normalized * Time.deltaTime * 5f;
+        CheckIfTooFar();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void CheckIfTooFar()
     {
-        if (collision.gameObject.layer == 7)
+        // Sprawdź odległość między pozycją kursora a pozycją gracza
+        float distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
+
+        // Jeśli odległość jest większa niż maksymalna odległość, zbliż prefab do gracza
+        if (distanceToPlayer > maxDistance)
         {
-            Destroy(gameObject);
+            Vector2 direction = mousePos - (Vector2)player.transform.position;
+            direction = direction.normalized;
+            transform.position = (Vector2)player.transform.position + direction * maxDistance;
         }
 
-        var conditions = new List<Conditions>
-        {
-
-        };
-
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
-        {
-            unit.TakeDamage(conditions, 3, 5, 50);
-
-            if (!BeforeDelete())
-                Destroy(gameObject);
-        }
+        //transform.rotation = Quaternion.identity; // Ustawienie braku rotacji
     }
 }
