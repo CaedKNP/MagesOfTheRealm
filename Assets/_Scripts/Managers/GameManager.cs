@@ -68,7 +68,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningEnemies()
     {
-        for(int i = 0; i <= 5; i++)
+        for(int i = 0; i <= 0; i++)
             UnitManager.Instance.SpawnEnemy();
 
         ChangeState(GameState.Playing);

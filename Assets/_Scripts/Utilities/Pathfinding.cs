@@ -6,12 +6,14 @@ using UnityEngine.UIElements;
 
 public class Pathfinding : MonoBehaviour
 {
-    float scale = 0.16f;
+    float scale = 1.6f;
     float dotSize = 0.02f;
-    Vector2 offset = new Vector2(0.05f, -0.05f);
+    Vector2 offset = new Vector2(0f, 0f);
     Vector2[,] mapVector;
 
     // Update is called once per frame
+    
+
     private void GenerateVectorMap()
     {
 
@@ -23,7 +25,7 @@ public class Pathfinding : MonoBehaviour
                 int value = GameManager.map[i, j];
 
                 // Draw the dot
-                Vector2 dotPos = new Vector3(i * scale + offset.x, j * scale + offset.y);
+                Vector2 dotPos = new Vector2(i * scale + offset.x, j * scale + offset.y);
                 mapVector[i, j] = dotPos;
             }
         }
@@ -38,9 +40,11 @@ public class Pathfinding : MonoBehaviour
     {
         if (Application.IsPlaying(this))
         {
-            Gizmos.color = Color.red;
-            Vector2Int pos = GetStandingTile(GameManager.Player.transform.position);
-            //Gizmos.DrawSphere(mapVector[pos.Item1, pos.Item2], 0.02f);
+            Gizmos.color = Color.blue;
+            //Vector2Int pos = GetStandingTile(GameManager.Player.transform.position);
+            //Gizmos.DrawSphere(mapVector[pos.x, pos.x], 0.5f);
+            foreach (Vector2 v in mapVector)
+                Gizmos.DrawSphere(v, 0.5f);
         }
     }
     public void GeneratePath(Vector2 origin, Vector2 destination)
