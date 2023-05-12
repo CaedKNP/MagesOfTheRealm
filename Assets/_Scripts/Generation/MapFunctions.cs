@@ -245,15 +245,16 @@ public class MapFunctions
             }
         }
         //Return the updated map
-        return FindSpawnerPoints(map, tilemap, tileSpawner);
+        return FindSpawnerPoints(map);
+        //return map;    
     }
 
     /// <summary>
     /// Same as the Render function but finds spawners and add them in correct spots
     /// </summary>
     /// <param name="map">Map that we want to draw</param>
-    /// <param name="tilemap">Tilemap we want to draw onto</param>
-    public static int[,] FindSpawnerPoints(int[,] map, Tilemap tilemap, TileBase spawnerTile)
+    
+    public static int[,] FindSpawnerPoints(int[,] map)
     {
         for (int x = 0; x < map.GetUpperBound(0); x++)
         {
