@@ -75,6 +75,6 @@ public class UnitManager : StaticInstance<UnitManager>
             randomX = Random.Range(1, width);
             randomY = Random.Range(1, height);
         }
-        return new Vector3(randomX * 1.6f + 0.8f, randomY * 1.6f + 0.8f, 0);
+        return new Vector3(randomX * 1.6f, randomY * 1.6f, 0);
     }
 }

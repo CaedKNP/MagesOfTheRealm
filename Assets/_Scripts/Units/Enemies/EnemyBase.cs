@@ -194,6 +194,10 @@ public abstract class EnemyBase : UnitBase
         }
     }
 
+    public void StopAnimation()
+    {
+        _anim.CrossFade("Idle", 0, 0);
+    }
     public override bool TryMove(Vector2 direction)
     {
         if (!_canMove)
@@ -228,6 +232,11 @@ public abstract class EnemyBase : UnitBase
 
             return false;
         }
+        else
+        {
+            _anim.CrossFade("Idle", 0, 0);
+        }
+
 
         return false;
     }
