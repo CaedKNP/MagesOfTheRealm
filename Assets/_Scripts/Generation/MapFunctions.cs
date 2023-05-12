@@ -12,7 +12,6 @@ public class MapFunctions
     /// <returns>The map array initialised</returns>
     public static int[,] GenerateArray(int width, int height, bool empty)
     {
-
         int[,] map = new int[width, height];
 
 
@@ -39,23 +38,35 @@ public class MapFunctions
     /// </summary>
     /// <param name="map">Map that we want to draw</param>
     /// <param name="tilemap">Tilemap we will draw onto</param>
-    /// <param name="tile">Tile we will draw with</param>
-    public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile)
+    /// <param name="tile">Tile we will draw with</para
+    /// <param name="tileSpawner">Tile that will be used as a spawnPoint</param>
+
+    public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile, TileBase tileSpawner)
     {
-        for (int x = (int)(map.GetUpperBound(0) *(- 0.39 )); x < map.GetUpperBound(0)* 1.39; x++)
+        //Adding padding to the map 
+        for (int x = (int)(map.GetUpperBound(0) * (-0.39)); x < map.GetUpperBound(0) * 1.39; x++)
         {
-            for (int y=(int)(map.GetUpperBound(1) * (-0.39)); y < map.GetUpperBound(1) * 1.39; y++) 
+            for (int y = (int)(map.GetUpperBound(1) * (-0.39)); y < map.GetUpperBound(1) * 1.39; y++)
             {
                 tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
+
+
+
+
         for (int x = 0; x < map.GetUpperBound(0); x++) //Loop through the width of the map
         {
             for (int y = 0; y < map.GetUpperBound(1); y++) //Loop through the height of the map
             {
-                if (map[x, y] == 0) // 1 = tile, 0 = no tile
+                if (map[x, y] == 0) // 1 = tile, 0 = no tile,
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
+                }
+
+                else if (map[x, y] == 2)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
                 }
             }
         }
@@ -121,6 +132,7 @@ public class MapFunctions
                 if (map[x, y] == 0)
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
+
                 }
             }
         }
@@ -132,9 +144,6 @@ public class MapFunctions
     /// <param name="seed">The seed for the random</param>
     /// <param name="requiredFloorPercent">The amount of floor we want</param>
     /// <returns>The modified map array</returns>
-    /// 
-    ///
-    ///
     public static int[,] RandomWalkCave(int[,] map, float seed, int requiredFloorPercent)
     {
         //Seed our random
@@ -153,9 +162,11 @@ public class MapFunctions
         map[floorX, floorY] = 0;
         //Increase our floor count
         floorCount++;
+        int spawnerCount = 0;
 
         while (floorCount < reqFloorAmount)
         {
+
             //Determine our next direction
             int randDir = rand.Next(4);
 
@@ -191,6 +202,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
+
                         }
                     }
                     break;
@@ -207,6 +219,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
+
                         }
                     }
                     break;
@@ -223,12 +236,63 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
+
                         }
+
                     }
                     break;
+
+
             }
+
         }
         //Return the updated map
+        while (spawnerCount < 6)
+        {
+            int x = rand.Next(map.GetUpperBound(0));
+            int y = rand.Next(map.GetUpperBound(1));
+           if (CheckSurroundedByZeroes(x, y, map))
+            {
+
+                map[x, y] = 2;
+                spawnerCount++;
+                for (int i = x - 2; i < x + 2; i++)
+                {
+                    for (int j = y - 2; j < y + 2; j++)
+                    {
+                        if (map[i, j] == 1 && i != map.GetUpperBound(0) && j != map.GetUpperBound(1))
+                        {
+                            //Change it to not a tile
+                            map[i, j] = 0;
+                            //Increase the floor count
+
+                        }
+                    }
+
+                }
+
+            }
+        }
         return map;
+    }
+
+    /// <summary>
+    /// Same as the Render function but finds spawners and add them in correct spots
+    /// </summary>
+    /// <param name="map">Map that we want to draw</param>
+    static private bool CheckSurroundedByZeroes(int x, int y, int[,] map)
+    {
+        int numRows = map.GetUpperBound(0);
+        int numCols = map.GetUpperBound(1);
+
+        // Check if the element is at a border position
+        if (x == 0 || y == 0 || x == numRows - 1 || y == numCols - 1)
+        {
+            return false;
+        }
+
+        // Check if the element is surrounded by zeroes
+        return (map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0 &&
+                map[x - 1, y - 1] == 0 && map[x - 1, y + 1] == 0 && map[x + 1, y + 1] == 0 && map[x + 1, y - 1] == 0);
     }
 }
