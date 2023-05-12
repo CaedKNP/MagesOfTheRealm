@@ -55,7 +55,7 @@ public class LevelGenerator : MonoBehaviour {
 				//First generate our array
 				map = MapFunctions.GenerateArray(width, height, false);
 				//Next generate the random walk cave
-				map = MapFunctions.RandomWalkCave(map, seed, mapSetting.clearAmount,tilemap,tileSpawner);		
+				map = MapFunctions.RandomWalkCave(map, seed, mapSetting.clearAmount);		
 		//Render the result
 		MapFunctions.RenderMap(map, tilemap, tile,tileSpawner);
 

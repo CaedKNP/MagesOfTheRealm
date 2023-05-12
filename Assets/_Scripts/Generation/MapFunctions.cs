@@ -145,13 +145,8 @@ public class MapFunctions
     /// <param name="map">The array that holds the map information</param>
     /// <param name="seed">The seed for the random</param>
     /// <param name="requiredFloorPercent">The amount of floor we want</param>
-    /// <param name="tilemap">The tilemap to draw on</param>
-    /// <param name="tileSpawner">The tile to draw with</param>
     /// <returns>The modified map array</returns>
-    /// 
-    ///
-    ///
-    public static int[,] RandomWalkCave(int[,] map, float seed, int requiredFloorPercent, Tilemap tilemap, TileBase tileSpawner)
+    public static int[,] RandomWalkCave(int[,] map, float seed, int requiredFloorPercent)
     {
         //Seed our random
         System.Random rand = new System.Random(seed.GetHashCode());
@@ -245,8 +240,8 @@ public class MapFunctions
             }
         }
         //Return the updated map
-        return FindSpawnerPoints(map);
-        //return map;    
+        //return FindSpawnerPoints(map);
+        return map;    
     }
 
     /// <summary>
