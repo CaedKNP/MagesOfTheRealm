@@ -17,9 +17,10 @@ public abstract class SpellBase : MonoBehaviour
 
     protected void MyAwake()
     {
-        rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu
-        rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu
-        Destroy(gameObject, destroyTime);
+        rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu 
+        rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu 
+        Invoke("BeforeDelete", destroyTime);
+        //Destroy(gameObject, destroyTime); 
     }
 
     protected virtual bool BeforeDelete() { return false; }

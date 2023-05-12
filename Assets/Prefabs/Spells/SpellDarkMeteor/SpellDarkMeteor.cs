@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellDarkMeteor : SpellBase
 {
-    public Animator darkMeteorAnimator; // Komponent Animator dla obiektu darkMeteor
-    private bool hasPlayedAnimation = false; // Flaga, czy animacja została odtworzona
+    public Animator darkMeteorAnimator; // Komponent Animator dla obiektu darkMeteor 
+    private bool hasPlayedAnimation = false; // Flaga, czy animacja została odtworzona 
 
     protected void Awake()
     {
@@ -41,16 +41,16 @@ public class SpellDarkMeteor : SpellBase
     {
         if (!hasPlayedAnimation)
         {
-            darkMeteorAnimator.enabled = true; // Włącz Animator
+            darkMeteorAnimator.enabled = true; // Włącz Animator 
 
-            //darkMeteorAnimator.Play("YourAnimationName"); // Odtwórz animację o konkretnej nazwie
+            //darkMeteorAnimator.Play("YourAnimationName"); // Odtwórz animację o konkretnej nazwie 
 
             ExplosiveDamage();
 
             // Poczekaj na zakończenie animacji
             yield return new WaitForSeconds(darkMeteorAnimator.GetCurrentAnimatorStateInfo(0).length);
 
-            // Wyłącz Animator
+            // Wyłącz Animator 
             darkMeteorAnimator.enabled = false;
 
             hasPlayedAnimation = true;
