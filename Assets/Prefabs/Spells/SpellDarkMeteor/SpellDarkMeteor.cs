@@ -23,11 +23,15 @@ public class SpellDarkMeteor : SpellBase
         if (!hasPlayedAnimation)
         {
             darkMeteorAnimator.enabled = true; // Włącz Animator
+
+            //darkMeteorAnimator.Play("YourAnimationName"); // Odtwórz animację o konkretnej nazwie
+
             // Poczekaj na zakończenie animacji
             yield return new WaitForSeconds(darkMeteorAnimator.GetCurrentAnimatorStateInfo(0).length);
 
             // Wyłącz Animator
             darkMeteorAnimator.enabled = false;
+
             hasPlayedAnimation = true;
         }
 

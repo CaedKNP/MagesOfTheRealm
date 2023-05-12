@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpellArrow
   m_EditorClassIdentifier: 
   Prefab: {fileID: 639514538004180302, guid: b85d32e0559008143975122f89e98706, type: 3}
-  ID: 55
+  ID: 5
   cooldown: 2
   spellSlot: 3
   Name: Arrow
