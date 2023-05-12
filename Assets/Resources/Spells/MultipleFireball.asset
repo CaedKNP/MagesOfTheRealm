@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
-  m_Name: SpellArrow
+  m_Name: MultipleFireball
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 639514538004180302, guid: b85d32e0559008143975122f89e98706, type: 3}
-  ID: 5
-  cooldown: 2
-  spellSlot: 3
-  Name: Arrow
+  Prefab: {fileID: 639514538004180302, guid: 4c5a376c58a4c0a4ca889ab27251826d, type: 3}
+  ID: 9
+  cooldown: 1.4
+  spellSlot: 1
+  Name: MultipleFireball
   Description: 

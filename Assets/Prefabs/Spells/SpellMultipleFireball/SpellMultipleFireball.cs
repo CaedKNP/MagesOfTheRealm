@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class SpellMultipleFireball : MonoBehaviour
 {
-    
-    void Start()
+    public GameObject fireballPrefab;
+    private void Awake()
     {
-        
+        Spawn();
+        Destroy(this.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
+    void Spawn()
     {
-        
+        transform.Rotate(0f, 0f, -30f);
+        Instantiate(fireballPrefab, transform.position, transform.rotation);
+        transform.Rotate(0f, 0f, 30f);
+        Instantiate(fireballPrefab, transform.position, transform.rotation);
+        transform.Rotate(0f, 0f, 30f);
+        Instantiate(fireballPrefab, transform.position, transform.rotation);
     }
 }
