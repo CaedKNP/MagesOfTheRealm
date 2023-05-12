@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
-  m_Name: SpellDarkMeteor
+  m_Name: SpellArrow
   m_EditorClassIdentifier: 
-  Prefab: {fileID: 639514538004180302, guid: dbe8377215a6ff84d85524e9a801efd3, type: 3}
-  ID: 4
+  Prefab: {fileID: 639514538004180302, guid: b85d32e0559008143975122f89e98706, type: 3}
+  ID: 5
   cooldown: 2
-  spellSlot: 2
-  Name: DarkMeteor
+  spellSlot: 3
+  Name: Arrow
   Description: 

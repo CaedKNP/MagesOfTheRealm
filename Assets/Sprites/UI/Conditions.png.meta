@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c5ca19af32137d945846e5ca13c1ea21
+guid: aebfb196004391c4281fa31ef0fad934
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,11 +43,11 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpellThunderBolt_0
+      name: Conditions_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 60
-        height: 400
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33adff3908dcd4543b10d6d215f4fd88
-      internalID: -623466007
+      spriteID: 6404d6390dba6764a933521a2b83e923
+      internalID: 2000017694
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_1
+      name: Conditions_1
       rect:
         serializedVersion: 2
-        x: 60
+        x: 4
         y: 0
-        width: 60
-        height: 400
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 884104a8f3b909b4c8fa4b0bb9576cd5
-      internalID: -504537440
+      spriteID: fad3fad1483a5bf4f8259c219ed34ebf
+      internalID: 879079373
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_2
+      name: Conditions_2
       rect:
         serializedVersion: 2
-        x: 120
+        x: 8
         y: 0
-        width: 60
-        height: 400
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1fa82c67d5b0314abf3825690d0acc8
-      internalID: -1737279837
+      spriteID: 57a3bc469400cdf47a6fc9a152eb187d
+      internalID: 130679254
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_3
+      name: Conditions_3
       rect:
         serializedVersion: 2
-        x: 180
+        x: 12
         y: 0
-        width: 60
-        height: 400
+        width: 4
+        height: 4
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f081e784139e58743898f83bee4ad1af
-      internalID: -1188546341
+      spriteID: 4ae3670789b4b524e8237b62d2e2308a
+      internalID: -83140473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Conditions_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1207df61963decc428f7d9b6ac5a4612
+      internalID: -926855500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Conditions_5
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5429e5a713198440bfef584c66c7955
+      internalID: -1245007663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Conditions_6
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18183ebd004122949abbf19367931b58
+      internalID: -1338973706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Conditions_7
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f15c4f04d39fd1f468a724e5112fe7fe
+      internalID: 419930497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Conditions_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4c1aff9afe57284c93e8e416c425297
+      internalID: 1505009606
       vertices: []
       indices: 
       edges: []
@@ -199,10 +304,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SpellThunderBolt_0: -623466007
-      SpellThunderBolt_1: -504537440
-      SpellThunderBolt_2: -1737279837
-      SpellThunderBolt_3: -1188546341
+      Conditions_0: 2000017694
+      Conditions_1: 879079373
+      Conditions_2: 130679254
+      Conditions_3: -83140473
+      Conditions_4: -926855500
+      Conditions_5: -1245007663
+      Conditions_6: -1338973706
+      Conditions_7: 419930497
+      Conditions_8: 1505009606
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

@@ -8,13 +8,12 @@ using UnityEngine;
 public abstract class EnemyBase : UnitBase
 {
     #region MovementParam
-    public float moveSpeed = 1.1f;
     public ContactFilter2D movementFilter;
     public float collisionOffset = 0.05f;
 
     protected Rigidbody2D rb;
     List<RaycastHit2D> castCollisions = new();
-    bool _canMove;
+    bool _canMove = true;
 
     #endregion
 
@@ -33,7 +32,9 @@ public abstract class EnemyBase : UnitBase
     #endregion
 
     protected Transform player;
-    private Stats statistics;
+    protected Stats statistics;
+    protected Animator _anim;
+    protected SpriteRenderer spriteRenderer;
 
     public override void Die()
     {
@@ -198,6 +199,7 @@ public abstract class EnemyBase : UnitBase
         if (!_canMove)
             return false;
 
+        _anim.CrossFade("Walk", 0, 0);
         direction.Normalize();
         if (direction != Vector2.zero)
         {
@@ -206,12 +208,20 @@ public abstract class EnemyBase : UnitBase
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                statistics.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                Vector3 pos = rb.position + moveSpeed * Time.fixedDeltaTime * direction;
+                Vector3 pos = rb.position + statistics.MovementSpeed * Time.fixedDeltaTime * direction;
                 rb.MovePosition(pos);
+                if (direction.x < 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else if (direction.x > 0)
+                {
+                    spriteRenderer.flipX = true;
+                }
                 //Debug.Log(direction);
                 return true;
             }
