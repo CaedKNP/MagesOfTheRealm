@@ -106,7 +106,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 10, y: 10}
     newSize: {x: 0.1, y: 0.06}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -186,16 +186,16 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0.21311794
-        value: 0.106325194
+        time: 0.09471962
+        value: 0.98270416
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
+        inWeight: 0
+        outWeight: 0
       - serializedVersion: 3
-        time: 0.4115876
+        time: 0.70916146
         value: 0
         inSlope: 0
         outSlope: 0
