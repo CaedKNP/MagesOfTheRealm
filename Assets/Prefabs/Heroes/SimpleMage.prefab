@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 8328539516825410194}
   - component: {fileID: 7069621003308234956}
   - component: {fileID: -7794513531059996055}
+  - component: {fileID: 8531856476346468769}
   m_Layer: 8
   m_Name: SimpleMage
   m_TagString: Player
@@ -413,7 +414,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 3e10fc5df6b87484ba4413a17a132865, type: 3}
+  m_Sprite: {fileID: -850875246, guid: d438e555addcf5747b2d5e4ab0aa3472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -492,7 +493,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.15, y: 0.18}
+    oldSize: {x: 0.16, y: 0.32}
     newSize: {x: 0.48, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -536,3 +537,24 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
+--- !u!95 &8531856476346468769
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267861171628039945}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbe17a2e254369244b85f37a69248467, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
