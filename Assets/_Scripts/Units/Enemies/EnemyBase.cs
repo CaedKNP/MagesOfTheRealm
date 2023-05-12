@@ -25,7 +25,7 @@ public abstract class EnemyBase : UnitBase
     #endregion
 
     #region SensesParam
-    public float seeDistance = 5f;
+    public float seeDistance = 10f;
     protected float coneAngle = 45f;
     protected float coneDistance = 5f;
     protected float coneDirection = 180;
