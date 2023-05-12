@@ -42,10 +42,8 @@ public class SpellBase : MonoBehaviour
             Conditions.Burn
         };
 
-        if (collision.gameObject.CompareTag("Unit"))
+        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            var unit = collision.GetComponent<UnitBase>();
-
             unit.TakeDamage(conditions, 3, 5, 1);
         }
     }

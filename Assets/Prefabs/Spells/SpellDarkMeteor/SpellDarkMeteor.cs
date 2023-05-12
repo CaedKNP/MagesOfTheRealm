@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class SpellDarkMeteor : SpellBase
@@ -8,7 +8,7 @@ public class SpellDarkMeteor : SpellBase
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(1.6f, 0.9f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(6f, 1.2f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 

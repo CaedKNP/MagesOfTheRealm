@@ -349,6 +349,7 @@ GameObject:
   - component: {fileID: 8328539516825410194}
   - component: {fileID: 7069621003308234956}
   - component: {fileID: -7794513531059996055}
+  - component: {fileID: 8531856476346468769}
   m_Layer: 8
   m_Name: SimpleMage
   m_TagString: Player
@@ -413,7 +414,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 3e10fc5df6b87484ba4413a17a132865, type: 3}
+  m_Sprite: {fileID: -850875246, guid: d438e555addcf5747b2d5e4ab0aa3472, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -488,18 +489,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0113800205, y: -0.061643198}
+  m_Offset: {x: -0.0524199, y: -1.3465247}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.15, y: 0.18}
+    oldSize: {x: 1.6, y: 3.2}
     newSize: {x: 0.48, y: 0.48}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.07860816, y: 0.040198535}
+  m_Size: {x: 0.68825006, y: 0.30608082}
   m_EdgeRadius: 0
 --- !u!114 &-7794513531059996055
 MonoBehaviour:
@@ -513,7 +514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef68e74c8317ee04fb9e10d67657aba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 10
   collisionOffset: 0.05
   movementFilter:
     useTriggers: 0
@@ -533,6 +534,27 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
   - {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
   - {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  - {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
+--- !u!95 &8531856476346468769
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6267861171628039945}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fbe17a2e254369244b85f37a69248467, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
