@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellBase : MonoBehaviour
+public abstract class SpellBase : MonoBehaviour
 {
     public string Name { get; set; }
 
@@ -25,29 +23,5 @@ public class SpellBase : MonoBehaviour
         //Destroy(gameObject, destroyTime); 
     }
 
-    protected virtual void BeforeDelete()
-    {
-        Destroy(gameObject);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-        {
-            BeforeDelete();
-        }
-        //Destroy(collision.gameObject); 
-
-        var conditions = new List<Conditions>
-        {
-            Conditions.Burn
-        };
-
-        if (collision.gameObject.CompareTag("Unit"))
-        {
-            var unit = collision.GetComponent<UnitBase>();
-
-            unit.TakeDamage(conditions, 3, 5, 1);
-        }
-    }
+    protected virtual bool BeforeDelete() { return false; }
 }
