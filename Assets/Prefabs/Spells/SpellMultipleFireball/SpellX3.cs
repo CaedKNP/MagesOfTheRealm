@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellMultipleFireball : MonoBehaviour
+public class SpellX3 : MonoBehaviour
 {
-    public GameObject fireballPrefab;
+    public GameObject prefab;
     private void Awake()
     {
         Spawn();
@@ -14,10 +14,10 @@ public class SpellMultipleFireball : MonoBehaviour
     void Spawn()
     {
         transform.Rotate(0f, 0f, -30f);
-        Instantiate(fireballPrefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation);
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(fireballPrefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation);
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(fireballPrefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation);
     }
 }

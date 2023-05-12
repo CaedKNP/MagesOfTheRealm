@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 639514538004180300}
   - component: {fileID: 1343789464}
-  - component: {fileID: 5680514342300321887}
+  - component: {fileID: 3765477769883046411}
   m_Layer: 6
-  m_Name: SpellMultipleFireball
+  m_Name: SpellMultipleFrost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &5680514342300321887
+--- !u!114 &3765477769883046411
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53d8726348beb264092d4883efea73f4, type: 3}
+  m_Script: {fileID: 11500000, guid: b37944e3a24a5e34b8e583f71215ff8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
+  prefab: {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
