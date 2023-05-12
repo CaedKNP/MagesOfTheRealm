@@ -25,7 +25,7 @@ public abstract class EnemyBase : UnitBase
     #endregion
 
     #region SensesParam
-    public float seeDistance = 5f;
+    public float seeDistance = 10f;
     protected float coneAngle = 45f;
     protected float coneDistance = 5f;
     protected float coneDirection = 180;
@@ -33,6 +33,8 @@ public abstract class EnemyBase : UnitBase
 
     protected Transform player;
     protected Stats statistics;
+    protected Animator _anim;
+    protected SpriteRenderer spriteRenderer;
 
     public override void Die()
     {
@@ -197,6 +199,7 @@ public abstract class EnemyBase : UnitBase
         if (!_canMove)
             return false;
 
+        _anim.CrossFade("Walk", 0, 0);
         direction.Normalize();
         if (direction != Vector2.zero)
         {
@@ -211,6 +214,14 @@ public abstract class EnemyBase : UnitBase
             {
                 Vector3 pos = rb.position + statistics.MovementSpeed * Time.fixedDeltaTime * direction;
                 rb.MovePosition(pos);
+                if (direction.x < 0)
+                {
+                    spriteRenderer.flipX = false;
+                }
+                else if (direction.x > 0)
+                {
+                    spriteRenderer.flipX = true;
+                }
                 //Debug.Log(direction);
                 return true;
             }
