@@ -21,21 +21,19 @@ public class SpellBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu
         rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu
-        Destroy(gameObject, destroyTime);
+        Invoke("BeforeDelete", destroyTime);
+        //Destroy(gameObject, destroyTime);
     }
 
-    protected virtual bool BeforeDelete() {
-        return false;
+    protected virtual void BeforeDelete() {
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 9)
         {
-            if (!BeforeDelete())
-            {
-                Destroy(gameObject);
-            }
+            BeforeDelete();
         }
         //Destroy(collision.gameObject);
 

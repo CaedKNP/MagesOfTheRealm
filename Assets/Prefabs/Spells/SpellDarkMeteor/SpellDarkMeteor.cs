@@ -8,15 +8,14 @@ public class SpellDarkMeteor : SpellBase
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(1.4f, 1.2f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(1.6f, 0.9f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 
-    protected override bool BeforeDelete()
+    protected override void BeforeDelete()
     {
         StartCoroutine(AnimateTextureChange());
         rb.velocity = Vector2.zero;
-        return true;
     }
 
     private IEnumerator AnimateTextureChange()

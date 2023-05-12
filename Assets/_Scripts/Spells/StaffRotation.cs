@@ -2,7 +2,6 @@
 
 public class StaffRotation : MonoBehaviour
 {
-    public GameObject pfSpell;
     public Transform spellTransform;
     public Transform WizandStaffFirePint;
 
