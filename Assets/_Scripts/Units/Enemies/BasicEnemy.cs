@@ -9,7 +9,6 @@ public class BasicEnemy : EnemyBase
     public float minDistance = 0.1f;
     public float attackCooldown = 100;
 
-    SpriteRenderer spriteRenderer;
 
     private float dotSize = 0.1f;
     private Color dotColor = Color.green;
@@ -32,6 +31,7 @@ public class BasicEnemy : EnemyBase
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = States.Moving;
+        _anim = GetComponent<Animator>();
     }
     private void OnDrawGizmos()
     {
