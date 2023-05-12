@@ -214,6 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89815e362b06a0544b02e24e935e1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pfSpell: {fileID: 0}
   spellTransform: {fileID: 473902858}
   WizandStaffFirePint: {fileID: 473902858}
 --- !u!1 &6267861171628039945
@@ -414,8 +415,8 @@ MonoBehaviour:
   spells:
   - {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
   - {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
-  - {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
-  - {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  - {fileID: 11400000, guid: 9292ee4cde0b9f0489ee860d09e1e39a, type: 2}
+  - {fileID: 11400000, guid: 612124b3af4b5684a8232b39197aadf6, type: 2}
   - {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
 --- !u!95 &8531856476346468769
