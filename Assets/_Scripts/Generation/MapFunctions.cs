@@ -52,8 +52,6 @@ public class MapFunctions
             }
         }
 
-        //Calc spots for spawners???
-
 
 
 
@@ -164,12 +162,19 @@ public class MapFunctions
         map[floorX, floorY] = 0;
         //Increase our floor count
         floorCount++;
+        int spawnerCount = 0;
 
         while (floorCount < reqFloorAmount)
         {
+
             //Determine our next direction
             int randDir = rand.Next(4);
+            if (CheckSurroundedByZeroes(floorX, floorY, map) && spawnerCount < 3)
+            {
+                map[floorX, floorY] = 2;
+                spawnerCount++;
 
+            }
             switch (randDir)
             {
                 case 0: //Up
@@ -202,6 +207,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
+                          
                         }
                     }
                     break;
@@ -218,6 +224,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
+                         
                         }
                     }
                     break;
@@ -233,11 +240,15 @@ public class MapFunctions
                             //Change it to not a tile
                             map[floorX, floorY] = 0;
                             //Increase the floor count
-                            floorCount++;
+                            floorCount++; 
+                          
                         }
+
                     }
                     break;
+                   
             }
+            
         }
         //Return the updated map
         //return FindSpawnerPoints(map);
