@@ -66,10 +66,10 @@ public class MapFunctions
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
 
-                //else if (map[x, y] == 2 )
-                //{
-                //    tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
-                //}
+               else if (map[x, y] == 2 )
+               {
+                   tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
+             }
             }
         }
     }
@@ -260,7 +260,7 @@ public class MapFunctions
         {
             for (int y = 0; y < map.GetUpperBound(1); y++)
             {
-                bool temp = true;
+                bool temp = CheckSurroundedByZeroes(x,y,map);
                 if (temp)
                 {
                     map[x, y] = 2;
@@ -269,5 +269,19 @@ public class MapFunctions
         }
 
         return map;
+    }
+   static private bool CheckSurroundedByZeroes(int x, int y,int[,] map)
+    {
+        int numRows = map.GetUpperBound(0);
+        int numCols = map.GetUpperBound(1);
+
+        // Check if the element is at a border position
+        if (x == 0 || y == 0 || x == numRows - 1 || y == numCols - 1)
+        {
+            return false;
+        }
+
+        // Check if the element is surrounded by zeroes
+        return map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0;
     }
 }
