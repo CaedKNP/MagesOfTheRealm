@@ -26,7 +26,7 @@ public class HeroUnitBase : UnitBase
     [SerializeField]
     public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
-
+    private Animator _anim;
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
     void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
@@ -45,6 +45,8 @@ public class HeroUnitBase : UnitBase
 
         healthBar = FindObjectOfType<HealthBarManager>();
         healthBar.SetMaxHealth(statistics.MaxHp);
+
+        _anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -69,7 +71,7 @@ public class HeroUnitBase : UnitBase
         {
 
             bool success = TryMove(movementInput);
-
+            _anim.CrossFade("Walk", 0, 0);
             //Gliding around walls
             #region Gliding
 
@@ -86,15 +88,19 @@ public class HeroUnitBase : UnitBase
             #endregion
 
         }
+        else
+        {
+            _anim.CrossFade("Idle", 0, 0);
+        }
 
         // Set direction of sprite to movement direction
         if (movementInput.x < 0)
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
         else if (movementInput.x > 0)
         {
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
     }
 
