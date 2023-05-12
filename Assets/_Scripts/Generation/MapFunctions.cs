@@ -43,6 +43,7 @@ public class MapFunctions
 
     public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile, TileBase tileSpawner)
     {
+        //Adding padding to the map 
         for (int x = (int)(map.GetUpperBound(0) * (-0.39)); x < map.GetUpperBound(0) * 1.39; x++)
         {
             for (int y = (int)(map.GetUpperBound(1) * (-0.39)); y < map.GetUpperBound(1) * 1.39; y++)
@@ -50,15 +51,25 @@ public class MapFunctions
                 tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
         }
+
+        //Calc spots for spawners???
+
+
+
+
         for (int x = 0; x < map.GetUpperBound(0); x++) //Loop through the width of the map
         {
             for (int y = 0; y < map.GetUpperBound(1); y++) //Loop through the height of the map
             {
-                if (map[x, y] == 0) // 1 = tile, 0 = no tile, 2 = spawner tile
+                if (map[x, y] == 0) // 1 = tile, 0 = no tile,
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
 
+                //else if (map[x, y] == 2 )
+                //{
+                //    tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
+                //}
             }
         }
     }
@@ -123,6 +134,7 @@ public class MapFunctions
                 if (map[x, y] == 0)
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
+
                 }
             }
         }
@@ -133,11 +145,13 @@ public class MapFunctions
     /// <param name="map">The array that holds the map information</param>
     /// <param name="seed">The seed for the random</param>
     /// <param name="requiredFloorPercent">The amount of floor we want</param>
+    /// <param name="tilemap">The tilemap to draw on</param>
+    /// <param name="tileSpawner">The tile to draw with</param>
     /// <returns>The modified map array</returns>
     /// 
     ///
     ///
-    public static int[,] RandomWalkCave(int[,] map, float seed, int requiredFloorPercent)
+    public static int[,] RandomWalkCave(int[,] map, float seed, int requiredFloorPercent, Tilemap tilemap, TileBase tileSpawner)
     {
         //Seed our random
         System.Random rand = new System.Random(seed.GetHashCode());
@@ -231,6 +245,28 @@ public class MapFunctions
             }
         }
         //Return the updated map
+        return FindSpawnerPoints(map, tilemap, tileSpawner);
+    }
+
+    /// <summary>
+    /// Same as the Render function but finds spawners and add them in correct spots
+    /// </summary>
+    /// <param name="map">Map that we want to draw</param>
+    /// <param name="tilemap">Tilemap we want to draw onto</param>
+    public static int[,] FindSpawnerPoints(int[,] map, Tilemap tilemap, TileBase spawnerTile)
+    {
+        for (int x = 0; x < map.GetUpperBound(0); x++)
+        {
+            for (int y = 0; y < map.GetUpperBound(1); y++)
+            {
+                bool temp = true;
+                if (temp)
+                {
+                    map[x, y] = 2;
+                }
+            }
+        }
+
         return map;
     }
 }
