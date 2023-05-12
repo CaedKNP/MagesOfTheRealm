@@ -43,6 +43,9 @@ public class HeroUnitBase : UnitBase
         spells[3] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellQ).FirstOrDefault();
         spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
 
+        // na potrzeby testowania
+        spells[0] = ResourceSystem.Instance.AllSpells.Where(s => s.Name == "Sword").FirstOrDefault();
+
         healthBar = FindObjectOfType<HealthBarManager>();
         healthBar.SetMaxHealth(statistics.MaxHp);
     }

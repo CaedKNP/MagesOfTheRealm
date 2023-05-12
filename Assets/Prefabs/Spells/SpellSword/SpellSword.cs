@@ -1,14 +1,15 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellDarkMeteor : SpellBase
+public class SpellSword : SpellBase
 {
     public Animator darkMeteorAnimator; // Komponent Animator dla obiektu darkMeteor
     private bool hasPlayedAnimation = false; // Flaga, czy animacja została odtworzona
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(1.6f, 0.9f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(0f, 0f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 
