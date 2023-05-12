@@ -64,10 +64,10 @@ public class MapFunctions
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
 
-               else if (map[x, y] == 2 )
-               {
-                   tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
-             }
+                else if (map[x, y] == 2)
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
+                }
             }
         }
     }
@@ -169,12 +169,7 @@ public class MapFunctions
 
             //Determine our next direction
             int randDir = rand.Next(4);
-            if (CheckSurroundedByZeroes(floorX, floorY, map) && spawnerCount < 3)
-            {
-                map[floorX, floorY] = 2;
-                spawnerCount++;
 
-            }
             switch (randDir)
             {
                 case 0: //Up
@@ -207,7 +202,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
-                          
+
                         }
                     }
                     break;
@@ -224,7 +219,7 @@ public class MapFunctions
                             map[floorX, floorY] = 0;
                             //Increase the floor count
                             floorCount++;
-                         
+
                         }
                     }
                     break;
@@ -240,43 +235,52 @@ public class MapFunctions
                             //Change it to not a tile
                             map[floorX, floorY] = 0;
                             //Increase the floor count
-                            floorCount++; 
-                          
+                            floorCount++;
+
                         }
 
                     }
                     break;
-                   
+
+
             }
-            
+
         }
         //Return the updated map
-        //return FindSpawnerPoints(map);
-        return map;    
+        while (spawnerCount < 6)
+        {
+            int x = rand.Next(map.GetUpperBound(0));
+            int y = rand.Next(map.GetUpperBound(1));
+           if (CheckSurroundedByZeroes(x, y, map))
+            {
+
+                map[x, y] = 2;
+                spawnerCount++;
+                for (int i = x - 2; i < x + 2; i++)
+                {
+                    for (int j = y - 2; j < y + 2; j++)
+                    {
+                        if (map[i, j] == 1 && i != map.GetUpperBound(0) && j != map.GetUpperBound(1))
+                        {
+                            //Change it to not a tile
+                            map[i, j] = 0;
+                            //Increase the floor count
+
+                        }
+                    }
+
+                }
+
+            }
+        }
+        return map;
     }
 
     /// <summary>
     /// Same as the Render function but finds spawners and add them in correct spots
     /// </summary>
     /// <param name="map">Map that we want to draw</param>
-    
-    public static int[,] FindSpawnerPoints(int[,] map)
-    {
-        for (int x = 0; x < map.GetUpperBound(0); x++)
-        {
-            for (int y = 0; y < map.GetUpperBound(1); y++)
-            {
-                bool temp = CheckSurroundedByZeroes(x,y,map);
-                if (temp)
-                {
-                    map[x, y] = 2;
-                }
-            }
-        }
-
-        return map;
-    }
-   static private bool CheckSurroundedByZeroes(int x, int y,int[,] map)
+    static private bool CheckSurroundedByZeroes(int x, int y, int[,] map)
     {
         int numRows = map.GetUpperBound(0);
         int numCols = map.GetUpperBound(1);
@@ -288,6 +292,7 @@ public class MapFunctions
         }
 
         // Check if the element is surrounded by zeroes
-        return map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0;
+        return (map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0 &&
+                map[x - 1, y - 1] == 0 && map[x - 1, y + 1] == 0 && map[x + 1, y + 1] == 0 && map[x + 1, y - 1] == 0);
     }
 }
