@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -6,9 +7,10 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
-    public float minDistance = 0.1f;
-    public float attackCooldown = 100;
-
+    public float rangeOfAttack = 0.1f;
+    public float rangeOfRest = 2f;
+    public float attackCooldown = 5;
+    bool onCooldown = false;
 
     private float dotSize = 0.1f;
     private Color dotColor = Color.green;
@@ -19,7 +21,8 @@ public class BasicEnemy : EnemyBase
     {
         Idle,
         Moving,
-        Attacking
+        Attacking,
+        Rest
     }
 
     private States currentState;
@@ -63,6 +66,9 @@ public class BasicEnemy : EnemyBase
             case States.Attacking:
                 Attacking();
                 break;
+            case States.Rest:
+                Resting();
+                break;
             default:
                 Debug.LogWarning($"Invalid state: {currentState}");
                 break;
@@ -70,6 +76,18 @@ public class BasicEnemy : EnemyBase
     }
 
     #region states
+    private void Resting()
+    {
+        if (Time.time - lastAttack > attackCooldown)
+        {
+            onCooldown = false;
+            ChangeState(States.Attacking);
+        }
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
+            Escape();
+        else
+            ChangeState(States.Moving);
+    }
     private void Idle()
     {
         dotColor = Color.green;
@@ -80,17 +98,19 @@ public class BasicEnemy : EnemyBase
     private void Moving()
     {
         TryMove(player.position - transform.position);
-        if (Vector2.Distance(transform.position, player.position) <= minDistance)
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
             ChangeState(States.Attacking);
-        if (!SeeSense(coneDirection))
-            ChangeState(States.Idle);
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
+            ChangeState(States.Rest);
     }
 
     private void Attacking()
     {
         Attack();
-        if (Vector2.Distance(transform.position, player.position) > minDistance)
-            ChangeState(States.Idle);
+        if (onCooldown)
+            ChangeState(States.Rest);
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
+            ChangeState(States.Moving);
     }
 
     private void ChangeState(States newState)
@@ -101,11 +121,16 @@ public class BasicEnemy : EnemyBase
 
     public void Attack()
     {
-        if (Time.time - lastAttack <= attackCooldown)
+        if (onCooldown)
             return;
+        onCooldown = true;
         dotColor = Color.red;
         lastAttack = Time.time;
         GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>() { Conditions.Burn}, 0, 3, 1);
         //Debug.Log("HIT!");
+    }
+    private void Escape()
+    {
+        TryMove(-(player.position - transform.position));
     }
 }
