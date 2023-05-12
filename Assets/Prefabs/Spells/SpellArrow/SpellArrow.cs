@@ -8,7 +8,7 @@ public class SpellArrow : SpellBase
     protected void Awake()
     {
         animator = GetComponent<Animator>(); // Zmiana na GetComponent<Animator>()
-        SetSpeedDestroyTime(5f, 2f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(7f, 2f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 }
