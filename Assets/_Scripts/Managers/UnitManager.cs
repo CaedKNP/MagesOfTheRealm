@@ -13,7 +13,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnEnemy()
     {
-        return SpawnUnit(ExampleEnemyType.SimpleEnemy,GetRandomVector());
+        return SpawnUnit(ExampleEnemyType.SimpleEnemy, GetRandomVector());
     }
 
     GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
@@ -67,14 +67,15 @@ public class UnitManager : StaticInstance<UnitManager>
         int randomY = Random.Range(0, height);
 
         while (GameManager.map[randomY, randomX] != 0 ||
-       GameManager.map[randomY - 1, randomX] != 0 ||
-       GameManager.map[randomY + 1, randomX] != 0 ||
-       GameManager.map[randomY, randomX - 1] != 0 ||
-       GameManager.map[randomY, randomX + 1] != 0)
+            GameManager.map[randomY - 1, randomX] != 0 ||
+            GameManager.map[randomY + 1, randomX] != 0 ||
+            GameManager.map[randomY, randomX - 1] != 0 ||
+            GameManager.map[randomY, randomX + 1] != 0)
         {
             randomX = Random.Range(1, width);
             randomY = Random.Range(1, height);
         }
+
         return new Vector3(randomX * 0.16f, randomY * 0.16f, 0);
     }
 }
