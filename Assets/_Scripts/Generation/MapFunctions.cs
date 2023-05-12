@@ -12,7 +12,6 @@ public class MapFunctions
     /// <returns>The map array initialised</returns>
     public static int[,] GenerateArray(int width, int height, bool empty)
     {
-
         int[,] map = new int[width, height];
 
 
@@ -39,12 +38,14 @@ public class MapFunctions
     /// </summary>
     /// <param name="map">Map that we want to draw</param>
     /// <param name="tilemap">Tilemap we will draw onto</param>
-    /// <param name="tile">Tile we will draw with</param>
-    public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile)
+    /// <param name="tile">Tile we will draw with</para
+    /// <param name="tileSpawner">Tile that will be used as a spawnPoint</param>
+
+    public static void RenderMap(int[,] map, Tilemap tilemap, TileBase tile, TileBase tileSpawner)
     {
-        for (int x = (int)(map.GetUpperBound(0) *(- 0.39 )); x < map.GetUpperBound(0)* 1.39; x++)
+        for (int x = (int)(map.GetUpperBound(0) * (-0.39)); x < map.GetUpperBound(0) * 1.39; x++)
         {
-            for (int y=(int)(map.GetUpperBound(1) * (-0.39)); y < map.GetUpperBound(1) * 1.39; y++) 
+            for (int y = (int)(map.GetUpperBound(1) * (-0.39)); y < map.GetUpperBound(1) * 1.39; y++)
             {
                 tilemap.SetTile(new Vector3Int(x, y, 0), tile);
             }
@@ -53,10 +54,11 @@ public class MapFunctions
         {
             for (int y = 0; y < map.GetUpperBound(1); y++) //Loop through the height of the map
             {
-                if (map[x, y] == 0) // 1 = tile, 0 = no tile
+                if (map[x, y] == 0) // 1 = tile, 0 = no tile, 2 = spawner tile
                 {
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
+
             }
         }
     }

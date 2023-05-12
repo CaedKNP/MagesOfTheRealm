@@ -13,6 +13,9 @@ public class LevelGenerator : MonoBehaviour {
 	[Tooltip("The Tile to draw (use a RuleTile for best results)")]
 	public TileBase tile;
 
+	[Tooltip("The Tile to be used as a spawnerPoint")]
+	public TileBase tileSpawner;
+
 	[Tooltip("Width of our map")]
 	public int width;
 
@@ -54,7 +57,7 @@ public class LevelGenerator : MonoBehaviour {
 				//Next generate the random walk cave
 				map = MapFunctions.RandomWalkCave(map, seed, mapSetting.clearAmount);		
 		//Render the result
-		MapFunctions.RenderMap(map, tilemap, tile);
+		MapFunctions.RenderMap(map, tilemap, tile,tileSpawner);
 
 		return map;
     }
