@@ -8,7 +8,7 @@ public class SpellDarkMeteor : SpellBase
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(1.4f, 1.2f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(6f, 1.2f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 
