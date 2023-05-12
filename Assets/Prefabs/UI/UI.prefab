@@ -372,7 +372,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 93546769161026141}
-  hpText: {fileID: 93546769061996334}
 --- !u!212 &4576362635499382389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -694,7 +693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 12.799988, y: -72.099976}
+  m_AnchoredPosition: {x: 6, y: -111.9}
   m_SizeDelta: {x: 307.3181, y: 54.32489}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &5662922573066859505

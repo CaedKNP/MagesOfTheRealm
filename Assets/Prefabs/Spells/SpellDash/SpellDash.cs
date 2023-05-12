@@ -8,7 +8,7 @@ public class SpellDash : SpellBase
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(3.5f, 0.3f); // Nowe wartosci dla speed i destroyTime
+        SetSpeedDestroyTime(15f, 0.3f); // Nowe wartosci dla speed i destroyTime
         base.MyAwake();
         player = GameManager.Player;
     }

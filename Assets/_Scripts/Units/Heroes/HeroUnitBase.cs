@@ -1,6 +1,6 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -26,6 +26,9 @@ public class HeroUnitBase : UnitBase
     [SerializeField]
     public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
+    private Animator _anim;
+
+    bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
 
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
@@ -37,19 +40,24 @@ public class HeroUnitBase : UnitBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         spellRotator = GetComponentInChildren<StaffRotation>();
 
-        spells[0] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Primary).FirstOrDefault();
-        spells[1] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Secondary).FirstOrDefault();
-        spells[2] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellE).FirstOrDefault();
-        spells[3] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellQ).FirstOrDefault();
-        spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
+        //spells[0] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Primary).FirstOrDefault();
+        //spells[1] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Secondary).FirstOrDefault();
+        //spells[2] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellQ).FirstOrDefault();
+        //spells[3] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellE).FirstOrDefault();
+        //spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
 
         healthBar = FindObjectOfType<HealthBarManager>();
         healthBar.SetMaxHealth(statistics.MaxHp);
+
+        _anim = GetComponent<Animator>();
     }
 
     void FixedUpdate()
     {
         TryMove();
+
+        if (statistics.CurrentHp <= 0)
+            Die();
     }
 
     #region Movement
@@ -69,7 +77,7 @@ public class HeroUnitBase : UnitBase
         {
 
             bool success = TryMove(movementInput);
-
+            _anim.CrossFade("Walk", 0, 0);
             //Gliding around walls
             #region Gliding
 
@@ -86,15 +94,19 @@ public class HeroUnitBase : UnitBase
             #endregion
 
         }
+        else
+        {
+            _anim.CrossFade("Idle", 0, 0);
+        }
 
         // Set direction of sprite to movement direction
         if (movementInput.x < 0)
         {
-            spriteRenderer.flipX = true;
+            spriteRenderer.flipX = false;
         }
         else if (movementInput.x > 0)
         {
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = true;
         }
     }
 
@@ -149,31 +161,28 @@ public class HeroUnitBase : UnitBase
         statistics = stats;
     }
 
-    public override async Task TakeDamage(List<Conditions> conditions, int dmg, float affectTime, int dmgToTake)
+    public override async Task TakeDamage(List<Conditions> conditions, int dmgToTake, float conAffectTime, int affectDmgPerTick)
     {
-        statistics.CurrentHp -= dmg;
+        statistics.CurrentHp -= Convert.ToInt32(dmgToTake * statistics.Armor);
 
-        await ConditionAffect(conditions, affectTime, dmgToTake);
+        await ConditionAffect(conditions, conAffectTime, affectDmgPerTick);
 
         healthBar.SetHealth(statistics.CurrentHp);
-
-        if (statistics.CurrentHp < 0)
-            Die();
 
         return;
     }
 
-    private async Task ConditionAffect(List<Conditions> conditions, float affectTime, int dmgToTake)
+    private async Task ConditionAffect(List<Conditions> conditions, float conAffectTime, int affectDmgPerTick)
     {
         foreach (Conditions con in conditions)
         {
-            await Affect(con, affectTime, dmgToTake);
+            await Affect(con, conAffectTime, affectDmgPerTick);
         }
 
         return;
     }
 
-    private async Task Affect(Conditions con, float affectTime, int dmgToTake)
+    private async Task Affect(Conditions con, float conAffectTime, int affectDmgPerTick)
     {
         float end;
 
@@ -181,105 +190,162 @@ public class HeroUnitBase : UnitBase
         {
             case global::Conditions.Burn:
 
-                await GetTickDmg(affectTime, dmgToTake);
+                if (!IsBurning)
+                {
+                    IsBurning = true;
+                    await GetTickDmg(conAffectTime, affectDmgPerTick);
+                    IsBurning = false;
+                }
 
                 break;
             case global::Conditions.Slow:
 
-                end = Time.time + affectTime;
-                var tempSpeed = statistics.MovementSpeed;
-
-                while (Time.time < end)
+                if (!IsSlowed)
                 {
-                    statistics.MovementSpeed -= dmgToTake;
-                    await Task.Yield();
-                }
+                    IsSlowed = true;
 
-                statistics.MovementSpeed = tempSpeed;
+                    end = Time.time + conAffectTime;
+                    var tempSpeed = statistics.MovementSpeed;
+
+                    while (Time.time < end)
+                    {
+                        statistics.MovementSpeed -= (statistics.MovementSpeed / 100) * affectDmgPerTick;//Precentage slow
+                        await Task.Yield();
+                    }
+
+                    statistics.MovementSpeed = tempSpeed;
+                    IsSlowed = false;
+                }
 
                 break;
             case global::Conditions.Freeze:
 
-                end = Time.time + affectTime;
-
-                while (Time.time < end)
+                if (!IsFreezed)
                 {
+                    IsFreezed = true;
                     _canMove = false;
-                    await Task.Yield();
+
+                    end = Time.time + conAffectTime;
+
+                    while (Time.time < end)
+                    {
+                        await Task.Yield();
+                    }
+
+                    _canMove = true;
+                    IsFreezed = false;
                 }
 
                 break;
             case global::Conditions.Poison:
-                await GetTickDmg(affectTime, dmgToTake);
+
+                if (!IsPoisoned)
+                {
+                    IsPoisoned = true;
+
+                    await GetTickDmg(conAffectTime, affectDmgPerTick);
+
+                    IsPoisoned = false;
+                }
+
                 break;
             case global::Conditions.SpeedUp:
 
-                end = Time.time + affectTime;
-                var tempMoveSpeed = _canMove;
-
-                while (Time.time < end)
+                if (!IsSpeededUp)
                 {
-                    statistics.MovementSpeed += dmgToTake;
-                    await Task.Yield();
-                }
+                    IsSpeededUp = true;
 
-                _canMove = tempMoveSpeed;
+                    end = Time.time + conAffectTime;
+                    var tempMoveSpeed = statistics.MovementSpeed;
+
+                    while (Time.time < end)
+                    {
+                        statistics.MovementSpeed += (statistics.MovementSpeed / 100) * affectDmgPerTick;//Precentage speedup
+                        await Task.Yield();
+                    }
+
+                    statistics.MovementSpeed = tempMoveSpeed;
+                    IsSpeededUp = false;
+                }
 
                 break;
             case global::Conditions.ArmorUp:
 
-                end = Time.time + affectTime;
-                var tempArmor = statistics.Armor;
-
-                while (Time.time < end)
+                if (!HasArmorUp)
                 {
-                    statistics.Armor += dmgToTake;
-                    await Task.Yield();
-                }
+                    HasArmorUp = true;
 
-                statistics.Armor = tempArmor;
+                    end = Time.time + conAffectTime;
+                    var tempArmor = statistics.Armor;
+
+                    while (Time.time < end)
+                    {
+                        statistics.Armor += (statistics.Armor / 100) * affectDmgPerTick;//Precentage armorup
+                        await Task.Yield();
+                    }
+
+                    statistics.Armor = tempArmor;
+                    HasArmorUp = false;
+                }
 
                 break;
             case global::Conditions.ArmorDown:
 
-                end = Time.time + affectTime;
-                var tempArmorDown = statistics.Armor;
-
-                while (Time.time < end)
+                if (!HasArmorDown)
                 {
-                    statistics.Armor -= dmgToTake;
-                    await Task.Yield();
-                }
+                    HasArmorDown = true;
 
-                statistics.Armor = tempArmorDown;
+                    end = Time.time + conAffectTime;
+                    var tempArmorDown = statistics.Armor;
+
+                    while (Time.time < end)
+                    {
+                        statistics.Armor -= (statistics.Armor / 100) * affectDmgPerTick;//Precentage armordown
+                        await Task.Yield();
+                    }
+
+                    statistics.Armor = tempArmorDown;
+                    HasArmorDown = false;
+                }
 
                 break;
             case global::Conditions.Haste:
 
-                end = Time.time + affectTime;
-                var tempCooldown = statistics.CooldownModifier;
-
-                while (Time.time < end)
+                if (!HasHaste)
                 {
-                    statistics.CooldownModifier += dmgToTake;
-                    await Task.Yield();
-                }
+                    HasHaste = true;
 
-                statistics.CooldownModifier = tempCooldown;
+                    end = Time.time + conAffectTime;
+                    var tempCooldown = statistics.CooldownModifier;
+
+                    while (Time.time < end)
+                    {
+                        statistics.CooldownModifier += affectDmgPerTick;
+                        await Task.Yield();
+                    }
+
+                    statistics.CooldownModifier = tempCooldown;
+                    HasHaste = false;
+                }
 
                 break;
             case global::Conditions.DmgUp:
 
-                end = Time.time + affectTime;
-                var tempDmg = statistics.DmgModifier;
-
-                while (Time.time < end)
+                if (!HasDmgUp)
                 {
-                    statistics.DmgModifier += dmgToTake;
-                    await Task.Yield();
-                }
+                    HasDmgUp = true;
+                    end = Time.time + conAffectTime;
+                    var tempDmg = statistics.DmgModifier;
 
-                statistics.DmgModifier = tempDmg;
+                    while (Time.time < end)
+                    {
+                        statistics.DmgModifier += affectDmgPerTick;
+                        await Task.Yield();
+                    }
+
+                    statistics.DmgModifier = tempDmg;
+                    HasDmgUp = false;
+                }
 
                 break;
             default:
@@ -287,13 +353,14 @@ public class HeroUnitBase : UnitBase
         }
     }
 
-    private async Task GetTickDmg(float affectTime, int dmgToTake)
+    private async Task GetTickDmg(float conAffectTime, int affectDmgPerTick)
     {
-        var end = Time.time + affectTime;
+        var end = Time.time + conAffectTime;
         while (Time.time < end)
         {
-            statistics.CurrentHp -= dmgToTake;
             await Task.Delay(1000);
+            Debug.Log($"{name} is taking tick dmg {affectDmgPerTick}");
+            statistics.CurrentHp -= affectDmgPerTick;
         }
     }
 
