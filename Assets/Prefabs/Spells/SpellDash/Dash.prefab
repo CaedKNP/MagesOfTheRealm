@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 30
   destroyDelay: 0.5
-  positionThreshold: 0.2
+  positionThreshold: 0.3
 --- !u!61 &7204041194055496904
 BoxCollider2D:
   m_ObjectHideFlags: 0
