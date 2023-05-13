@@ -4,6 +4,7 @@
 public class Spell : ScriptableObject
 {
     public GameObject Prefab; //MonoBehaviour
+    public bool CastFromHeroeNoStaff = false;
     public int ID;
     public float cooldown;
     public SpellSlot spellSlot;
