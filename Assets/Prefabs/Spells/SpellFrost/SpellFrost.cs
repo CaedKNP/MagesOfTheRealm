@@ -1,3 +1,4 @@
+using Assets._Scripts.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,14 +17,14 @@ public class SpellFrost : SpellBase
             Destroy(gameObject);
         }
 
-        var conditions = new List<Conditions>
+        var conditions = new List<ConditionBase>
         {
-            Conditions.Freeze
+            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 2 }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(conditions, 2, 3, 50);
+            unit.TakeDamage(2, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
