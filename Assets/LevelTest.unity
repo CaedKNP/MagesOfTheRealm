@@ -1575,6 +1575,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!223 &1114441742 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5439327267136951405, guid: 20a8670df859b5344ad774e5ba3e4619, type: 3}
+  m_PrefabInstance: {fileID: 2117541211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1217279738
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,6 +1697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c1f620dee254d4eaf3f65c79fa33c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldSpaceCanvas: {fileID: 1114441742}
 --- !u!114 &1294487452
 MonoBehaviour:
   m_ObjectHideFlags: 0
