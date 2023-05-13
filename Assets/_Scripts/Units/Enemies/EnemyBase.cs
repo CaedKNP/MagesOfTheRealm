@@ -36,7 +36,7 @@ public abstract class EnemyBase : UnitBase
     protected Stats statistics;
     protected Animator _anim;
     protected SpriteRenderer spriteRenderer;
-
+    
     public override void Die()
     {
         Debug.Log($"{name} is dead");

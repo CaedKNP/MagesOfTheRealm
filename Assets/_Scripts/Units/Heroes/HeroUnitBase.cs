@@ -46,6 +46,9 @@ public class HeroUnitBase : UnitBase
     HealthBarManager healthBar;
     private Animator _anim;
 
+    [SerializeField]
+    public GameObject ConditionsBar;
+
     bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
 
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
@@ -654,6 +657,11 @@ public class HeroUnitBase : UnitBase
         {
             Debug.LogWarning("SpellRotator is not assigned!");
         }
+    }
+
+    public override void SetupCondtionsBar(Canvas canvas)
+    {
+        ConditionsBar.transform.SetParent(canvas.transform);
     }
     #endregion
 }

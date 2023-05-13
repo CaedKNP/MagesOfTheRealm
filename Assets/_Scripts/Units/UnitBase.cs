@@ -15,5 +15,6 @@ public abstract class UnitBase : MonoBehaviour
 
     public abstract void UnlockMovement();
 
+    public abstract void SetupCondtionsBar(Canvas canvas);
     public abstract void Die();
 }
