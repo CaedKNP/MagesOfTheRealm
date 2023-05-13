@@ -12,11 +12,6 @@ public class SpellFrost : SpellBase
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 7)
-        {
-            Destroy(gameObject);
-        }
-
         var conditions = new List<ConditionBase>
         {
             new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 2 }
