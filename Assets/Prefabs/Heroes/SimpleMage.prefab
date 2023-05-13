@@ -411,7 +411,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  PrimarySpell: {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
+  PrimarySpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
   SecondarySpell: {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
   QSpell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
   ESpell: {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
