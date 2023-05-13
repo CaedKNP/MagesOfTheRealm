@@ -8,11 +8,10 @@ public class SpellMagicSword : MonoBehaviour
 
     protected void Awake()
     {
-        //SetSpeedDestroyTime(0f, 2f); // Nowe wartości dla speed i destroyTime
-        //base.MyAwake();
-
-        // Znajdź obiekt spellCore w prefabie swordCore
+        // Znajduje obiekt spellCore w prefabie swordCore
         spellCore = transform.parent?.gameObject;
+        spellCore.transform.Rotate(Vector3.forward, -65f);
+        Invoke("TimeOut", 5f);
     }
 
     private void FixedUpdate()
@@ -30,12 +29,11 @@ public class SpellMagicSword : MonoBehaviour
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
             unit.TakeDamage(3, conditions);
-
-
-                Destroy(spellCore);
-
-                Destroy(gameObject);
-            
+            Destroy(spellCore);
         }
+    }
+    void TimeOut()
+    {
+        Destroy(spellCore);
     }
 }
