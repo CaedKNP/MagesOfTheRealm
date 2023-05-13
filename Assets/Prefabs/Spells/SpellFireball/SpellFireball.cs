@@ -1,3 +1,4 @@
+using Assets._Scripts.Utilities;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,14 +17,14 @@ public class SpellFireball : SpellBase
             Destroy(gameObject);
         }
 
-        var conditions = new List<Conditions>
+        var conditions = new List<ConditionBase>
         {
-            Conditions.Burn
+            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 3f, AffectTime = 3f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(conditions, 1, 5, 2);
+            unit.TakeDamage(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);

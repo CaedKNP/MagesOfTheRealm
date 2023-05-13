@@ -1,9 +1,10 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 
 public abstract class EnemyBase : UnitBase
 {
@@ -51,44 +52,45 @@ public abstract class EnemyBase : UnitBase
         statistics = stats;
     }
 
-    public override async Task TakeDamage(List<Conditions> conditions, int dmg, float affectTime, int dmgToTake)
+    public override async Task TakeDamage(float dmg, List<ConditionBase> conditions)
     {
 
-        await ConditionAffect(conditions, affectTime, dmgToTake);
-        statistics.CurrentHp -= dmg;
+        await ConditionAffect(conditions);
+        statistics.CurrentHp -= Convert.ToInt32(dmg);
         if (statistics.CurrentHp <= 0)
             Die();
         return;
     }
-    private async Task ConditionAffect(List<Conditions> conditions, float affectTime, int dmgToTake)
+
+    private async Task ConditionAffect(List<ConditionBase> conditions)
     {
-        foreach (Conditions con in conditions)
+        foreach (ConditionBase condition in conditions)
         {
-            await Affect(con, affectTime, dmgToTake);
+            await Affect(condition);
         }
 
         return;
     }
 
-    private async Task Affect(Conditions con, float affectTime, int dmgToTake)
+    private async Task Affect(ConditionBase con)
     {
         float end;
 
-        switch (con)
+        switch (con.Conditions)
         {
             case global::Conditions.Burn:
 
-                await GetTickDmg(affectTime, dmgToTake);
+                await GetTickDmg(con.AffectTime, con.AffectOnTick);
 
                 break;
             case global::Conditions.Slow:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempSpeed = statistics.MovementSpeed;
 
                 while (Time.time < end)
                 {
-                    statistics.MovementSpeed -= dmgToTake;
+                    statistics.MovementSpeed -= con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -97,7 +99,7 @@ public abstract class EnemyBase : UnitBase
                 break;
             case global::Conditions.Freeze:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
 
                 while (Time.time < end)
                 {
@@ -107,16 +109,16 @@ public abstract class EnemyBase : UnitBase
 
                 break;
             case global::Conditions.Poison:
-                await GetTickDmg(affectTime, dmgToTake);
+                await GetTickDmg(con.AffectTime, con.AffectOnTick);
                 break;
             case global::Conditions.SpeedUp:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempMoveSpeed = _canMove;
 
                 while (Time.time < end)
                 {
-                    statistics.MovementSpeed += dmgToTake;
+                    statistics.MovementSpeed += con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -125,12 +127,12 @@ public abstract class EnemyBase : UnitBase
                 break;
             case global::Conditions.ArmorUp:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempArmor = statistics.Armor;
 
                 while (Time.time < end)
                 {
-                    statistics.Armor += dmgToTake;
+                    statistics.Armor += con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -139,12 +141,12 @@ public abstract class EnemyBase : UnitBase
                 break;
             case global::Conditions.ArmorDown:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempArmorDown = statistics.Armor;
 
                 while (Time.time < end)
                 {
-                    statistics.Armor -= dmgToTake;
+                    statistics.Armor -= con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -153,12 +155,12 @@ public abstract class EnemyBase : UnitBase
                 break;
             case global::Conditions.Haste:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempCooldown = statistics.CooldownModifier;
 
                 while (Time.time < end)
                 {
-                    statistics.CooldownModifier += dmgToTake;
+                    statistics.CooldownModifier += con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -167,12 +169,12 @@ public abstract class EnemyBase : UnitBase
                 break;
             case global::Conditions.DmgUp:
 
-                end = Time.time + affectTime;
+                end = Time.time + con.AffectTime;
                 var tempDmg = statistics.DmgModifier;
 
                 while (Time.time < end)
                 {
-                    statistics.DmgModifier += dmgToTake;
+                    statistics.DmgModifier += con.AffectOnTick;
                     await Task.Yield();
                 }
 
@@ -184,12 +186,12 @@ public abstract class EnemyBase : UnitBase
         }
     }
 
-    private async Task GetTickDmg(float affectTime, int dmgToTake)
+    private async Task GetTickDmg(float affectTime, float dmgToTake)
     {
         var end = Time.time + affectTime;
         while (Time.time < end)
         {
-            statistics.CurrentHp -= dmgToTake;
+            statistics.CurrentHp -= Convert.ToInt32(dmgToTake);
             await Task.Delay(1000);
         }
     }
