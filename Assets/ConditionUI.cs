@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ConditionUI : MonoBehaviour
 {
@@ -10,43 +12,51 @@ public class ConditionUI : MonoBehaviour
     int numberOfImages = 9; // Change this according to your requirements
     float rectWidth = 40;
     float finalWidth;
-    public List<Sprite> Sprites;
-    static int _conditionCountMax = 9;// later change to total condition count so that it works with more?????
+    public List<Sprite> sprites;
+    public Component parentContainer;
+    public List<Image> imageSlots;
+    int _conditionCountMax = 9;// later change to total condition count so that it works with more?????
     [SerializeField]
-    public int _currentConditionCount = 0;
-    void AddConditionSprite(int conditionID)
+    int _currentConditionCount = 0;
+    void AddConditionSprite(int condition)
     {
         if (_currentConditionCount + 1 < _conditionCountMax)
         {
-            Debug.Log("condition:" + conditionID + " added");
-            _currentConditionCount++;
+           
+            
             SetRectWidth(_currentConditionCount);
+            SetImageSprite(imageSlots[_currentConditionCount], sprites[condition]);
+            _currentConditionCount++;
+           
+            Debug.Log("condition: added");
         }
 
     }
-    void RemoveConditionSprite(int conditionID)
+    void RemoveConditionSprite(int condition)
     {
         if (_currentConditionCount - 1 != 0)
         {
-            Debug.Log("condition:" + conditionID + " Removed");
+
+            //find the slot
+            //remove image
+            //shift everything???
+            //idk
+            throw new NotImplementedException();
+
             _currentConditionCount--;
             SetRectWidth(_currentConditionCount);
+            Debug.Log("condition: removed");
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        //  rectWidth = rectTransform.rect.width;
+        AddConditionSprite(3);
+        AddConditionSprite(2);
+        RemoveConditionSprite(2);
         SetRectWidth(_currentConditionCount);
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        SetRectWidth(_currentConditionCount);//delete when conditions are changed dynamically 
     }
 
     void SetRectWidth(int currentCount)
@@ -54,7 +64,14 @@ public class ConditionUI : MonoBehaviour
         finalWidth = rectWidth * currentCount;
         Vector2 sizeDelta = rectTransform.sizeDelta;
         sizeDelta.x = finalWidth;
+        sizeDelta.y = 40;
         rectTransform.sizeDelta = sizeDelta;
 
     }
+
+    void SetImageSprite(Image img, Sprite sprite)
+    {
+        img.sprite = sprite;
+    }
+ 
 }
