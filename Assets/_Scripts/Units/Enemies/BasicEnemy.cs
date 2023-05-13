@@ -37,6 +37,7 @@ public class BasicEnemy : EnemyBase
         currentState = States.Moving;
         _anim = GetComponent<Animator>();
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = dotColor;
@@ -137,15 +138,16 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
-    public void Attack()
+    public async void Attack()
     {
         if (onCooldown)
             return;
         onCooldown = true;
         lastAttack = Time.time;
-        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 1, 3, 1);
+        await GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
         Debug.Log("HIT!");
     }
+
     private void Escape()
     {
         TryMove(-(player.position - transform.position));
