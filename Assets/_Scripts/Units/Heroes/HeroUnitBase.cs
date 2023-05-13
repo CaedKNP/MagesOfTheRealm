@@ -402,7 +402,14 @@ public class HeroUnitBase : UnitBase
 
         if (spellRotator != null)
         {
-            Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+            if (spells[index].CastFromHeroeNoStaff)
+            {
+                Instantiate(spells[index].Prefab, transform.position, transform.rotation);
+            }
+            else
+            {
+                Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+            }
         }
         else
         {

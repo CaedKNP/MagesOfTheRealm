@@ -7,7 +7,7 @@ public class StaffRotation : MonoBehaviour
     public Transform WizandStaffFirePint;
 
     Camera mainCam;
-    public Vector2 mousePos;
+    Vector2 mousePos;
     Vector2 rotation;
 
     void Start()

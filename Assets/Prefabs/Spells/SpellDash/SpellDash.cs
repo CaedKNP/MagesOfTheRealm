@@ -1,47 +1,83 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpellDash : MonoBehaviour
 {
     GameObject player;
-    StaffRotation staffrotator;
-    Camera mainCam;
-    Vector2 mousePos;
-    public float maxDistance = 20;
+    public float moveSpeed = 40f;
+    private Rigidbody2D rb;
+    private Vector2 mousePosition;
+    public float destroyDelay = 0.5f; // Czas opóźnienia przed zniszczeniem
+    public float positionThreshold = 0.1f; // Prog odchylenia od pozycji docelowej
 
-    protected void Awake()
+    private float destroyTimer; // Licznik czasu
+
+    private void Awake()
     {
         player = GameManager.Player;
-        mainCam = Camera.main;
-        transform.rotation = Quaternion.identity; // Ustawienie braku rotacji
-        SpawnInPlace();
+        rb = GetComponent<Rigidbody2D>();
+        transform.rotation = Quaternion.identity;
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        destroyTimer = 1f; // Zerowanie licznika czasu na starcie
+        transform.position = player.transform.position;
+        Invoke("DestroyObject", destroyTimer);
     }
 
-    void SpawnInPlace()
+    private void FixedUpdate()
     {
-        mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-        transform.position = mousePos;
-    }
+        Vector2 direction = mousePosition - (Vector2)transform.position;
+        direction.Normalize();
 
-    void Update()
-    {
-        CheckIfTooFar();
-    }
-
-    private void CheckIfTooFar()
-    {
-        // Sprawdź odległość między pozycją kursora a pozycją gracza
-        float distanceToPlayer = Vector2.Distance(player.transform.position, transform.position);
-
-        // Jeśli odległość jest większa niż maksymalna odległość, zbliż prefab do gracza
-        if (distanceToPlayer > maxDistance)
+        if (Vector2.Distance(transform.position, mousePosition) <= positionThreshold)
         {
-            Vector2 direction = mousePos - (Vector2)player.transform.position;
-            direction = direction.normalized;
-            transform.position = (Vector2)player.transform.position + direction * maxDistance;
+            DestroyObject();
         }
 
-        //transform.rotation = Quaternion.identity; // Ustawienie braku rotacji
+        if (TryMove(direction))
+        {
+            destroyTimer += Time.deltaTime; // Zwiększanie licznika czasu
+        }
+        else
+        {
+            destroyTimer = destroyDelay; // Resetowanie licznika czasu, jeśli ruch został zatrzymany przez ograniczenie
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 7)
+        {
+            DestroyObject();
+        }
+    }
+
+    void TeleportPlayer()
+    {
+        player.transform.position = transform.position;
+    }
+
+    void DestroyObject()
+    {
+        TeleportPlayer();
+        Destroy(gameObject);
+    }
+
+    bool TryMove(Vector2 direction)
+    {
+        if (direction != Vector2.zero)
+        {
+            // Sprawdzanie potencjalnych kolizji
+            RaycastHit2D[] hits = new RaycastHit2D[1];
+            int count = rb.Cast(direction, hits, moveSpeed * Time.deltaTime);
+
+            if (count == 0)
+            {
+                rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+                return true;
+            }
+        }
+
+        // Nie można poruszać się, jeśli brak kierunku ruchu
+        DestroyObject();
+        return false;
     }
 }
