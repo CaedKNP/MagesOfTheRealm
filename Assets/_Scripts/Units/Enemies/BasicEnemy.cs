@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
@@ -6,12 +7,13 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
-    public float minDistance = 0.1f;
-    public float attackCooldown;
+    public float rangeOfAttack = 0.1f;
+    public float rangeOfRest = 2f;
+    public float rangeOfChase = 5f;
+    public float attackCooldown = 5;
+    bool onCooldown = false;
 
-    SpriteRenderer spriteRenderer;
-
-    private float dotSize = 0.1f;
+    private float dotSize = 0.7f;
     private Color dotColor = Color.green;
 
     private float lastAttack = 0;
@@ -20,33 +22,37 @@ public class BasicEnemy : EnemyBase
     {
         Idle,
         Moving,
-        Attacking
+        Attacking,
+        Rest
     }
 
     private States currentState;
 
     void Start()
-    {
+    {
+
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = States.Moving;
+        _anim = GetComponent<Animator>();
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = dotColor;
         Gizmos.DrawSphere(transform.position, dotSize);
-        float halfFOV = coneAngle / 2.0f;
+        //float halfFOV = coneAngle / 2.0f;
 
-        Quaternion upRayRotation = Quaternion.AngleAxis(-halfFOV + coneDirection, Vector3.forward);
-        Quaternion downRayRotation = Quaternion.AngleAxis(halfFOV + coneDirection, Vector3.forward);
+        //Quaternion upRayRotation = Quaternion.AngleAxis(-halfFOV + coneDirection, Vector3.forward);
+        //Quaternion downRayRotation = Quaternion.AngleAxis(halfFOV + coneDirection, Vector3.forward);
 
-        Vector3 upRayDirection = upRayRotation * transform.right * coneDistance;
-        Vector3 downRayDirection = downRayRotation * transform.right * coneDistance;
+        //Vector3 upRayDirection = upRayRotation * transform.right * coneDistance;
+        //Vector3 downRayDirection = downRayRotation * transform.right * coneDistance;
 
-        Gizmos.DrawRay(transform.position, upRayDirection);
-        Gizmos.DrawRay(transform.position, downRayDirection);
-        Gizmos.DrawLine(transform.position + downRayDirection, transform.position + upRayDirection);
+        //Gizmos.DrawRay(transform.position, upRayDirection);
+        //Gizmos.DrawRay(transform.position, downRayDirection);
+        //Gizmos.DrawLine(transform.position + downRayDirection, transform.position + upRayDirection);
     }
 
     void Update()
@@ -62,6 +68,9 @@ public class BasicEnemy : EnemyBase
             case States.Attacking:
                 Attacking();
                 break;
+            case States.Rest:
+                Resting();
+                break;
             default:
                 Debug.LogWarning($"Invalid state: {currentState}");
                 break;
@@ -69,27 +78,58 @@ public class BasicEnemy : EnemyBase
     }
 
     #region states
+    private void Resting()
+    {
+        dotColor = Color.yellow;
+
+        if (Time.time - lastAttack > attackCooldown)
+            onCooldown = false;
+        if (!onCooldown)
+            ChangeState(States.Moving);
+        if (Vector2.Distance(transform.position, player.position) < rangeOfRest)
+            Escape();
+        else
+            ChangeState(States.Idle);
+    }
     private void Idle()
     {
-        dotColor = Color.green;
-        Patrol();
-        if (SeeSense(coneDirection))
+        if (Time.time - lastAttack > attackCooldown)
+        {
+            //Debug.Log($"Time: {Time.time}| Last Attack: {lastAttack}");
+            onCooldown = false;
+            ChangeState(States.Attacking);
+        }
+        dotColor = Color.blue;
+        StopAnimation();
+        //Patrol();
+        if (Vector2.Distance(transform.position, player.position) > rangeOfChase)
+            ChangeState(States.Moving);
+        if (Vector2.Distance(transform.position, player.position) < rangeOfRest)
+            ChangeState(States.Rest);
+        if (!onCooldown)
             ChangeState(States.Moving);
     }
     private void Moving()
     {
+        dotColor = Color.green;
         TryMove(player.position - transform.position);
-        if (Vector2.Distance(transform.position, player.position) <= minDistance)
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
             ChangeState(States.Attacking);
-        if (!SeeSense(coneDirection))
-            ChangeState(States.Idle);
+        if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
+            if (onCooldown)
+                ChangeState(States.Rest);
+        //if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
+        //    ChangeState(States.Rest);
     }
 
     private void Attacking()
     {
+        dotColor = Color.red;
         Attack();
-        if (Vector2.Distance(transform.position, player.position) > minDistance)
-            ChangeState(States.Idle);
+        if (onCooldown)
+            ChangeState(States.Rest);
+        if (Vector2.Distance(transform.position, player.position) > rangeOfAttack)
+            ChangeState(States.Moving);
     }
 
     private void ChangeState(States newState)
@@ -98,12 +138,18 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
-    public void Attack()
+    public async void Attack()
     {
-        if (Time.time - lastAttack <= attackCooldown)
+        if (onCooldown)
             return;
-        dotColor = Color.red;
+        onCooldown = true;
         lastAttack = Time.time;
-        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(10);
+        await GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
+        Debug.Log("HIT!");
+    }
+
+    private void Escape()
+    {
+        TryMove(-(player.position - transform.position));
     }
 }

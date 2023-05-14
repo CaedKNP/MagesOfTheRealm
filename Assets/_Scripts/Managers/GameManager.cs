@@ -11,6 +11,7 @@ public class GameManager : StaticInstance<GameManager>
 
     public static GameObject Player;
     public static int[,] map;
+    public static Vector2[,] mapPositions;
 
     public GameState State { get; private set; }
 
@@ -67,7 +68,8 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningEnemies()
     {
-        UnitManager.Instance.SpawnEnemy();
+        for(int i = 0; i <= 5; i++)
+            UnitManager.Instance.SpawnEnemy();
 
         ChangeState(GameState.Playing);
     }
