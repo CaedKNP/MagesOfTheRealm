@@ -6,21 +6,22 @@ using UnityEngine.UI;
 
 public class ConditionUI : MonoBehaviour
 {
-    RectTransform _rectTransform;
+    public RectTransform _rectTransform;
 
     float _rectWidth = 40;
     float _finalWidth;
     int _conditionCountMax = 9;// later change to total condition count so that it works with more?????
 
     [SerializeField]
-    int _currentConditionCount = 0;
+    int _currentConditionCount = 5;
 
     public List<Sprite> sprites;
     public List<Image> imageSlots;
 
 
-    void AddConditionSprite(int condition)
+    public void AddConditionSprite(int condition)
     {
+        Debug.Log("a");
         if (_currentConditionCount + 1 < _conditionCountMax)
         {
 
@@ -33,8 +34,9 @@ public class ConditionUI : MonoBehaviour
         }
 
     }
-    void RemoveConditionSprite(int condition)
+    public void RemoveConditionSprite(int condition)
     {
+        Debug.Log("delito");
         if (_currentConditionCount - 1 >= 0)
         {
             Image imageWithSprite = this.imageSlots.Find(image => image.sprite == sprites[condition]);
@@ -43,7 +45,7 @@ public class ConditionUI : MonoBehaviour
             if (indexOfImgToBeRemoved >= 0 && indexOfImgToBeRemoved < imageSlots.Count)
 
             {
-           
+
                 // Shift the sprites within the images
                 for (int i = indexOfImgToBeRemoved + 1; i < imageSlots.Count; i++)
                 {
@@ -51,7 +53,7 @@ public class ConditionUI : MonoBehaviour
                 }
 
                 // Clear the last sprite
-                SetImageSprite(imageSlots[_currentConditionCount],null);
+                SetImageSprite(imageSlots[_currentConditionCount], null);
 
             }
             _currentConditionCount--;
@@ -60,23 +62,14 @@ public class ConditionUI : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-
+        Debug.Log("wrrr");
         //Uncomment for testing
         //should be: [Burn,DmgUp,Cooldown]
-        //AddConditionSprite(3);
-        //AddConditionSprite(0);
-        //AddConditionSprite(5);
-        //AddConditionSprite(6);
-        //RemoveConditionSprite(3);
-        //RemoveConditionSprite(5);
-        //AddConditionSprite(7);
-        //RemoveConditionSprite(6);
-        //AddConditionSprite(8);
-        //RemoveConditionSprite(7);
-        //AddConditionSprite(7);
+       // AddConditionSprite(0);
+
 
         SetRectWidth(_currentConditionCount);
 

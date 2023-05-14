@@ -193,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c3bfae3faea79048867aa2f24bc2442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rectTransform: {fileID: 93546767448373344}
+  _currentConditionCount: 0
   sprites:
   - {fileID: 2000017694, guid: aebfb196004391c4281fa31ef0fad934, type: 3}
   - {fileID: 879079373, guid: aebfb196004391c4281fa31ef0fad934, type: 3}
@@ -203,7 +205,6 @@ MonoBehaviour:
   - {fileID: -1338973706, guid: aebfb196004391c4281fa31ef0fad934, type: 3}
   - {fileID: 419930497, guid: aebfb196004391c4281fa31ef0fad934, type: 3}
   - {fileID: 1505009606, guid: aebfb196004391c4281fa31ef0fad934, type: 3}
-  parentContainer: {fileID: 6183367870156923253}
   imageSlots:
   - {fileID: 1210896531100618639}
   - {fileID: 5678839526464195011}
@@ -214,7 +215,6 @@ MonoBehaviour:
   - {fileID: 921450488947352883}
   - {fileID: 4982495187406770481}
   - {fileID: 3930630194763610428}
-  _currentConditionCount: 0
 --- !u!222 &1006850883103061208
 CanvasRenderer:
   m_ObjectHideFlags: 0

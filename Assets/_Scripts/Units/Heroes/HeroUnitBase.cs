@@ -10,6 +10,8 @@ public class HeroUnitBase : UnitBase
 {
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    
+    int temp = 0;
 
     Stats statistics;
     bool _canMove;
@@ -47,7 +49,9 @@ public class HeroUnitBase : UnitBase
     private Animator _anim;
 
     [SerializeField]
-    public GameObject ConditionsBar;
+    public GameObject conditionsBar;
+
+    ConditionUI _conditionUI;
 
     bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
 
@@ -65,11 +69,25 @@ public class HeroUnitBase : UnitBase
         healthBar.SetMaxHealth(statistics.MaxHp);
 
         _anim = GetComponent<Animator>();
+
+        _conditionUI = conditionsBar.GetComponent<ConditionUI>();
     }
 
     void FixedUpdate()
     {
         TryMove();
+        
+        if (IsBurning && temp == 0)
+        {
+            temp++;
+            _conditionUI.AddConditionSprite(0);
+        }
+        else
+        {
+            temp = 0;
+        }
+      //  _conditionUI.RemoveConditionSprite(0);
+
     }
 
     #region Movement
@@ -208,6 +226,7 @@ public class HeroUnitBase : UnitBase
         {
             case global::Conditions.Burn:
 
+
                 if (!IsBurning)
                 {
                     CancellationToken ct = conTokenSource.Token;
@@ -219,7 +238,7 @@ public class HeroUnitBase : UnitBase
                     CancellationToken ct = conTokenSource.Token;
                     await Task.Run(BurnTask(ct, condition.AffectTime, condition.AffectOnTick));
                 }
-
+               
                 break;
             case global::Conditions.Slow:
 
@@ -593,13 +612,14 @@ public class HeroUnitBase : UnitBase
 
     #region Attack
 
-    void OnPrimaryAttack()
+    async void OnPrimaryAttack()
     {
-        if (Time.time > primaryCooldownCounter)
-        {
-            CastSpell(PrimarySpell);
-            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * statistics.CooldownModifier;
-        }
+        //if (Time.time > primaryCooldownCounter)
+        //{
+        //    CastSpell(PrimarySpell);
+        //    primaryCooldownCounter = Time.time + PrimarySpell.cooldown * statistics.CooldownModifier;
+        //}
+        await TakeDamage(0, new List<ConditionBase>() { new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 1, AffectTime = 2 } });
     }
 
     void OnSecondaryAttack()
@@ -661,7 +681,7 @@ public class HeroUnitBase : UnitBase
 
     public override void SetupCondtionsBar(Canvas canvas)
     {
-        ConditionsBar.transform.SetParent(canvas.transform);
+        conditionsBar.transform.SetParent(canvas.transform);
     }
     #endregion
 }
