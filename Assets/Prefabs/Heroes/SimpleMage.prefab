@@ -217,6 +217,7 @@ MonoBehaviour:
   pfSpell: {fileID: 0}
   spellTransform: {fileID: 473902858}
   WizandStaffFirePint: {fileID: 473902858}
+  mousePos: {x: 0, y: 0}
 --- !u!1 &6267861171628039945
 GameObject:
   m_ObjectHideFlags: 0
@@ -413,7 +414,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   PrimarySpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
-  SecondarySpell: {fileID: 11400000, guid: ec8e86ac708b4a343b47ed617f483fee, type: 2}
+  SecondarySpell: {fileID: 11400000, guid: f3cee71c71868824f8b384ba3a4fb3b2, type: 2}
   QSpell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
   ESpell: {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
   DashSpell: {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
