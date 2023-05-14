@@ -35,10 +35,9 @@ public class UnitManager : StaticInstance<UnitManager>
             // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
 
             heroSpawned.SetStats(stats);
-            heroSpawned.SetupCondtionsBar(worldSpaceCanvas);
+
             return heroSpawned.gameObject;
         }
-
         return null;
     }
 
@@ -55,10 +54,8 @@ public class UnitManager : StaticInstance<UnitManager>
             // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
 
             enemySpawned.SetStats(stats);
-            enemySpawned.SetupCondtionsBar(worldSpaceCanvas); 
             return enemySpawned.gameObject;
         }
-
         return null;
     }
 

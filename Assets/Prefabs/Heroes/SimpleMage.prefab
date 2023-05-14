@@ -418,8 +418,8 @@ MonoBehaviour:
   QSpell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
   ESpell: {fileID: 11400000, guid: dfc248fc0f6db0247b711dad8f010cdd, type: 2}
   DashSpell: {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
+  conditionsBar: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
-  conditionsBar: {fileID: 93546767448373356, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
 --- !u!95 &8531856476346468769
 Animator:
   serializedVersion: 5
@@ -539,6 +539,10 @@ PrefabInstance:
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 93546767448373346, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373356, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_Name

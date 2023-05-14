@@ -10,10 +10,9 @@ public class ConditionUI : MonoBehaviour
 
     float _rectWidth = 40;
     float _finalWidth;
-    int _conditionCountMax = 9;// later change to total condition count so that it works with more?????
 
     [SerializeField]
-    int _currentConditionCount = 5;
+    int _currentConditionCount = 0;
 
     public List<Sprite> sprites;
     public List<Image> imageSlots;
@@ -21,19 +20,18 @@ public class ConditionUI : MonoBehaviour
 
     public void AddConditionSprite(int condition)
     {
-        Debug.Log("a");
-        if (_currentConditionCount + 1 < _conditionCountMax)
-        {
+        Debug.Log("AddConditionSprite");
+        
+        SetImageSprite(imageSlots[_currentConditionCount], sprites[condition]);
 
+        _currentConditionCount++;
 
-            SetRectWidth(_currentConditionCount);
-            SetImageSprite(imageSlots[_currentConditionCount], sprites[condition]);
-            _currentConditionCount++;
+        SetRectWidth(_currentConditionCount);
 
-            Debug.Log("condition: added");
-        }
+        Debug.Log("condition: added");
 
     }
+
     public void RemoveConditionSprite(int condition)
     {
         Debug.Log("delito");
@@ -68,9 +66,8 @@ public class ConditionUI : MonoBehaviour
         Debug.Log("wrrr");
         //Uncomment for testing
         //should be: [Burn,DmgUp,Cooldown]
-       // AddConditionSprite(0);
 
-
+        //AddConditionSprite(0);
         SetRectWidth(_currentConditionCount);
 
     }

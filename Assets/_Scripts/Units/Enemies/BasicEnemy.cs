@@ -156,9 +156,4 @@ public class BasicEnemy : EnemyBase
     {
         TryMove(-(player.position - transform.position));
     }
-
-    public override void SetupCondtionsBar(Canvas canvas)
-    {
-        ConditionsBar.transform.SetParent(canvas.transform);
-    }
 }
