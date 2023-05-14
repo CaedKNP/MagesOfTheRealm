@@ -60,69 +60,61 @@ public class Pathfinding : MonoBehaviour
         Vector2Int origin = GetStandingTile(_origin);
         Vector2Int dest = GetStandingTile(_destination);
         Vector2Int point = origin;
-        float distance = Vector2Int.Distance(point, dest);
+
+        float[] distances = new float[8];
+        int closeDistance = 0;
+
         path.Add(point);
-        int i = 0;
+
         while (dest.x != point.x || dest.y != point.y)
         {
-            float tempDist = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y), dest);
             Vector2Int tempPoint = Vector2Int.zero;
-            if (tempDist < distance) // up
-            {
-                tempPoint = new Vector2Int(point.x + 1, point.y);
-                distance = tempDist;
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y), dest);
-            if (tempDist < distance) // down
-            {
-                tempPoint = new Vector2Int(point.x - 1, point.y);
-                distance = tempDist;
 
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y + 1), dest);
-            if (tempDist < distance) //up right
-            {
-                tempPoint = new Vector2Int(point.x + 1, point.y + 1);
-                distance = tempDist;
+            distances[0] = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y), dest);
+            distances[1] = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y), dest);
+            distances[2] = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y + 1), dest);
+            distances[3] = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y + 1), dest);
+            distances[4] = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y - 1), dest);
+            distances[5] = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y - 1), dest);
+            distances[6] = Vector2Int.Distance(new Vector2Int(point.x, point.y - 1), dest);
+            distances[7] = Vector2Int.Distance(new Vector2Int(point.x, point.y + 1), dest);
 
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y + 1), dest);
-            if (tempDist < distance) //down right
+            for (int i = 0; i < 8; i++)
             {
-                tempPoint = new Vector2Int(point.x - 1, point.y + 1);
-                distance = tempDist;
+                if (distances[i] < distances[closeDistance])
+                    closeDistance = i;
+            }
 
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x - 1, point.y - 1), dest);
-            if (tempDist < distance) //down left
+            switch(closeDistance)
             {
-                tempPoint = new Vector2Int(point.x - 1, point.y - 1);
-                distance = tempDist;
+                case 1:
+                    tempPoint = new Vector2Int(point.x + 1, point.y);
+                    break;
+                case 2:
+                    tempPoint = new Vector2Int(point.x - 1, point.y);
+                    break;
+                case 3:
+                    tempPoint = new Vector2Int(point.x + 1, point.y + 1);
+                    break;
+                case 4:
+                    tempPoint = new Vector2Int(point.x - 1, point.y + 1);
+                    break;
+                case 5:
+                    tempPoint = new Vector2Int(point.x - 1, point.y - 1);
+                    break;
+                case 6:
+                    tempPoint = new Vector2Int(point.x + 1, point.y - 1);
+                    break;
+                case 7:
+                    tempPoint = new Vector2Int(point.x, point.y - 1);
+                    break;
+                case 0:
+                    tempPoint = new Vector2Int(point.x, point.y + 1);
+                    break;
+            }
 
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x + 1, point.y - 1), dest);
-            if (tempDist < distance) //up left
-            {
-                tempPoint = new Vector2Int(point.x + 1, point.y - 1);
-                distance = tempDist;
-
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x, point.y - 1), dest);
-            if (tempDist < distance) //left
-            {
-                tempPoint = new Vector2Int(point.x, point.y - 1);
-                distance = tempDist;
-
-            }
-            tempDist = Vector2Int.Distance(new Vector2Int(point.x, point.y + 1), dest);
-            if (tempDist < distance) //right
-            {
-                tempPoint = new Vector2Int(point.x, point.y + 1);
-                distance = tempDist;
-            }
             point = tempPoint;
             path.Add(point);
-            i++;
         }
     }
 
