@@ -2,6 +2,7 @@
 
 public class AttachSwordToCaller : MonoBehaviour
 {
+    //GameObject player;
     public GameObject swordPrefab; // Sword prefab
 
     void Start()
@@ -29,7 +30,7 @@ public class AttachSwordToCaller : MonoBehaviour
             {
                 GameObject swordInstance = Instantiate(swordPrefab, staffRotator);
                 swordInstance.transform.localPosition = new Vector3(0f, 0f, 0f);
-                swordInstance.SetActive(true); // Włącz renderowanie miecza
+                //swordInstance.SetActive(true); // Włącz renderowanie miecza
             }
             else
             {
