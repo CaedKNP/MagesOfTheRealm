@@ -52,10 +52,10 @@ public abstract class EnemyBase : UnitBase
         statistics = stats;
     }
 
-    public override async Task TakeDamage(float dmg, List<ConditionBase> conditions)
+    public override void TakeDamage(float dmg, List<ConditionBase> conditions)
     {
 
-        await ConditionAffect(conditions);
+        ConditionAffect(conditions);
         statistics.CurrentHp -= Convert.ToInt32(dmg);
         if (statistics.CurrentHp <= 0)
             Die();

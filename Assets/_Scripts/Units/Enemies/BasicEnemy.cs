@@ -138,13 +138,13 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
-    public async void Attack()
+    public void Attack()
     {
         if (onCooldown)
             return;
         onCooldown = true;
         lastAttack = Time.time;
-        await GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
+        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
         Debug.Log("HIT!");
     }
 
