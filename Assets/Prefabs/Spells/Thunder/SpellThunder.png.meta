@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c5ca19af32137d945846e5ca13c1ea21
+guid: 6631de669bf7db44c9453e4d6c72df28
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 10
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,13 +105,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SpellThunderBolt_0
+      name: SpellThunder_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 60
-        height: 400
+        width: 32
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -119,20 +119,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33adff3908dcd4543b10d6d215f4fd88
-      internalID: -623466007
+      spriteID: 11028edc8c6151948a2c6cffbbd4eaac
+      internalID: 810206814
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_1
+      name: SpellThunder_1
       rect:
         serializedVersion: 2
-        x: 60
+        x: 32
         y: 0
-        width: 60
-        height: 400
+        width: 32
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -140,20 +140,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 884104a8f3b909b4c8fa4b0bb9576cd5
-      internalID: -504537440
+      spriteID: b0571896b48081244babb1f1643803f6
+      internalID: 53265798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_2
+      name: SpellThunder_2
       rect:
         serializedVersion: 2
-        x: 120
+        x: 64
         y: 0
-        width: 60
-        height: 400
+        width: 32
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -161,20 +161,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b1fa82c67d5b0314abf3825690d0acc8
-      internalID: -1737279837
+      spriteID: 54049feb1a647734c956b3812e4ec122
+      internalID: -179940498
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: SpellThunderBolt_3
+      name: SpellThunder_3
       rect:
         serializedVersion: 2
-        x: 180
+        x: 96
         y: 0
-        width: 60
-        height: 400
+        width: 32
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -182,8 +182,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f081e784139e58743898f83bee4ad1af
-      internalID: -1188546341
+      spriteID: e8f0eea2d88e2cb41baa9cba7918bad2
+      internalID: 1479198561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellThunder_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abc47e2d7ed8cad4cbf17c221d1be1aa
+      internalID: -1259586920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpellThunder_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 500
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16b9a896a0338a844996b05a3e468fad
+      internalID: 610162688
       vertices: []
       indices: 
       edges: []
@@ -199,10 +241,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SpellThunderBolt_0: -623466007
-      SpellThunderBolt_1: -504537440
-      SpellThunderBolt_2: -1737279837
-      SpellThunderBolt_3: -1188546341
+      SpellThunder_0: 810206814
+      SpellThunder_1: 53265798
+      SpellThunder_2: -179940498
+      SpellThunder_3: 1479198561
+      SpellThunder_4: -1259586920
+      SpellThunder_5: 610162688
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
