@@ -52,27 +52,27 @@ public abstract class EnemyBase : UnitBase
         statistics = stats;
     }
 
-    public override async Task TakeDamage(float dmg, List<ConditionBase> conditions)
+    public override void TakeDamage(float dmg, List<ConditionBase> conditions)
     {
 
-        await ConditionAffect(conditions);
+        ConditionAffect(conditions);
         statistics.CurrentHp -= Convert.ToInt32(dmg);
         if (statistics.CurrentHp <= 0)
             Die();
         return;
     }
 
-    private async Task ConditionAffect(List<ConditionBase> conditions)
+    private void ConditionAffect(List<ConditionBase> conditions)
     {
         foreach (ConditionBase condition in conditions)
         {
-            await Affect(condition);
+            Affect(condition);
         }
 
         return;
     }
 
-    private async Task Affect(ConditionBase con)
+    private void Affect(ConditionBase con)
     {
         float end;
 
@@ -80,7 +80,7 @@ public abstract class EnemyBase : UnitBase
         {
             case global::Conditions.Burn:
 
-                await GetTickDmg(con.AffectTime, con.AffectOnTick);
+                GetTickDmg(con.AffectTime, con.AffectOnTick);
 
                 break;
             case global::Conditions.Slow:
@@ -91,7 +91,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.MovementSpeed -= con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 statistics.MovementSpeed = tempSpeed;
@@ -104,12 +104,12 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     _canMove = false;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 break;
             case global::Conditions.Poison:
-                await GetTickDmg(con.AffectTime, con.AffectOnTick);
+                GetTickDmg(con.AffectTime, con.AffectOnTick);
                 break;
             case global::Conditions.SpeedUp:
 
@@ -119,7 +119,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.MovementSpeed += con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 _canMove = tempMoveSpeed;
@@ -133,7 +133,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.Armor += con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 statistics.Armor = tempArmor;
@@ -147,7 +147,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.Armor -= con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 statistics.Armor = tempArmorDown;
@@ -161,7 +161,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.CooldownModifier += con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 statistics.CooldownModifier = tempCooldown;
@@ -175,7 +175,7 @@ public abstract class EnemyBase : UnitBase
                 while (Time.time < end)
                 {
                     statistics.DmgModifier += con.AffectOnTick;
-                    await Task.Yield();
+                    Task.Yield();
                 }
 
                 statistics.DmgModifier = tempDmg;
@@ -186,13 +186,13 @@ public abstract class EnemyBase : UnitBase
         }
     }
 
-    private async Task GetTickDmg(float affectTime, float dmgToTake)
+    private void GetTickDmg(float affectTime, float dmgToTake)
     {
         var end = Time.time + affectTime;
         while (Time.time < end)
         {
             statistics.CurrentHp -= Convert.ToInt32(dmgToTake);
-            await Task.Delay(1000);
+            Task.Delay(1000);
         }
     }
 
