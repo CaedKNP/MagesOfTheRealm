@@ -22,27 +22,40 @@ public class ConditionUI : MonoBehaviour
     {
         if (_currentConditionCount + 1 < _conditionCountMax)
         {
-           
-            
+
+
             SetRectWidth(_currentConditionCount);
             SetImageSprite(imageSlots[_currentConditionCount], sprites[condition]);
             _currentConditionCount++;
-           
+
             Debug.Log("condition: added");
         }
 
     }
     void RemoveConditionSprite(int condition)
     {
-        if (_currentConditionCount - 1 != 0)
+        if (_currentConditionCount - 1 >= 0)
         {
+            Image imageWithSprite = this.imageSlots.Find(image => image.sprite == sprites[condition]);
+            int indexOfImgToBeRemoved = this.imageSlots.IndexOf(imageWithSprite);
 
-            //find the slot
-            //remove image
-            //shift everything???
-            //idk
-            throw new NotImplementedException();
+            if (indexOfImgToBeRemoved >= 0 && indexOfImgToBeRemoved < imageSlots.Count)
 
+            {
+                Sprite tempSprite = imageSlots[indexOfImgToBeRemoved].sprite;
+
+                // Shift the sprites within the images
+                for (int i = indexOfImgToBeRemoved + 1; i < imageSlots.Count; i++)
+                {
+                    imageSlots[i - 1].sprite = imageSlots[i].sprite;
+                }
+
+                // Set the sprite of the last image to null or any other desired sprite
+                imageSlots[_currentConditionCount].sprite = null;
+
+                // Set the sprite of the first image to the temporary sprite
+                //imageSlots[indexOfImgToBeRemoved].sprite = tempSprite;
+            }
             _currentConditionCount--;
             SetRectWidth(_currentConditionCount);
             Debug.Log("condition: removed");
@@ -52,9 +65,7 @@ public class ConditionUI : MonoBehaviour
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        AddConditionSprite(3);
-        AddConditionSprite(2);
-        RemoveConditionSprite(2);
+
         SetRectWidth(_currentConditionCount);
 
     }
@@ -73,5 +84,5 @@ public class ConditionUI : MonoBehaviour
     {
         img.sprite = sprite;
     }
- 
+
 }
