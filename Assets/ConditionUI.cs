@@ -6,18 +6,19 @@ using UnityEngine.UI;
 
 public class ConditionUI : MonoBehaviour
 {
-    //GameObject Bar;
-    RectTransform rectTransform;
-    float initialWidth;
-    int numberOfImages = 9; // Change this according to your requirements
-    float rectWidth = 40;
-    float finalWidth;
-    public List<Sprite> sprites;
-    public Component parentContainer;
-    public List<Image> imageSlots;
+    RectTransform _rectTransform;
+
+    float _rectWidth = 40;
+    float _finalWidth;
     int _conditionCountMax = 9;// later change to total condition count so that it works with more?????
+
     [SerializeField]
     int _currentConditionCount = 0;
+
+    public List<Sprite> sprites;
+    public List<Image> imageSlots;
+
+
     void AddConditionSprite(int condition)
     {
         if (_currentConditionCount + 1 < _conditionCountMax)
@@ -42,19 +43,16 @@ public class ConditionUI : MonoBehaviour
             if (indexOfImgToBeRemoved >= 0 && indexOfImgToBeRemoved < imageSlots.Count)
 
             {
-                Sprite tempSprite = imageSlots[indexOfImgToBeRemoved].sprite;
-
+           
                 // Shift the sprites within the images
                 for (int i = indexOfImgToBeRemoved + 1; i < imageSlots.Count; i++)
                 {
-                    imageSlots[i - 1].sprite = imageSlots[i].sprite;
+                    SetImageSprite(imageSlots[i - 1], imageSlots[i].sprite);
                 }
 
-                // Set the sprite of the last image to null or any other desired sprite
-                imageSlots[_currentConditionCount].sprite = null;
+                // Clear the last sprite
+                SetImageSprite(imageSlots[_currentConditionCount],null);
 
-                // Set the sprite of the first image to the temporary sprite
-                //imageSlots[indexOfImgToBeRemoved].sprite = tempSprite;
             }
             _currentConditionCount--;
             SetRectWidth(_currentConditionCount);
@@ -64,7 +62,21 @@ public class ConditionUI : MonoBehaviour
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+        _rectTransform = GetComponent<RectTransform>();
+
+        //Uncomment for testing
+        //should be: [Burn,DmgUp,Cooldown]
+        //AddConditionSprite(3);
+        //AddConditionSprite(0);
+        //AddConditionSprite(5);
+        //AddConditionSprite(6);
+        //RemoveConditionSprite(3);
+        //RemoveConditionSprite(5);
+        //AddConditionSprite(7);
+        //RemoveConditionSprite(6);
+        //AddConditionSprite(8);
+        //RemoveConditionSprite(7);
+        //AddConditionSprite(7);
 
         SetRectWidth(_currentConditionCount);
 
@@ -72,11 +84,11 @@ public class ConditionUI : MonoBehaviour
 
     void SetRectWidth(int currentCount)
     {
-        finalWidth = rectWidth * currentCount;
-        Vector2 sizeDelta = rectTransform.sizeDelta;
-        sizeDelta.x = finalWidth;
+        _finalWidth = _rectWidth * currentCount;
+        Vector2 sizeDelta = _rectTransform.sizeDelta;
+        sizeDelta.x = _finalWidth;
         sizeDelta.y = 40;
-        rectTransform.sizeDelta = sizeDelta;
+        _rectTransform.sizeDelta = sizeDelta;
 
     }
 
