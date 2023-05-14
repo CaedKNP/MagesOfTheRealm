@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellThunderBoltInit : MonoBehaviour
+public class SpellThunderPart1 : MonoBehaviour
 {
     float speed = 2f; // prędkość ruchu prefaba
     public GameObject pfSpell;
@@ -31,8 +31,7 @@ public class SpellThunderBoltInit : MonoBehaviour
         Quaternion spawnRotation = Quaternion.Euler(0f, 0f, -90f); // obrot o 90 stopni wokół osi Y
         GameObject newSpell = Instantiate(pfSpell, spawnPosition, spawnRotation);
 
-        SpellThunderBolt spellThunderBolt = newSpell.GetComponent<SpellThunderBolt>();
-        spellThunderBolt.previousHeight = transform.position.y;
+     
     }
 
 }
