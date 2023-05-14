@@ -9,6 +9,8 @@ public class HeroUnitBase : UnitBase
 {
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
+    
+    int temp = 0;
 
     Stats statistics;
     bool _canMove;
@@ -45,6 +47,12 @@ public class HeroUnitBase : UnitBase
     HealthBarManager healthBar;
     private Animator _anim;
 
+    [SerializeField]
+    public GameObject conditionsBar;
+
+    ConditionUI _conditionUI;
+
+    bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
 
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
@@ -61,11 +69,25 @@ public class HeroUnitBase : UnitBase
         healthBar.SetMaxHealth(statistics.MaxHp);
 
         _anim = GetComponent<Animator>();
+
+        _conditionUI = conditionsBar.GetComponent<ConditionUI>();
     }
 
     void FixedUpdate()
     {
         TryMove();
+        
+        if (IsBurning && temp == 0)
+        {
+            temp++;
+            _conditionUI.AddConditionSprite(0);
+        }
+        else
+        {
+            temp = 0;
+        }
+      //  _conditionUI.RemoveConditionSprite(0);
+
     }
 
     #region Movement
@@ -201,6 +223,19 @@ public class HeroUnitBase : UnitBase
         {
             case global::Conditions.Burn:
 
+
+                if (!IsBurning)
+                {
+                    CancellationToken ct = conTokenSource.Token;
+                    await Task.Run(BurnTask(ct, condition.AffectTime, condition.AffectOnTick));
+                }
+                else
+                {
+                    conTokenSource.Cancel();
+                    CancellationToken ct = conTokenSource.Token;
+                    await Task.Run(BurnTask(ct, condition.AffectTime, condition.AffectOnTick));
+                }
+               
                 burnRoutine ??= StartCoroutine(BurnTask(condition.AffectTime, condition.AffectOnTick));
 
                 break;
@@ -434,8 +469,14 @@ public class HeroUnitBase : UnitBase
 
     #region Attack
 
-    void OnPrimaryAttack()
+    async void OnPrimaryAttack()
     {
+        //if (Time.time > primaryCooldownCounter)
+        //{
+        //    CastSpell(PrimarySpell);
+        //    primaryCooldownCounter = Time.time + PrimarySpell.cooldown * statistics.CooldownModifier;
+        //}
+        await TakeDamage(0, new List<ConditionBase>() { new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 1, AffectTime = 2 } });
         //if (Time.time > primaryCooldownCounter)
         //{
         //    CastSpell(PrimarySpell);
@@ -499,6 +540,11 @@ public class HeroUnitBase : UnitBase
         {
             Debug.LogWarning("SpellRotator is not assigned!");
         }
+    }
+
+    public override void SetupCondtionsBar(Canvas canvas)
+    {
+        conditionsBar.transform.SetParent(canvas.transform);
     }
     #endregion
 }

@@ -18,6 +18,10 @@ public class BasicEnemy : EnemyBase
 
     private float lastAttack = 0;
 
+    [SerializeField]
+    public GameObject ConditionsBar;
+
+
     public enum States
     {
         Idle,
@@ -151,5 +155,10 @@ public class BasicEnemy : EnemyBase
     private void Escape()
     {
         TryMove(-(player.position - transform.position));
+    }
+
+    public override void SetupCondtionsBar(Canvas canvas)
+    {
+        ConditionsBar.transform.SetParent(canvas.transform);
     }
 }
