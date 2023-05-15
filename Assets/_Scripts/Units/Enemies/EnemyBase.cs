@@ -37,14 +37,15 @@ public abstract class EnemyBase : UnitBase
     protected Animator _anim;
     protected SpriteRenderer spriteRenderer;
 
+    Component conditionsBar;
+
+    ConditionUI _conditionUI;
+
+    Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
+
     public override void Die()
     {
         Debug.Log($"{name} is dead");
-    }
-
-    public override void LockMovement()
-    {
-        throw new System.NotImplementedException();
     }
 
     public override void SetStats(Stats stats)
@@ -52,133 +53,70 @@ public abstract class EnemyBase : UnitBase
         statistics = stats;
     }
 
-    public override async Task TakeDamage(float dmg, List<ConditionBase> conditions)
+    public override void TakeDamage(float dmg, List<ConditionBase> conditions)
     {
-
-        await ConditionAffect(conditions);
+        ConditionAffect(conditions);
         statistics.CurrentHp -= Convert.ToInt32(dmg);
         if (statistics.CurrentHp <= 0)
             Die();
         return;
     }
 
-    private async Task ConditionAffect(List<ConditionBase> conditions)
+    private void ConditionAffect(List<ConditionBase> conditions)
     {
         foreach (ConditionBase condition in conditions)
         {
-            await Affect(condition);
+            Affect(condition);
         }
-
-        return;
     }
 
-    private async Task Affect(ConditionBase con)
+    private void Affect(ConditionBase condition)
     {
-        float end;
-
-        switch (con.Conditions)
+        switch (condition.Conditions)
         {
             case global::Conditions.Burn:
 
-                await GetTickDmg(con.AffectTime, con.AffectOnTick);
+                burnRoutine ??= StartCoroutine(BurnTask(condition));
 
                 break;
             case global::Conditions.Slow:
 
-                end = Time.time + con.AffectTime;
-                var tempSpeed = statistics.MovementSpeed;
-
-                while (Time.time < end)
-                {
-                    statistics.MovementSpeed -= con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                statistics.MovementSpeed = tempSpeed;
+                slowRoutine ??= StartCoroutine(SlowTask(condition));
 
                 break;
             case global::Conditions.Freeze:
 
-                end = Time.time + con.AffectTime;
-
-                while (Time.time < end)
-                {
-                    _canMove = false;
-                    await Task.Yield();
-                }
+                freezeRoutine ??= StartCoroutine(FreezeTask(condition));
 
                 break;
             case global::Conditions.Poison:
-                await GetTickDmg(con.AffectTime, con.AffectOnTick);
+
+                poisonRoutine ??= StartCoroutine(PoisonTask(condition));
+
                 break;
             case global::Conditions.SpeedUp:
 
-                end = Time.time + con.AffectTime;
-                var tempMoveSpeed = _canMove;
-
-                while (Time.time < end)
-                {
-                    statistics.MovementSpeed += con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                _canMove = tempMoveSpeed;
+                speedUpRoutine ??= StartCoroutine(SpeedUpTask(condition));
 
                 break;
             case global::Conditions.ArmorUp:
 
-                end = Time.time + con.AffectTime;
-                var tempArmor = statistics.Armor;
-
-                while (Time.time < end)
-                {
-                    statistics.Armor += con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                statistics.Armor = tempArmor;
+                armorUpRoutine ??= StartCoroutine(ArmorUpTask(condition));
 
                 break;
             case global::Conditions.ArmorDown:
 
-                end = Time.time + con.AffectTime;
-                var tempArmorDown = statistics.Armor;
-
-                while (Time.time < end)
-                {
-                    statistics.Armor -= con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                statistics.Armor = tempArmorDown;
+                armorDownRoutine ??= StartCoroutine(ArmorDownTask(condition));
 
                 break;
             case global::Conditions.Haste:
 
-                end = Time.time + con.AffectTime;
-                var tempCooldown = statistics.CooldownModifier;
-
-                while (Time.time < end)
-                {
-                    statistics.CooldownModifier += con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                statistics.CooldownModifier = tempCooldown;
+                hasteRoutine ??= StartCoroutine(HasteTask(condition));
 
                 break;
             case global::Conditions.DmgUp:
 
-                end = Time.time + con.AffectTime;
-                var tempDmg = statistics.DmgModifier;
-
-                while (Time.time < end)
-                {
-                    statistics.DmgModifier += con.AffectOnTick;
-                    await Task.Yield();
-                }
-
-                statistics.DmgModifier = tempDmg;
+                dmgUpRoutine ??= StartCoroutine(DmgUpTask(condition));
 
                 break;
             default:
@@ -186,20 +124,187 @@ public abstract class EnemyBase : UnitBase
         }
     }
 
-    private async Task GetTickDmg(float affectTime, float dmgToTake)
+    private IEnumerator BurnTask(ConditionBase condition)
     {
-        var end = Time.time + affectTime;
-        while (Time.time < end)
+        _conditionUI.AddConditionSprite(0);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
         {
-            statistics.CurrentHp -= Convert.ToInt32(dmgToTake);
-            await Task.Delay(1000);
+            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+
+            if (statistics.CurrentHp <= 0)
+                Die();
+
+            yield return new WaitForSeconds(1);
         }
+
+        _conditionUI.RemoveConditionSprite(0);
+        burnRoutine = null;
     }
+
+    private IEnumerator SlowTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(1);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempSpeed = statistics.MovementSpeed;
+
+        statistics.MovementSpeed -= statistics.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(1);
+        statistics.MovementSpeed = tempSpeed;
+        slowRoutine = null;
+    }
+
+    private IEnumerator PoisonTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(2);
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
+        {
+            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+
+            if (statistics.CurrentHp <= 0)
+                Die();
+
+            yield return new WaitForSeconds(1);
+        }
+
+        _conditionUI.RemoveConditionSprite(2);
+        poisonRoutine = null;
+    }
+
+    private IEnumerator FreezeTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(3);
+
+        _canMove = false;
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(3);
+        _canMove = true;
+        freezeRoutine = null;
+    }
+
+    private IEnumerator SpeedUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(4);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempMoveSpeed = statistics.MovementSpeed;
+
+        statistics.MovementSpeed += statistics.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(4);
+        statistics.MovementSpeed = tempMoveSpeed;
+        speedUpRoutine = null;
+    }
+
+    private IEnumerator ArmorUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(5);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmor = statistics.Armor;
+
+        statistics.Armor += statistics.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        statistics.Armor = tempArmor;
+
+        _conditionUI.RemoveConditionSprite(5);
+        armorUpRoutine = null;
+    }
+
+    private IEnumerator ArmorDownTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(6);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmorDown = statistics.Armor;
+
+        statistics.Armor -= statistics.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        statistics.Armor = tempArmorDown;
+
+        _conditionUI.RemoveConditionSprite(6);
+        armorDownRoutine = null;
+    }
+
+    private IEnumerator HasteTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(7);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempCooldown = statistics.CooldownModifier;
+
+        statistics.CooldownModifier += statistics.CooldownModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        statistics.CooldownModifier = tempCooldown;
+
+        _conditionUI.RemoveConditionSprite(7);
+        hasteRoutine = null;
+    }
+
+    private IEnumerator DmgUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(8);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempDmg = statistics.DmgModifier;
+
+        statistics.DmgModifier += statistics.DmgModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        statistics.DmgModifier = tempDmg;
+
+        _conditionUI.RemoveConditionSprite(8);
+        dmgUpRoutine = null;
+    }
+
 
     public void StopAnimation()
     {
         _anim.CrossFade("Idle", 0, 0);
     }
+
     public override bool TryMove(Vector2 direction)
     {
         if (!_canMove)
@@ -207,6 +312,7 @@ public abstract class EnemyBase : UnitBase
 
         _anim.CrossFade("Walk", 0, 0);
         direction.Normalize();
+
         if (direction != Vector2.zero)
         {
             // Check for potential collisions
@@ -231,7 +337,6 @@ public abstract class EnemyBase : UnitBase
                 //Debug.Log(direction);
                 return true;
             }
-
             return false;
         }
         else
@@ -243,21 +348,20 @@ public abstract class EnemyBase : UnitBase
         return false;
     }
 
-    public override void UnlockMovement()
-    {
-        throw new System.NotImplementedException();
-    }
     protected void Patrol()
     {
         TryMove(randomDestination);
+
         if (Time.time - lastPatrol <= 1)
             return;
+
         randomDestination = Random.insideUnitCircle * PatrolRadius;//new Vector2(Random.Range(-1, 2), Random.Range(-1, 2));
         randomDestination += PatrolPoint;
 
         //Debug.Log(randomDestination);
         lastPatrol = Time.time;
     }
+
     protected bool SeeSense(float heading)
     {
         if (Vector2.Distance(player.position, transform.position) >= seeDistance)
