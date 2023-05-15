@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class Pathfinding : MonoBehaviour
 {
@@ -19,7 +17,6 @@ public class Pathfinding : MonoBehaviour
 
     private void GenerateVectorMap()
     {
-
         mapVector = new Vector2[GameManager.map.GetLength(0), GameManager.map.GetLength(0)];
         for (int i = 0; i < GameManager.map.GetLength(0); i++)
         {
@@ -32,8 +29,8 @@ public class Pathfinding : MonoBehaviour
                 mapVector[i, j] = dotPos;
             }
         }
-
     }
+
     private void Start()
     {
         path = new List<Vector2Int>();
@@ -121,6 +118,7 @@ public class Pathfinding : MonoBehaviour
     public Vector2Int GetStandingTile(Vector2 target)
     {
         Vector2Int pos = new(0, 0);
+
         for (int i = 0; i < mapVector.GetLength(0); i++)
         {
             for (int j = 0; j < mapVector.GetLength(1); j++)
@@ -129,7 +127,6 @@ public class Pathfinding : MonoBehaviour
                     pos = new(i, j);
             }
         }
-
         return pos;
     }
 
@@ -138,6 +135,7 @@ public class Pathfinding : MonoBehaviour
         Vector2 target = (Vector2)_target;
 
         Vector2Int pos = new(0, 0);
+
         for (int i = 0; i < mapVector.GetLength(0); i++)
         {
             for (int j = 0; j < mapVector.GetLength(1); j++)
@@ -146,7 +144,6 @@ public class Pathfinding : MonoBehaviour
                     pos = new(i, j);
             }
         }
-
         return pos;
     }
 }

@@ -1,8 +1,5 @@
 using Assets._Scripts.Utilities;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class BasicEnemy : EnemyBase
@@ -31,13 +28,13 @@ public class BasicEnemy : EnemyBase
 
     void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = States.Moving;
         _anim = GetComponent<Animator>();
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = dotColor;
@@ -152,6 +149,7 @@ public class BasicEnemy : EnemyBase
         Instantiate(spell.Prefab, (transform.position + dirToPlayer), Quaternion.AngleAxis(angle, Vector3.forward));
         //GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 1, 3, 1);
     }
+
     private void Escape()
     {
         TryMove(-(player.position - transform.position));

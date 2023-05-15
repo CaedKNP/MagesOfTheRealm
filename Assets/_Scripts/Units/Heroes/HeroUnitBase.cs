@@ -1,18 +1,17 @@
 using Assets._Scripts.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class HeroUnitBase : UnitBase
 {
-    public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    Stats statistics;
-    bool _canMove;
+    Stats stats;
+    bool _canMove = true;
 
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
@@ -20,19 +19,37 @@ public class HeroUnitBase : UnitBase
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
-    Spell[] spells = new Spell[5];
+    Spell PrimarySpell;
+    float primaryCooldownCounter = 0f;
+
+    [SerializeField]
+    Spell SecondarySpell;
+    float secondaryCooldownCounter = 0f;
+
+    [SerializeField]
+    Spell QSpell;
+    float QCooldownCounter = 0f;
+
+    [SerializeField]
+    Spell ESpell;
+    float ECooldownCounter = 0f;
+
+    [SerializeField]
+    Spell DashSpell;
+    float DashCooldownCounter = 0f;
+
     StaffRotation spellRotator;
+
+    Component conditionsBar;
+
+    ConditionUI _conditionUI;
 
     [SerializeField]
     public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
     private Animator _anim;
 
-    bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
-
-    void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
-
-    void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
+    Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
 
     void Start()
     {
@@ -40,24 +57,19 @@ public class HeroUnitBase : UnitBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         spellRotator = GetComponentInChildren<StaffRotation>();
 
-        //spells[0] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Primary).FirstOrDefault();
-        //spells[1] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Secondary).FirstOrDefault();
-        //spells[2] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellQ).FirstOrDefault();
-        //spells[3] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.SpellE).FirstOrDefault();
-        //spells[4] = ResourceSystem.Instance.AllSpells.Where(s => s.spellSlot == SpellSlot.Dash).FirstOrDefault();
-
         healthBar = FindObjectOfType<HealthBarManager>();
-        healthBar.SetMaxHealth(statistics.MaxHp);
+        healthBar.SetMaxHealth(stats.MaxHp);
 
         _anim = GetComponent<Animator>();
+
+        conditionsBar = gameObject.transform.GetChild(0);
+
+        _conditionUI = conditionsBar.GetComponent<ConditionUI>();
     }
 
     void FixedUpdate()
     {
         TryMove();
-
-        if (statistics.CurrentHp <= 0)
-            Die();
     }
 
     #region Movement
@@ -99,7 +111,6 @@ public class HeroUnitBase : UnitBase
             _anim.CrossFade("Idle", 0, 0);
         }
 
-        // Set direction of sprite to movement direction
         if (movementInput.x < 0)
         {
             spriteRenderer.flipX = false;
@@ -119,233 +130,94 @@ public class HeroUnitBase : UnitBase
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                moveSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                stats.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + moveSpeed * Time.fixedDeltaTime * direction);
+                rb.MovePosition(rb.position + stats.MovementSpeed * Time.fixedDeltaTime * direction);
                 return true;
             }
 
             return false;
         }
-
-        // Can't move if there's no direction to move in
         return false;
-    }
-
-    void OnMove(InputValue movementValue)
-    {
-        movementInput = movementValue.Get<Vector2>();
-    }
-
-    public override void LockMovement()
-    {
-        _canMove = false;
-    }
-
-    public override void UnlockMovement()
-    {
-        _canMove = true;
     }
 
     #endregion
 
-    void OnStateChanged(GameState newState)
-    {
-        if (newState == GameState.Playing) _canMove = true;
-    }
-
     public override void SetStats(Stats stats)
     {
-        statistics = stats;
+        this.stats = stats;
     }
 
-    public override async Task TakeDamage(List<Conditions> conditions, int dmgToTake, float conAffectTime, int affectDmgPerTick)
+    public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
-        statistics.CurrentHp -= Convert.ToInt32(dmgToTake * statistics.Armor);
+        stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor);
 
-        await ConditionAffect(conditions, conAffectTime, affectDmgPerTick);
+        healthBar.SetHealth(stats.CurrentHp);
 
-        healthBar.SetHealth(statistics.CurrentHp);
+        if (stats.CurrentHp <= 0)
+            Die();
 
-        return;
+        ConditionAffect(conditions);
     }
 
-    private async Task ConditionAffect(List<Conditions> conditions, float conAffectTime, int affectDmgPerTick)
-    {
-        foreach (Conditions con in conditions)
-        {
-            await Affect(con, conAffectTime, affectDmgPerTick);
-        }
+    #region Conditions
 
-        return;
+    private void ConditionAffect(List<ConditionBase> conditions)
+    {
+        if (conditions.Count > 0 && conditions != null)
+            foreach (ConditionBase condition in conditions)
+                Affect(condition);
     }
 
-    private async Task Affect(Conditions con, float conAffectTime, int affectDmgPerTick)
+    private void Affect(ConditionBase condition)
     {
-        float end;
-
-        switch (con)
+        switch (condition.Conditions)
         {
             case global::Conditions.Burn:
 
-                if (!IsBurning)
-                {
-                    IsBurning = true;
-                    await GetTickDmg(conAffectTime, affectDmgPerTick);
-                    IsBurning = false;
-                }
+                burnRoutine ??= StartCoroutine(BurnTask(condition));
 
                 break;
             case global::Conditions.Slow:
 
-                if (!IsSlowed)
-                {
-                    IsSlowed = true;
-
-                    end = Time.time + conAffectTime;
-                    var tempSpeed = statistics.MovementSpeed;
-
-                    while (Time.time < end)
-                    {
-                        statistics.MovementSpeed -= (statistics.MovementSpeed / 100) * affectDmgPerTick;//Precentage slow
-                        await Task.Yield();
-                    }
-
-                    statistics.MovementSpeed = tempSpeed;
-                    IsSlowed = false;
-                }
+                slowRoutine ??= StartCoroutine(SlowTask(condition));
 
                 break;
             case global::Conditions.Freeze:
 
-                if (!IsFreezed)
-                {
-                    IsFreezed = true;
-                    _canMove = false;
-
-                    end = Time.time + conAffectTime;
-
-                    while (Time.time < end)
-                    {
-                        await Task.Yield();
-                    }
-
-                    _canMove = true;
-                    IsFreezed = false;
-                }
+                freezeRoutine ??= StartCoroutine(FreezeTask(condition));
 
                 break;
             case global::Conditions.Poison:
 
-                if (!IsPoisoned)
-                {
-                    IsPoisoned = true;
-
-                    await GetTickDmg(conAffectTime, affectDmgPerTick);
-
-                    IsPoisoned = false;
-                }
+                poisonRoutine ??= StartCoroutine(PoisonTask(condition));
 
                 break;
             case global::Conditions.SpeedUp:
 
-                if (!IsSpeededUp)
-                {
-                    IsSpeededUp = true;
-
-                    end = Time.time + conAffectTime;
-                    var tempMoveSpeed = statistics.MovementSpeed;
-
-                    while (Time.time < end)
-                    {
-                        statistics.MovementSpeed += (statistics.MovementSpeed / 100) * affectDmgPerTick;//Precentage speedup
-                        await Task.Yield();
-                    }
-
-                    statistics.MovementSpeed = tempMoveSpeed;
-                    IsSpeededUp = false;
-                }
+                speedUpRoutine ??= StartCoroutine(SpeedUpTask(condition));
 
                 break;
             case global::Conditions.ArmorUp:
 
-                if (!HasArmorUp)
-                {
-                    HasArmorUp = true;
-
-                    end = Time.time + conAffectTime;
-                    var tempArmor = statistics.Armor;
-
-                    while (Time.time < end)
-                    {
-                        statistics.Armor += (statistics.Armor / 100) * affectDmgPerTick;//Precentage armorup
-                        await Task.Yield();
-                    }
-
-                    statistics.Armor = tempArmor;
-                    HasArmorUp = false;
-                }
+                armorUpRoutine ??= StartCoroutine(ArmorUpTask(condition));
 
                 break;
             case global::Conditions.ArmorDown:
 
-                if (!HasArmorDown)
-                {
-                    HasArmorDown = true;
-
-                    end = Time.time + conAffectTime;
-                    var tempArmorDown = statistics.Armor;
-
-                    while (Time.time < end)
-                    {
-                        statistics.Armor -= (statistics.Armor / 100) * affectDmgPerTick;//Precentage armordown
-                        await Task.Yield();
-                    }
-
-                    statistics.Armor = tempArmorDown;
-                    HasArmorDown = false;
-                }
+                armorDownRoutine ??= StartCoroutine(ArmorDownTask(condition));
 
                 break;
             case global::Conditions.Haste:
 
-                if (!HasHaste)
-                {
-                    HasHaste = true;
-
-                    end = Time.time + conAffectTime;
-                    var tempCooldown = statistics.CooldownModifier;
-
-                    while (Time.time < end)
-                    {
-                        statistics.CooldownModifier += affectDmgPerTick;
-                        await Task.Yield();
-                    }
-
-                    statistics.CooldownModifier = tempCooldown;
-                    HasHaste = false;
-                }
+                hasteRoutine ??= StartCoroutine(HasteTask(condition));
 
                 break;
             case global::Conditions.DmgUp:
 
-                if (!HasDmgUp)
-                {
-                    HasDmgUp = true;
-                    end = Time.time + conAffectTime;
-                    var tempDmg = statistics.DmgModifier;
-
-                    while (Time.time < end)
-                    {
-                        statistics.DmgModifier += affectDmgPerTick;
-                        await Task.Yield();
-                    }
-
-                    statistics.DmgModifier = tempDmg;
-                    HasDmgUp = false;
-                }
+                dmgUpRoutine ??= StartCoroutine(DmgUpTask(condition));
 
                 break;
             default:
@@ -353,14 +225,264 @@ public class HeroUnitBase : UnitBase
         }
     }
 
-    private async Task GetTickDmg(float conAffectTime, int affectDmgPerTick)
+    private IEnumerator BurnTask(ConditionBase condition)
     {
-        var end = Time.time + conAffectTime;
-        while (Time.time < end)
+        _conditionUI.AddConditionSprite(0);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
         {
-            await Task.Delay(1000);
-            Debug.Log($"{name} is taking tick dmg {affectDmgPerTick}");
-            statistics.CurrentHp -= affectDmgPerTick;
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+
+            healthBar.SetHealth(stats.CurrentHp);
+
+            if (stats.CurrentHp <= 0)
+                Die();
+
+            yield return new WaitForSeconds(1);
+        }
+
+        _conditionUI.RemoveConditionSprite(0);
+        burnRoutine = null;
+    }
+
+    private IEnumerator SlowTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(1);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempSpeed = stats.MovementSpeed;
+
+        stats.MovementSpeed -= stats.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(1);
+        stats.MovementSpeed = tempSpeed;
+        slowRoutine = null;
+    }
+
+    private IEnumerator PoisonTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(2);
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
+        {
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+
+            healthBar.SetHealth(stats.CurrentHp);
+
+            if (stats.CurrentHp <= 0)
+                Die();
+
+            yield return new WaitForSeconds(1);
+        }
+
+        _conditionUI.RemoveConditionSprite(2);
+        poisonRoutine = null;
+    }
+
+    private IEnumerator FreezeTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(3);
+
+        _canMove = false;
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(3);
+        _canMove = true;
+        freezeRoutine = null;
+    }
+
+    private IEnumerator SpeedUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(4);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempMoveSpeed = stats.MovementSpeed;
+
+        stats.MovementSpeed += stats.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(4);
+        stats.MovementSpeed = tempMoveSpeed;
+        speedUpRoutine = null;
+    }
+
+    private IEnumerator ArmorUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(5);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmor = stats.Armor;
+
+        stats.Armor += stats.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        stats.Armor = tempArmor;
+
+        _conditionUI.RemoveConditionSprite(5);
+        armorUpRoutine = null;
+    }
+
+    private IEnumerator ArmorDownTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(6);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmorDown = stats.Armor;
+
+        stats.Armor -= stats.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        stats.Armor = tempArmorDown;
+
+        _conditionUI.RemoveConditionSprite(6);
+        armorDownRoutine = null;
+    }
+
+    private IEnumerator HasteTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(7);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempCooldown = stats.CooldownModifier;
+
+        stats.CooldownModifier += stats.CooldownModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        stats.CooldownModifier = tempCooldown;
+
+        _conditionUI.RemoveConditionSprite(7);
+        hasteRoutine = null;
+    }
+
+    private IEnumerator DmgUpTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(8);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempDmg = stats.DmgModifier;
+
+        stats.DmgModifier += stats.DmgModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        stats.DmgModifier = tempDmg;
+
+        _conditionUI.RemoveConditionSprite(8);
+        dmgUpRoutine = null;
+    }
+
+    #endregion
+
+    #region Input
+
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
+
+    void OnPrimaryAttack()
+    {
+        if (Time.time > primaryCooldownCounter)
+        {
+            CastSpell(PrimarySpell);
+            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * stats.CooldownModifier;
+        }
+    }
+
+    void OnSecondaryAttack()
+    {
+        if (Time.time > secondaryCooldownCounter)
+        {
+            CastSpell(SecondarySpell);
+            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * stats.CooldownModifier;
+        }
+    }
+
+    void OnQSpell()
+    {
+        if (Time.time > QCooldownCounter)
+        {
+            CastSpell(QSpell);
+            QCooldownCounter = Time.time + QSpell.cooldown * stats.CooldownModifier;
+        }
+    }
+
+    void OnESpell()
+    {
+        if (Time.time > ECooldownCounter)
+        {
+            CastSpell(ESpell);
+            ECooldownCounter = Time.time + ESpell.cooldown * stats.CooldownModifier;
+        }
+    }
+
+    void OnDodge()
+    {
+        if (Time.time > DashCooldownCounter)
+        {
+            CastSpell(DashSpell);
+            DashCooldownCounter = Time.time + DashSpell.cooldown * stats.CooldownModifier;
+        }
+    }
+
+    void OnInteraction()
+    {
+
+    }
+
+    #endregion
+
+    void CastSpell(Spell spell)
+    {
+        Debug.Log("Casting spell " + spell);
+
+        if (spellRotator != null)
+        {
+            if (spell.CastFromHeroeNoStaff)
+            {
+                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+            }
+            else
+            {
+                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+            }
+        }
+        else
+        {
+            Debug.LogWarning("SpellRotator is not assigned!");
         }
     }
 
@@ -368,46 +490,4 @@ public class HeroUnitBase : UnitBase
     {
         Debug.Log($"{name} is dead");
     }
-
-    #region Attack
-
-    void OnPrimaryAttack()
-    {
-        CastSpell(0);
-    }
-
-    void OnSecondaryAttack()
-    {
-        CastSpell(1);
-    }
-
-    void OnQSpell()
-    {
-        CastSpell(2);
-    }
-
-    void OnESpell()
-    {
-        CastSpell(3);
-    }
-
-    void OnDodge()
-    {
-        CastSpell(4);
-    }
-
-    void CastSpell(int index)
-    {
-        Debug.Log("Casting spell " + index);
-
-        if (spellRotator != null)
-        {
-            Instantiate(spells[index].Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
-        }
-        else
-        {
-            Debug.LogWarning("SpellRotator is not assigned!");
-        }
-    }
-    #endregion
 }
