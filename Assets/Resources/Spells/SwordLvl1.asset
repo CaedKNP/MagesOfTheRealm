@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SwordLvl1
   m_EditorClassIdentifier: 
   Prefab: {fileID: 639514538004180302, guid: 7c76460e93cc5a74f8e79051c3332587, type: 3}
-  CastFromHeroeNoStaff: 0
+  CastFromHeroeNoStaff: 1
   ID: 14
   cooldown: 1
   spellSlot: 0
