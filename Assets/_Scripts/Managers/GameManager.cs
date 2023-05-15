@@ -63,7 +63,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleStarting()
     {
-        SceneManager.LoadScene("LevelTest");
+        //SceneManager.LoadScene("LevelTest");
         map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }

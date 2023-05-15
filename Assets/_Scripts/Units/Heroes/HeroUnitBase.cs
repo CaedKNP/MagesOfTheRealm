@@ -10,7 +10,7 @@ public class HeroUnitBase : UnitBase
 {
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
-    
+
     GameObject newMage;
     Stats stats;
     bool _canMove = true;
@@ -51,7 +51,7 @@ public class HeroUnitBase : UnitBase
     HealthBarManager healthBar;
     private Animator _anim;
 
-    Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
+    Coroutine changeRoutine, burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
 
     void Start()
     {
@@ -76,9 +76,23 @@ public class HeroUnitBase : UnitBase
 
     public void ChangeMage(string mageName)
     {
+        changeRoutine ??= StartCoroutine(ChangeAndWait(mageName));
+    }
+
+    private IEnumerator ChangeAndWait(string mageName)
+    {
+        yield return new WaitForSeconds(1.5f);
+
         this.gameObject.SetActive(false);
         UnitManager.Instance.SpawnHero(mageName, this.gameObject.transform.position);
         Destroy(this.gameObject);
+
+        changeRoutine = null;
+    }
+
+    private IEnumerator Nothing()
+    {
+        yield return new WaitForSeconds(0.00001f);
     }
 
     #region Movement
@@ -238,9 +252,9 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(0);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
@@ -260,12 +274,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(1);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempSpeed = stats.MovementSpeed;
 
         stats.MovementSpeed -= stats.MovementSpeed * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -278,9 +292,9 @@ public class HeroUnitBase : UnitBase
     private IEnumerator PoisonTask(ConditionBase condition)
     {
         _conditionUI.AddConditionSprite(2);
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
@@ -302,9 +316,9 @@ public class HeroUnitBase : UnitBase
 
         _canMove = false;
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -318,12 +332,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(4);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempMoveSpeed = stats.MovementSpeed;
 
         stats.MovementSpeed += stats.MovementSpeed * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -337,12 +351,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(5);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempArmor = stats.Armor;
 
         stats.Armor += stats.Armor * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -357,12 +371,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(6);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempArmorDown = stats.Armor;
 
         stats.Armor -= stats.Armor * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -377,12 +391,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(7);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempCooldown = stats.CooldownModifier;
 
         stats.CooldownModifier += stats.CooldownModifier * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -397,12 +411,12 @@ public class HeroUnitBase : UnitBase
     {
         _conditionUI.AddConditionSprite(8);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempDmg = stats.DmgModifier;
 
         stats.DmgModifier += stats.DmgModifier * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -469,7 +483,7 @@ public class HeroUnitBase : UnitBase
 
     void OnInteraction()
     {
-        
+        TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
     }
 
     #endregion
