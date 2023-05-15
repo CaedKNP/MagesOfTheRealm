@@ -2,6 +2,7 @@ using Assets._Scripts.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,8 @@ public class HeroUnitBase : UnitBase
 {
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
-
+    
+    GameObject newMage;
     Stats stats;
     bool _canMove = true;
 
@@ -70,6 +72,13 @@ public class HeroUnitBase : UnitBase
     void FixedUpdate()
     {
         TryMove();
+    }
+
+    public void ChangeMage(string mageName)
+    {
+        this.gameObject.SetActive(false);
+        UnitManager.Instance.SpawnHero(mageName, this.gameObject.transform.position);
+        Destroy(this.gameObject);
     }
 
     #region Movement
@@ -460,7 +469,7 @@ public class HeroUnitBase : UnitBase
 
     void OnInteraction()
     {
-
+        
     }
 
     #endregion
