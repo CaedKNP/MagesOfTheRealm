@@ -16,6 +16,7 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
+    //If u wanna play on hub change GameState to Hub
     void Start() => ChangeState(GameState.Hub);
 
     public void ChangeState(GameState newState)
@@ -58,7 +59,6 @@ public class GameManager : StaticInstance<GameManager>
     void HandleHub()
     {
         Player = UnitManager.Instance.SpawnHero("BlueMage", new Vector2(27, 42));
-        //ChangeState(GameState.SpawningHero);
     }
 
     void HandleStarting()
@@ -70,7 +70,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningHero()
     {
-        Player = UnitManager.Instance.SpawnHero("RedMage");
+        Player = UnitManager.Instance.SpawnHero("OrangeMage");
 
         ChangeState(GameState.SpawningEnemies);
     }

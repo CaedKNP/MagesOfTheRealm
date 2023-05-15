@@ -1,12 +1,10 @@
 using UnityEngine;
-using System.Linq;
 
 /// <summary>
 /// An scene-specific manager spawning units
 /// </summary>
 public class UnitManager : StaticInstance<UnitManager>
 {
-
     [SerializeField]
     private Canvas worldSpaceCanvas;
 
@@ -37,8 +35,6 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableHero.BaseStats;
 
-            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
-
             heroSpawned.SetStats(stats);
 
             return heroSpawned.gameObject;
@@ -55,8 +51,6 @@ public class UnitManager : StaticInstance<UnitManager>
             var enemySpawned = Instantiate(ScriptableEnemy.Prefab, pos, Quaternion.identity, transform);
 
             var stats = ScriptableEnemy.BaseStats;
-
-            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
 
             enemySpawned.SetStats(stats);
             return enemySpawned.gameObject;
