@@ -19,7 +19,7 @@ MonoBehaviour:
     _MovementSpeed: 5
     _DmgModifier: 1
     _CooldownModifier: 1
-  Prefab: {fileID: -7794513531059996055, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
+  Prefab: {fileID: -7794513531059996055, guid: 28b87e5d786c3de42a9f696c364ab00c, type: 3}
   Description: Blue Mage
   MenuSprite: {fileID: 1518644751, guid: 162c0bc9ce08eff4c8e33c231a46962e, type: 3}
   HeroName: BlueMage
