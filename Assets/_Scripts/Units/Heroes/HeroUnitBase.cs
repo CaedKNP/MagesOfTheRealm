@@ -1,8 +1,7 @@
 using Assets._Scripts.Utilities;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,7 +10,7 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    Stats statistics;
+    Stats stats;
     bool _canMove;
 
     Vector2 movementInput;
@@ -41,12 +40,16 @@ public class HeroUnitBase : UnitBase
 
     StaffRotation spellRotator;
 
+    Component conditionsBar;
+
+    ConditionUI _conditionUI;
+
     [SerializeField]
     public GameObject healthBarManagerObj;
     HealthBarManager healthBar;
     private Animator _anim;
 
-    bool IsBurning, IsFreezed, IsSlowed, IsSpeededUp, IsPoisoned, HasArmorUp, HasArmorDown, HasHaste, HasDmgUp;
+    Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
 
     void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
 
@@ -59,9 +62,13 @@ public class HeroUnitBase : UnitBase
         spellRotator = GetComponentInChildren<StaffRotation>();
 
         healthBar = FindObjectOfType<HealthBarManager>();
-        healthBar.SetMaxHealth(statistics.MaxHp);
+        healthBar.SetMaxHealth(stats.MaxHp);
 
         _anim = GetComponent<Animator>();
+
+        conditionsBar = gameObject.transform.GetChild(0);
+
+        _conditionUI = conditionsBar.GetComponent<ConditionUI>();
     }
 
     void FixedUpdate()
@@ -128,34 +135,18 @@ public class HeroUnitBase : UnitBase
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                statistics.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                stats.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + statistics.MovementSpeed * Time.fixedDeltaTime * direction);
+                rb.MovePosition(rb.position + stats.MovementSpeed * Time.fixedDeltaTime * direction);
                 return true;
             }
 
             return false;
         }
-
         // Can't move if there's no direction to move in
         return false;
-    }
-
-    void OnMove(InputValue movementValue)
-    {
-        movementInput = movementValue.Get<Vector2>();
-    }
-
-    public override void LockMovement()
-    {
-        _canMove = false;
-    }
-
-    public override void UnlockMovement()
-    {
-        _canMove = true;
     }
 
     #endregion
@@ -167,175 +158,77 @@ public class HeroUnitBase : UnitBase
 
     public override void SetStats(Stats stats)
     {
-        statistics = stats;
+        this.stats = stats;
     }
 
-    public override async Task TakeDamage(float dmgToTake, List<ConditionBase> conditions)
+    public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
-        statistics.CurrentHp -= Convert.ToInt32(dmgToTake * statistics.Armor);
+        stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor);
 
-        healthBar.SetHealth(statistics.CurrentHp);
+        healthBar.SetHealth(stats.CurrentHp);
 
-        if (statistics.CurrentHp <= 0)
+        if (stats.CurrentHp <= 0)
             Die();
 
-        await ConditionAffect(conditions);
-
-        return;
+        ConditionAffect(conditions);
     }
 
     #region Conditions
 
-    private async Task ConditionAffect(List<ConditionBase> conditions)
+    private void ConditionAffect(List<ConditionBase> conditions)
     {
-        var conTokenSource = new CancellationTokenSource();
-        foreach (ConditionBase condition in conditions)
-        {
-            await Affect(condition, conTokenSource);
-        }
-        Task.WaitAll();
-        conTokenSource.Dispose();
-
-        return;
+        if (conditions.Count > 0 && conditions != null)
+            foreach (ConditionBase condition in conditions)
+                Affect(condition);
     }
 
-    private async Task Affect(ConditionBase condition, CancellationTokenSource conTokenSource)
+    private void Affect(ConditionBase condition)
     {
         switch (condition.Conditions)
         {
             case global::Conditions.Burn:
 
-                if (!IsBurning)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(BurnTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(BurnTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                burnRoutine ??= StartCoroutine(BurnTask(condition));
 
                 break;
             case global::Conditions.Slow:
 
-                if (!IsSlowed)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(SlowTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(SlowTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                slowRoutine ??= StartCoroutine(SlowTask(condition));
 
                 break;
             case global::Conditions.Freeze:
 
-                if (!IsFreezed)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(FreezeTask(ct, condition.AffectTime));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(FreezeTask(ct, condition.AffectTime));
-                }
+                freezeRoutine ??= StartCoroutine(FreezeTask(condition));
 
                 break;
             case global::Conditions.Poison:
 
-                if (!IsPoisoned)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(PoisonTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(PoisonTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                poisonRoutine ??= StartCoroutine(PoisonTask(condition));
 
                 break;
             case global::Conditions.SpeedUp:
 
-                if (!IsSpeededUp)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(SpeedUpTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(SlowTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                speedUpRoutine ??= StartCoroutine(SpeedUpTask(condition));
 
                 break;
             case global::Conditions.ArmorUp:
 
-                if (!HasArmorUp)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(ArmorUpTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(SlowTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                armorUpRoutine ??= StartCoroutine(ArmorUpTask(condition));
 
                 break;
             case global::Conditions.ArmorDown:
 
-                if (!HasArmorDown)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(ArmorDownTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(ArmorDownTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                armorDownRoutine ??= StartCoroutine(ArmorDownTask(condition));
 
                 break;
             case global::Conditions.Haste:
 
-                if (!HasHaste)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(HasteTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(HasteTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                hasteRoutine ??= StartCoroutine(HasteTask(condition));
 
                 break;
             case global::Conditions.DmgUp:
 
-                if (!HasDmgUp)
-                {
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(DmgUpTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
-                else
-                {
-                    conTokenSource.Cancel();
-                    CancellationToken ct = conTokenSource.Token;
-                    await Task.Run(DmgUpTask(ct, condition.AffectTime, condition.AffectOnTick));
-                }
+                dmgUpRoutine ??= StartCoroutine(DmgUpTask(condition));
 
                 break;
             default:
@@ -343,259 +236,200 @@ public class HeroUnitBase : UnitBase
         }
     }
 
-    //private async void DealWithCon(bool IsAffected, Action affectTask, CancellationTokenSource conTokenSource)
-    //{
-    //    var conTokenSourcee = new CancellationTokenSource();
-
-    //    if (!IsAffected)
-    //    {
-    //        CancellationToken ct = conTokenSourcee.Token;
-    //        await Task.Run(affectTask);
-    //    }
-    //    else
-    //    {
-    //        conTokenSource.Cancel();
-    //        CancellationToken ct = conTokenSourcee.Token;
-    //        await Task.Run(affectTask);
-    //    }
-
-    //    conTokenSourcee.Dispose();
-    //}
-
-    private Action BurnTask(CancellationToken ct, float burnTime, float burnDmgPerTick)
+    private IEnumerator BurnTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(0);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
         {
-            IsBurning = true;
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            var end = DateTime.Now.Second + burnTime;
+            healthBar.SetHealth(stats.CurrentHp);
 
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
+            if (stats.CurrentHp <= 0)
+                Die();
 
-                await Task.Delay(1000);
-                statistics.CurrentHp -= Convert.ToInt32(burnDmgPerTick);
+            yield return new WaitForSeconds(1);
+        }
 
-                healthBar.SetHealth(statistics.CurrentHp);
-
-                if (statistics.CurrentHp <= 0)
-                    Die();
-            }
-
-            IsBurning = false;
-        };
+        _conditionUI.RemoveConditionSprite(0);
+        burnRoutine = null;
     }
 
-    private Action SlowTask(CancellationToken ct, float slowTime, float slowPercent)
+    private IEnumerator SlowTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(1);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempSpeed = stats.MovementSpeed;
+
+        stats.MovementSpeed -= stats.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            IsSlowed = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + slowTime;
-            var tempSpeed = statistics.MovementSpeed;
-
-            statistics.MovementSpeed -= statistics.MovementSpeed * slowPercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.MovementSpeed = tempSpeed;
-            IsSlowed = false;
-        };
+        _conditionUI.RemoveConditionSprite(1);
+        stats.MovementSpeed = tempSpeed;
+        slowRoutine = null;
     }
 
-    private Action FreezeTask(CancellationToken ct, float freezeTime)
+    private IEnumerator PoisonTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(2);
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
         {
-            IsFreezed = true;
-            _canMove = false;
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            var end = DateTime.Now.Second + freezeTime;
+            healthBar.SetHealth(stats.CurrentHp);
 
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
+            if (stats.CurrentHp <= 0)
+                Die();
 
-                await Task.Yield();
-            }
+            yield return new WaitForSeconds(1);
+        }
 
-            _canMove = true;
-            IsFreezed = false;
-        };
+        _conditionUI.RemoveConditionSprite(2);
+        poisonRoutine = null;
     }
 
-    private Action PoisonTask(CancellationToken ct, float poisonTime, float poisonDmgPerTick)
+    private IEnumerator FreezeTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(3);
+
+        _canMove = false;
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
         {
-            IsPoisoned = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + poisonTime;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Delay(1000);
-
-                statistics.CurrentHp -= Convert.ToInt32(poisonDmgPerTick);
-
-                healthBar.SetHealth(statistics.CurrentHp);
-
-                if (statistics.CurrentHp <= 0)
-                    Die();
-            }
-
-            IsPoisoned = false;
-        };
+        _conditionUI.RemoveConditionSprite(3);
+        _canMove = true;
+        freezeRoutine = null;
     }
 
-    private Action SpeedUpTask(CancellationToken ct, float speedUpTime, float speedUpPercent)
+    private IEnumerator SpeedUpTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(4);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempMoveSpeed = stats.MovementSpeed;
+
+        stats.MovementSpeed += stats.MovementSpeed * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            IsSpeededUp = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + speedUpTime;
-            var tempMoveSpeed = statistics.MovementSpeed;
-
-            statistics.MovementSpeed += statistics.MovementSpeed * speedUpPercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.MovementSpeed = tempMoveSpeed;
-            IsSpeededUp = false;
-        };
+        _conditionUI.RemoveConditionSprite(4);
+        stats.MovementSpeed = tempMoveSpeed;
+        speedUpRoutine = null;
     }
 
-    private Action ArmorUpTask(CancellationToken ct, float armorUpTime, float armorUpPercent)
+    private IEnumerator ArmorUpTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(5);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmor = stats.Armor;
+
+        stats.Armor += stats.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            HasArmorUp = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + armorUpTime;
-            var tempArmor = statistics.Armor;
+        stats.Armor = tempArmor;
 
-            statistics.Armor += statistics.Armor * armorUpPercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.Armor = tempArmor;
-            HasArmorUp = false;
-        };
+        _conditionUI.RemoveConditionSprite(5);
+        armorUpRoutine = null;
     }
 
-    private Action ArmorDownTask(CancellationToken ct, float armorDownTime, float armorDownPercent)
+    private IEnumerator ArmorDownTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(6);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempArmorDown = stats.Armor;
+
+        stats.Armor -= stats.Armor * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            HasArmorDown = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + armorDownTime;
-            var tempArmorDown = statistics.Armor;
+        stats.Armor = tempArmorDown;
 
-            statistics.Armor -= statistics.Armor * armorDownPercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.Armor = tempArmorDown;
-            HasArmorDown = false;
-        };
+        _conditionUI.RemoveConditionSprite(6);
+        armorDownRoutine = null;
     }
 
-    private Action HasteTask(CancellationToken ct, float hasteTime, float hastePercent)
+    private IEnumerator HasteTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(7);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempCooldown = stats.CooldownModifier;
+
+        stats.CooldownModifier += stats.CooldownModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            HasHaste = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + hasteTime;
-            var tempCooldown = statistics.CooldownModifier;
+        stats.CooldownModifier = tempCooldown;
 
-            statistics.CooldownModifier += statistics.CooldownModifier * hastePercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.CooldownModifier = tempCooldown;
-            HasHaste = false;
-        };
+        _conditionUI.RemoveConditionSprite(7);
+        hasteRoutine = null;
     }
 
-    private Action DmgUpTask(CancellationToken ct, float dmgUpTime, float dmgUpPercent)
+    private IEnumerator DmgUpTask(ConditionBase condition)
     {
-        return async () =>
+        _conditionUI.AddConditionSprite(8);
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+        var tempDmg = stats.DmgModifier;
+
+        stats.DmgModifier += stats.DmgModifier * condition.AffectOnTick;
+
+        while (DateTime.Now.Second < end)
         {
-            HasDmgUp = true;
+            yield return null;
+        }
 
-            var end = DateTime.Now.Second + dmgUpTime;
-            var tempDmg = statistics.DmgModifier;
+        stats.DmgModifier = tempDmg;
 
-            statistics.DmgModifier += statistics.DmgModifier * dmgUpPercent;
-
-            while (DateTime.Now.Second < end)
-            {
-                if (ct.IsCancellationRequested)
-                    return;
-
-                await Task.Yield();
-            }
-
-            statistics.DmgModifier = tempDmg;
-            HasDmgUp = false;
-        };
+        _conditionUI.RemoveConditionSprite(8);
+        dmgUpRoutine = null;
     }
 
     #endregion
 
-    public override void Die()
-    {
-        Debug.Log($"{name} is dead");
-    }
+    #region Input
 
-    #region Attack
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
 
     void OnPrimaryAttack()
     {
         if (Time.time > primaryCooldownCounter)
         {
             CastSpell(PrimarySpell);
-            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * statistics.CooldownModifier;
+            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -604,7 +438,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > secondaryCooldownCounter)
         {
             CastSpell(SecondarySpell);
-            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * statistics.CooldownModifier;
+            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -613,7 +447,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > QCooldownCounter)
         {
             CastSpell(QSpell);
-            QCooldownCounter = Time.time + QSpell.cooldown * statistics.CooldownModifier;
+            QCooldownCounter = Time.time + QSpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -622,7 +456,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > ECooldownCounter)
         {
             CastSpell(ESpell);
-            ECooldownCounter = Time.time + ESpell.cooldown * statistics.CooldownModifier;
+            ECooldownCounter = Time.time + ESpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -631,9 +465,16 @@ public class HeroUnitBase : UnitBase
         if (Time.time > DashCooldownCounter)
         {
             CastSpell(DashSpell);
-            DashCooldownCounter = Time.time + DashSpell.cooldown * statistics.CooldownModifier;
+            DashCooldownCounter = Time.time + DashSpell.cooldown * stats.CooldownModifier;
         }
     }
+
+    void OnInteraction()
+    {
+
+    }
+
+    #endregion
 
     void CastSpell(Spell spell)
     {
@@ -643,7 +484,7 @@ public class HeroUnitBase : UnitBase
         {
             if (spell.CastFromHeroeNoStaff)
             {
-                Instantiate(spell.Prefab, transform.position, transform.rotation);
+                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
             else
             {
@@ -655,5 +496,9 @@ public class HeroUnitBase : UnitBase
             Debug.LogWarning("SpellRotator is not assigned!");
         }
     }
-    #endregion
+
+    public override void Die()
+    {
+        Debug.Log($"{name} is dead");
+    }
 }

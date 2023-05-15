@@ -1,8 +1,5 @@
 using Assets._Scripts.Utilities;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class BasicEnemy : EnemyBase
@@ -30,7 +27,6 @@ public class BasicEnemy : EnemyBase
 
     void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -138,13 +134,13 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
-    public async void Attack()
+    public void Attack()
     {
         if (onCooldown)
             return;
         onCooldown = true;
         lastAttack = Time.time;
-        await GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
+        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { new ConditionBase(Conditions.Burn, 4f, 3f) });
         Debug.Log("HIT!");
     }
 

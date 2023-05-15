@@ -121,5 +121,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabPart2: {fileID: 639514538004180302, guid: 86b0ae25d9b614d4e9b7416a3259624d, type: 3}
   prefabPart3: {fileID: 639514538004180302, guid: 604d464960380714eaf8ce39cad459f0, type: 3}
-  interval: 0.3
-  counter: 5
+  interval: 0.4
+  counter: 4
