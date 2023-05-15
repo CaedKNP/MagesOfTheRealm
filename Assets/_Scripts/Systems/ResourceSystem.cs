@@ -8,7 +8,7 @@ using UnityEngine;
 public class ResourceSystem : StaticInstance<ResourceSystem>
 {
     public List<ScriptableExampleHero> ExampleHeroes { get; private set; }
-    private Dictionary<string, ScriptableExampleHero> _ExampleHeroesDict;
+    private Dictionary<ExampleHeroType, ScriptableExampleHero> _ExampleHeroesDict;
 
     public List<ScriptableExampleEnemy> ExampleEnemies { get; private set; }
     private Dictionary<ExampleEnemyType, ScriptableExampleEnemy> _ExampleEnemiesDict;
@@ -25,7 +25,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     private void AssembleResources()
     {
         ExampleHeroes = Resources.LoadAll<ScriptableExampleHero>("ExampleHeroes").ToList();
-        _ExampleHeroesDict = ExampleHeroes.ToDictionary(h => h.HeroName, h => h);
+        _ExampleHeroesDict = ExampleHeroes.ToDictionary(h => h.HeroType, h => h);
 
         ExampleEnemies = Resources.LoadAll<ScriptableExampleEnemy>("ExampleEnemies").ToList();
         _ExampleEnemiesDict = ExampleEnemies.ToDictionary(e => e.EnemyType, e => e);
@@ -34,7 +34,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         _AllSpellsDict = AllSpells.ToDictionary(s => s.ID, s => s);
     }
 
-    public ScriptableExampleHero GetExampleHero(string heroName) => _ExampleHeroesDict[heroName];
+    public ScriptableExampleHero GetExampleHero(ExampleHeroType heroType) => _ExampleHeroesDict[heroType];
 
     public ScriptableExampleEnemy GetExampleEnemy(ExampleEnemyType enemyType) => _ExampleEnemiesDict[enemyType];
 
