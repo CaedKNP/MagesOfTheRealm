@@ -6,6 +6,10 @@ using System.Linq;
 /// </summary>
 public class UnitManager : StaticInstance<UnitManager>
 {
+
+    [SerializeField]
+    private Canvas worldSpaceCanvas;
+
     public GameObject SpawnHero()
     {
         return SpawnUnit(ExampleHeroType.SimpleMage, GetRandomVector());
@@ -34,7 +38,6 @@ public class UnitManager : StaticInstance<UnitManager>
 
             return heroSpawned.gameObject;
         }
-
         return null;
     }
 
@@ -51,10 +54,8 @@ public class UnitManager : StaticInstance<UnitManager>
             // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
 
             enemySpawned.SetStats(stats);
-
             return enemySpawned.gameObject;
         }
-
         return null;
     }
 

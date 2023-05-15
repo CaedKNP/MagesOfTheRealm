@@ -17,7 +17,7 @@ MonoBehaviour:
   seed: 6
   fillAmount: 0
   smoothAmount: 0
-  clearAmount: 71
+  clearAmount: 70
   interval: 0
   minPathWidth: 0
   maxPathWidth: 0

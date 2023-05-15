@@ -7,7 +7,7 @@ public abstract class UnitBase : MonoBehaviour
 {
     public abstract void SetStats(Stats stats);
 
-    public abstract Task TakeDamage(float dmg, List<ConditionBase> conditions);
+    public abstract void TakeDamage(float dmg, List<ConditionBase> conditions);
 
     public abstract bool TryMove(Vector2 direction);
 
