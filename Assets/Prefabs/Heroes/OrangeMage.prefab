@@ -214,7 +214,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89815e362b06a0544b02e24e935e1c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfSpell: {fileID: 0}
   spellTransform: {fileID: 473902858}
   WizandStaffFirePint: {fileID: 473902858}
   mousePos: {x: 0, y: 0}

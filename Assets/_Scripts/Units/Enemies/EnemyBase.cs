@@ -311,7 +311,10 @@ public abstract class EnemyBase : UnitBase
     public override bool TryMove(Vector2 direction)
     {
         if (!_canMove)
+        {
+            StopAnimation();
             return false;
+        }
 
         _anim.CrossFade("Walk", 0, 0);
         direction.Normalize();
