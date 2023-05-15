@@ -9,12 +9,13 @@ public class Spell1Thunder : SpellBase
     public GameObject prefabPart2;
     public GameObject prefabPart3;
     public float interval = 0.25f;
+    public float deley = 0.3f;
     public int counter = 5;
     protected void Awake()
     {
         SetSpeedDestroyTime(13f, 100f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
-        InvokeRepeating("SpawnThunder2", 0f, interval);
+        InvokeRepeating("SpawnThunder2", deley, interval);
     }
 
     private void SpawnThunder2()

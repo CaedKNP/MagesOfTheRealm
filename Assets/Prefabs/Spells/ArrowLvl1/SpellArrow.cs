@@ -14,7 +14,7 @@ public class SpellArrow : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 3f, AffectOnTick = 0.3f }
+            new ConditionBase { /*Conditions = Conditions.Slow, AffectTime = 3f, AffectOnTick = 0.3f*/ }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
@@ -25,4 +25,6 @@ public class SpellArrow : SpellBase
                 Destroy(gameObject);
         }
     }
+
+
 }
