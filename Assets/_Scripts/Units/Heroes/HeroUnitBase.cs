@@ -484,7 +484,7 @@ public class HeroUnitBase : UnitBase
         {
             if (spell.CastFromHeroeNoStaff)
             {
-                Instantiate(spell.Prefab, transform.position, transform.rotation);
+                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
             else
             {
