@@ -187,8 +187,6 @@ public class HeroUnitBase : UnitBase
             Die();
 
         ConditionAffect(conditions);
-
-        return;
     }
 
     #region Conditions
@@ -199,8 +197,6 @@ public class HeroUnitBase : UnitBase
         {
             Affect(condition);
         }
-
-        return;
     }
 
     private void Affect(ConditionBase condition)
@@ -257,26 +253,6 @@ public class HeroUnitBase : UnitBase
         }
     }
 
-    //private IEnumerator BurnTask(float burnTime, float burnDmgPerTick)
-    //{
-    //    var end = DateTime.Now.Second + burnTime;
-
-    //    while (DateTime.Now.Second < end)
-    //    {
-
-    //        statistics.CurrentHp -= Convert.ToInt32(burnDmgPerTick);
-
-    //        healthBar.SetHealth(statistics.CurrentHp);
-
-    //        if (statistics.CurrentHp <= 0)
-    //            Die();
-
-    //        yield return new WaitForSeconds(1);
-    //    }
-
-    //    burnRoutine = null;
-    //}
-
     private IEnumerator BurnTask(ConditionBase condition)
     {
         _conditionUI.AddConditionSprite(0);
@@ -318,24 +294,6 @@ public class HeroUnitBase : UnitBase
         slowRoutine = null;
     }
 
-    private IEnumerator FreezeTask(ConditionBase condition)
-    {
-        _conditionUI.AddConditionSprite(3);
-
-        _canMove = false;
-
-        var end = DateTime.Now.Second + condition.AffectTime;
-
-        while (DateTime.Now.Second < end)
-        {
-            yield return null;
-        }
-
-        _conditionUI.RemoveConditionSprite(3);
-        _canMove = true;
-        freezeRoutine = null;
-    }
-
     private IEnumerator PoisonTask(ConditionBase condition)
     {
         _conditionUI.AddConditionSprite(2);
@@ -355,6 +313,24 @@ public class HeroUnitBase : UnitBase
 
         _conditionUI.RemoveConditionSprite(2);
         poisonRoutine = null;
+    }
+
+    private IEnumerator FreezeTask(ConditionBase condition)
+    {
+        _conditionUI.AddConditionSprite(3);
+
+        _canMove = false;
+
+        var end = DateTime.Now.Second + condition.AffectTime;
+
+        while (DateTime.Now.Second < end)
+        {
+            yield return null;
+        }
+
+        _conditionUI.RemoveConditionSprite(3);
+        _canMove = true;
+        freezeRoutine = null;
     }
 
     private IEnumerator SpeedUpTask(ConditionBase condition)
