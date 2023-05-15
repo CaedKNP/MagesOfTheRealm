@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6262015385233187950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.38, y: 0.371, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!50 &8324945444546159093
 Rigidbody2D:
   serializedVersion: 4
@@ -165,10 +165,11 @@ MonoBehaviour:
   PatrolPoint: {x: 5, y: 5}
   PatrolRadius: 5
   seeDistance: 1
-  rangeOfAttack: 1
-  rangeOfRest: 5
-  rangeOfChase: 7
+  rangeOfAttack: 5
+  rangeOfRest: 8
+  rangeOfChase: 15
   attackCooldown: 2
+  spell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5
