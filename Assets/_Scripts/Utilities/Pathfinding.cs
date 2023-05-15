@@ -1,8 +1,4 @@
-using System;
-using System.Linq.Expressions;
 using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UIElements;
 
 public class Pathfinding : MonoBehaviour
 {
@@ -11,10 +7,8 @@ public class Pathfinding : MonoBehaviour
     Vector2 offset = new Vector2(0.05f, -0.05f);
     Vector2[,] mapVector;
 
-    // Update is called once per frame
     private void GenerateVectorMap()
     {
-
         mapVector = new Vector2[GameManager.map.GetLength(0), GameManager.map.GetLength(0)];
         for (int i = 0; i < GameManager.map.GetLength(0); i++)
         {
@@ -22,13 +16,12 @@ public class Pathfinding : MonoBehaviour
             {
                 int value = GameManager.map[i, j];
 
-                // Draw the dot
                 Vector2 dotPos = new Vector3(i * scale + offset.x, j * scale + offset.y);
                 mapVector[i, j] = dotPos;
             }
         }
-
     }
+
     private void Start()
     {
         GenerateVectorMap();
@@ -43,17 +36,17 @@ public class Pathfinding : MonoBehaviour
             //Gizmos.DrawSphere(mapVector[pos.Item1, pos.Item2], 0.02f);
         }
     }
+
     public void GeneratePath(Vector2 origin, Vector2 destination)
     {
         Vector2Int originMap = GetStandingTile(origin);
         Vector2Int destMap = GetStandingTile(destination);
-
-
     }
 
     public Vector2Int GetStandingTile(Vector2 target)
     {
         Vector2Int pos = new(0, 0);
+
         for (int i = 0; i < mapVector.GetLength(0); i++)
         {
             for (int j = 0; j < mapVector.GetLength(1); j++)
@@ -62,7 +55,6 @@ public class Pathfinding : MonoBehaviour
                     pos = new(i, j);
             }
         }
-
         return pos;
     }
 
@@ -71,6 +63,7 @@ public class Pathfinding : MonoBehaviour
         Vector2 target = (Vector2)_target;
 
         Vector2Int pos = new(0, 0);
+
         for (int i = 0; i < mapVector.GetLength(0); i++)
         {
             for (int j = 0; j < mapVector.GetLength(1); j++)
@@ -79,7 +72,6 @@ public class Pathfinding : MonoBehaviour
                     pos = new(i, j);
             }
         }
-
         return pos;
     }
 }

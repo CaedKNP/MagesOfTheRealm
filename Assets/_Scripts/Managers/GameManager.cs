@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// enum-based game manager
@@ -15,8 +16,7 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
-    // Kick the game off with the first state
-    void Start() => ChangeState(GameState.Starting);
+    void Start() => ChangeState(GameState.Hub);
 
     public void ChangeState(GameState newState)
     {
@@ -25,6 +25,9 @@ public class GameManager : StaticInstance<GameManager>
         State = newState;
         switch (newState)
         {
+            case GameState.Hub:
+                HandleHub();
+                break;
             case GameState.Starting:
                 HandleStarting();
                 break;
@@ -38,10 +41,10 @@ public class GameManager : StaticInstance<GameManager>
                 HandlePlaying();
                 break;
             case GameState.Win:
-                //Win logic
+                HandleWin();
                 break;
             case GameState.Lose:
-                //Lose logic
+                HandleLose();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -52,16 +55,22 @@ public class GameManager : StaticInstance<GameManager>
         Debug.Log($"New state: {newState}");
     }
 
+    void HandleHub()
+    {
+        Player = UnitManager.Instance.SpawnHero("BlueMage", new Vector2(27, 42));
+        //ChangeState(GameState.SpawningHero);
+    }
+
     void HandleStarting()
     {
-        //May do some start setup, could be environment, cinematics etc
+        SceneManager.LoadScene("LevelTest");
         map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }
 
     void HandleSpawningHero()
     {
-        Player = UnitManager.Instance.SpawnHero();
+        Player = UnitManager.Instance.SpawnHero("RedMage");
 
         ChangeState(GameState.SpawningEnemies);
     }
@@ -76,6 +85,16 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandlePlaying()
     {
-        // Playing logic
+        
+    }
+
+    void HandleLose()
+    {
+
+    }
+
+    void HandleWin()
+    {
+
     }
 }
