@@ -20,6 +20,6 @@ MonoBehaviour:
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: -7794513531059996055, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
-  Description: Some Mage
-  MenuSprite: {fileID: -1218311553, guid: 8154b4b5e9e5b484997338bb3e2c4142, type: 3}
-  HeroType: 0
+  Description: Green Mage
+  MenuSprite: {fileID: -1109156683, guid: 8d0c830946df9f0409d0f4af952eb959, type: 3}
+  HeroName: GreenMage

@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: -7794513531059996055}
   - component: {fileID: 8531856476346468769}
   m_Layer: 8
-  m_Name: SimpleMage
+  m_Name: OrangeMage
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -298,7 +298,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -850875246, guid: d438e555addcf5747b2d5e4ab0aa3472, type: 3}
+  m_Sprite: {fileID: 1022695748, guid: 6cf8082300bdb0d48b28633a9b5121a5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -413,10 +413,10 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  PrimarySpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
-  SecondarySpell: {fileID: 11400000, guid: f3cee71c71868824f8b384ba3a4fb3b2, type: 2}
-  QSpell: {fileID: 11400000, guid: d49a602c786428d46b04ff35ff2963d7, type: 2}
-  ESpell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  PrimarySpell: {fileID: 11400000, guid: 9292ee4cde0b9f0489ee860d09e1e39a, type: 2}
+  SecondarySpell: {fileID: 0}
+  QSpell: {fileID: 0}
+  ESpell: {fileID: 0}
   DashSpell: {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
 --- !u!95 &8531856476346468769
@@ -429,7 +429,7 @@ Animator:
   m_GameObject: {fileID: 6267861171628039945}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fbe17a2e254369244b85f37a69248467, type: 2}
+  m_Controller: {fileID: 9100000, guid: b7e6be243c2a1c04f8ab7e0fb8bc4d61, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

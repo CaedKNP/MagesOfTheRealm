@@ -12,7 +12,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnHero()
     {
-        return SpawnUnit("RedMage", GetRandomVector());
+        return SpawnUnit("OrangeMage", GetRandomVector());
     }
 
     public GameObject SpawnEnemy()
