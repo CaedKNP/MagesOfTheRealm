@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1343789464}
   - component: {fileID: 1959568447677229900}
   - component: {fileID: 1099537924596150824}
-  - component: {fileID: 4215381207306739548}
+  - component: {fileID: 9032830588418902039}
   m_Layer: 6
   m_Name: SpellSwordLvl1
   m_TagString: Untagged
@@ -147,8 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b0d792f1a1397e4399c8e7d257bb3d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4215381207306739548}
---- !u!95 &4215381207306739548
+  animator: {fileID: 9032830588418902039}
+--- !u!95 &9032830588418902039
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -156,7 +156,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 639514538004180302}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: acbec70ee4db6fd4095553c3e117c5dc, type: 2}
   m_CullingMode: 0
