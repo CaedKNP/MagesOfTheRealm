@@ -10,7 +10,7 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    Stats statistics;
+    Stats stats;
     bool _canMove;
 
     Vector2 movementInput;
@@ -62,7 +62,7 @@ public class HeroUnitBase : UnitBase
         spellRotator = GetComponentInChildren<StaffRotation>();
 
         healthBar = FindObjectOfType<HealthBarManager>();
-        healthBar.SetMaxHealth(statistics.MaxHp);
+        healthBar.SetMaxHealth(stats.MaxHp);
 
         _anim = GetComponent<Animator>();
 
@@ -135,34 +135,18 @@ public class HeroUnitBase : UnitBase
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                statistics.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                stats.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                rb.MovePosition(rb.position + statistics.MovementSpeed * Time.fixedDeltaTime * direction);
+                rb.MovePosition(rb.position + stats.MovementSpeed * Time.fixedDeltaTime * direction);
                 return true;
             }
 
             return false;
         }
-
         // Can't move if there's no direction to move in
         return false;
-    }
-
-    void OnMove(InputValue movementValue)
-    {
-        movementInput = movementValue.Get<Vector2>();
-    }
-
-    public override void LockMovement()
-    {
-        _canMove = false;
-    }
-
-    public override void UnlockMovement()
-    {
-        _canMove = true;
     }
 
     #endregion
@@ -174,16 +158,16 @@ public class HeroUnitBase : UnitBase
 
     public override void SetStats(Stats stats)
     {
-        statistics = stats;
+        this.stats = stats;
     }
 
     public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
-        statistics.CurrentHp -= Convert.ToInt32(dmgToTake * statistics.Armor);
+        stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor);
 
-        healthBar.SetHealth(statistics.CurrentHp);
+        healthBar.SetHealth(stats.CurrentHp);
 
-        if (statistics.CurrentHp <= 0)
+        if (stats.CurrentHp <= 0)
             Die();
 
         ConditionAffect(conditions);
@@ -193,10 +177,9 @@ public class HeroUnitBase : UnitBase
 
     private void ConditionAffect(List<ConditionBase> conditions)
     {
-        foreach (ConditionBase condition in conditions)
-        {
-            Affect(condition);
-        }
+        if (conditions.Count > 0 && conditions != null)
+            foreach (ConditionBase condition in conditions)
+                Affect(condition);
     }
 
     private void Affect(ConditionBase condition)
@@ -261,11 +244,11 @@ public class HeroUnitBase : UnitBase
 
         while (DateTime.Now.Second < end)
         {
-            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            healthBar.SetHealth(statistics.CurrentHp);
+            healthBar.SetHealth(stats.CurrentHp);
 
-            if (statistics.CurrentHp <= 0)
+            if (stats.CurrentHp <= 0)
                 Die();
 
             yield return new WaitForSeconds(1);
@@ -280,9 +263,9 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(1);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempSpeed = statistics.MovementSpeed;
+        var tempSpeed = stats.MovementSpeed;
 
-        statistics.MovementSpeed -= statistics.MovementSpeed * condition.AffectOnTick;
+        stats.MovementSpeed -= stats.MovementSpeed * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
@@ -290,7 +273,7 @@ public class HeroUnitBase : UnitBase
         }
 
         _conditionUI.RemoveConditionSprite(1);
-        statistics.MovementSpeed = tempSpeed;
+        stats.MovementSpeed = tempSpeed;
         slowRoutine = null;
     }
 
@@ -301,11 +284,11 @@ public class HeroUnitBase : UnitBase
 
         while (DateTime.Now.Second < end)
         {
-            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+            stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            healthBar.SetHealth(statistics.CurrentHp);
+            healthBar.SetHealth(stats.CurrentHp);
 
-            if (statistics.CurrentHp <= 0)
+            if (stats.CurrentHp <= 0)
                 Die();
 
             yield return new WaitForSeconds(1);
@@ -338,9 +321,9 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(4);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempMoveSpeed = statistics.MovementSpeed;
+        var tempMoveSpeed = stats.MovementSpeed;
 
-        statistics.MovementSpeed += statistics.MovementSpeed * condition.AffectOnTick;
+        stats.MovementSpeed += stats.MovementSpeed * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
@@ -348,7 +331,7 @@ public class HeroUnitBase : UnitBase
         }
 
         _conditionUI.RemoveConditionSprite(4);
-        statistics.MovementSpeed = tempMoveSpeed;
+        stats.MovementSpeed = tempMoveSpeed;
         speedUpRoutine = null;
     }
 
@@ -357,16 +340,16 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(5);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempArmor = statistics.Armor;
+        var tempArmor = stats.Armor;
 
-        statistics.Armor += statistics.Armor * condition.AffectOnTick;
+        stats.Armor += stats.Armor * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        statistics.Armor = tempArmor;
+        stats.Armor = tempArmor;
 
         _conditionUI.RemoveConditionSprite(5);
         armorUpRoutine = null;
@@ -377,16 +360,16 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(6);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempArmorDown = statistics.Armor;
+        var tempArmorDown = stats.Armor;
 
-        statistics.Armor -= statistics.Armor * condition.AffectOnTick;
+        stats.Armor -= stats.Armor * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        statistics.Armor = tempArmorDown;
+        stats.Armor = tempArmorDown;
 
         _conditionUI.RemoveConditionSprite(6);
         armorDownRoutine = null;
@@ -397,16 +380,16 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(7);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempCooldown = statistics.CooldownModifier;
+        var tempCooldown = stats.CooldownModifier;
 
-        statistics.CooldownModifier += statistics.CooldownModifier * condition.AffectOnTick;
+        stats.CooldownModifier += stats.CooldownModifier * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        statistics.CooldownModifier = tempCooldown;
+        stats.CooldownModifier = tempCooldown;
 
         _conditionUI.RemoveConditionSprite(7);
         hasteRoutine = null;
@@ -417,16 +400,16 @@ public class HeroUnitBase : UnitBase
         _conditionUI.AddConditionSprite(8);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempDmg = statistics.DmgModifier;
+        var tempDmg = stats.DmgModifier;
 
-        statistics.DmgModifier += statistics.DmgModifier * condition.AffectOnTick;
+        stats.DmgModifier += stats.DmgModifier * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        statistics.DmgModifier = tempDmg;
+        stats.DmgModifier = tempDmg;
 
         _conditionUI.RemoveConditionSprite(8);
         dmgUpRoutine = null;
@@ -436,13 +419,17 @@ public class HeroUnitBase : UnitBase
 
     #region Input
 
+    void OnMove(InputValue movementValue)
+    {
+        movementInput = movementValue.Get<Vector2>();
+    }
+
     void OnPrimaryAttack()
     {
         if (Time.time > primaryCooldownCounter)
         {
             CastSpell(PrimarySpell);
-            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * statistics.CooldownModifier;
-            //SpellPanel.PrimarySpell.Slider.Value = primaryCooldownCounter - Time.time;
+            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -451,7 +438,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > secondaryCooldownCounter)
         {
             CastSpell(SecondarySpell);
-            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * statistics.CooldownModifier;
+            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -460,7 +447,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > QCooldownCounter)
         {
             CastSpell(QSpell);
-            QCooldownCounter = Time.time + QSpell.cooldown * statistics.CooldownModifier;
+            QCooldownCounter = Time.time + QSpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -469,7 +456,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > ECooldownCounter)
         {
             CastSpell(ESpell);
-            ECooldownCounter = Time.time + ESpell.cooldown * statistics.CooldownModifier;
+            ECooldownCounter = Time.time + ESpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -478,7 +465,7 @@ public class HeroUnitBase : UnitBase
         if (Time.time > DashCooldownCounter)
         {
             CastSpell(DashSpell);
-            DashCooldownCounter = Time.time + DashSpell.cooldown * statistics.CooldownModifier;
+            DashCooldownCounter = Time.time + DashSpell.cooldown * stats.CooldownModifier;
         }
     }
 
@@ -497,7 +484,7 @@ public class HeroUnitBase : UnitBase
         {
             if (spell.CastFromHeroeNoStaff)
             {
-                Instantiate(spell.Prefab, transform.position, transform.rotation);
+                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
             else
             {

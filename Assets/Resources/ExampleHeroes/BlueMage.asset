@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb5c23fd834c21743bf7677711b06d5e, type: 3}
-  m_Name: SimpleMage
+  m_Name: BlueMage
   m_EditorClassIdentifier: 
   _stats:
     _MaxHp: 20
@@ -20,6 +20,6 @@ MonoBehaviour:
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: -7794513531059996055, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
-  Description: Some Mage
-  MenuSprite: {fileID: -1218311553, guid: 8154b4b5e9e5b484997338bb3e2c4142, type: 3}
-  HeroType: 0
+  Description: Blue Mage
+  MenuSprite: {fileID: 1518644751, guid: 162c0bc9ce08eff4c8e33c231a46962e, type: 3}
+  HeroName: BlueMage

@@ -171,11 +171,11 @@ MonoBehaviour:
   PatrolPoint: {x: 5, y: 5}
   PatrolRadius: 5
   seeDistance: 1
+  conditionsBar: {fileID: 4971127554512380848}
   rangeOfAttack: 1
   rangeOfRest: 5
   rangeOfChase: 7
   attackCooldown: 2
-  ConditionsBar: {fileID: 93546767448373356, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5

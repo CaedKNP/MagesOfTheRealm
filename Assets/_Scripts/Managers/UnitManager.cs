@@ -12,7 +12,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnHero()
     {
-        return SpawnUnit(ExampleHeroType.SimpleMage, GetRandomVector());
+        return SpawnUnit("OrangeMage", GetRandomVector());
     }
 
     public GameObject SpawnEnemy()
@@ -20,7 +20,7 @@ public class UnitManager : StaticInstance<UnitManager>
         return SpawnUnit(ExampleEnemyType.SimpleEnemy, GetRandomVector());
     }
 
-    GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
+    GameObject SpawnUnit(string t, Vector3 pos)
     {
         var ScriptableHero = ResourceSystem.Instance.GetExampleHero(t);
 
