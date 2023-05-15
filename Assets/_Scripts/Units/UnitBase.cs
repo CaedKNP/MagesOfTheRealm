@@ -11,9 +11,5 @@ public abstract class UnitBase : MonoBehaviour
 
     public abstract bool TryMove(Vector2 direction);
 
-    public abstract void LockMovement();
-
-    public abstract void UnlockMovement();
-
     public abstract void Die();
 }

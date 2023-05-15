@@ -155,16 +155,6 @@ public class HeroUnitBase : UnitBase
         movementInput = movementValue.Get<Vector2>();
     }
 
-    public override void LockMovement()
-    {
-        _canMove = false;
-    }
-
-    public override void UnlockMovement()
-    {
-        _canMove = true;
-    }
-
     #endregion
 
     void OnStateChanged(GameState newState)
