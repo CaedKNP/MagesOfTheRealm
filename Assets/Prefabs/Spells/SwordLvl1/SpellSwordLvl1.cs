@@ -13,6 +13,7 @@ public class SpellSwordLvl1 : SpellBase
 
     void Animation()
     {
+        animator.speed=animator.speed*2.5f;
         animator.enabled = true; // Enable the Animator
         StartCoroutine(WaitForAnimationToEnd());
         ExplosiveDamage();
