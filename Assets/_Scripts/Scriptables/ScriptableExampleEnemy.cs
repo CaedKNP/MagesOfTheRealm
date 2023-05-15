@@ -6,5 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExampleEnemy")]
 public class ScriptableExampleEnemy : ScriptableExampleUnitBase
 {
+    public string EnemyName;
     public ExampleEnemyType EnemyType;
 }

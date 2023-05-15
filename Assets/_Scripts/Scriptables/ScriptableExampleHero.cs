@@ -6,5 +6,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ExampleHero")]
 public class ScriptableExampleHero : ScriptableExampleUnitBase
 {
-    public ExampleHeroType HeroType;
+    public string HeroName;
 }
