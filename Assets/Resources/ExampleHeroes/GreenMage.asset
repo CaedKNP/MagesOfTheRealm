@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: GreenMage
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 20
-    _CurrentHp: 20
+    _MaxHp: 15
     _Armor: 1
-    _MovementSpeed: 5
+    _MovementSpeed: 5.5
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: -7794513531059996055, guid: 7d488b5815a9bbe448a96e82113a13ce, type: 3}

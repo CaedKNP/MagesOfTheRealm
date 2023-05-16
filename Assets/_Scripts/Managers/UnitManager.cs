@@ -35,6 +35,8 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableHero.BaseStats;
 
+            stats.CurrentHp = stats.MaxHp;
+
             heroSpawned.SetStats(stats);
 
             return heroSpawned.gameObject;
@@ -51,6 +53,8 @@ public class UnitManager : StaticInstance<UnitManager>
             var enemySpawned = Instantiate(ScriptableEnemy.Prefab, pos, Quaternion.identity, transform);
 
             var stats = ScriptableEnemy.BaseStats;
+
+            stats.CurrentHp = stats.MaxHp;
 
             enemySpawned.SetStats(stats);
             return enemySpawned.gameObject;

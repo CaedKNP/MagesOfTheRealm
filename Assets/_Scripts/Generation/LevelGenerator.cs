@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Tilemaps;
+using System;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -86,7 +87,7 @@ public class LevelGeneratorEditor : Editor
 
 			if (GUILayout.Button("Generate"))
 			{
-				levelGen.GenerateMap();
+				//levelGen.GenerateMap();
 			}
 
 			if (GUILayout.Button("Clear"))

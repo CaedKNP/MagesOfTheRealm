@@ -2,7 +2,6 @@ using Assets._Scripts.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -76,15 +75,15 @@ public class HeroUnitBase : UnitBase
 
     public void ChangeMage(string mageName)
     {
-        changeRoutine ??= StartCoroutine(ChangeAndWait(mageName));
+        changeRoutine ??= StartCoroutine(WaitAndChange(mageName));
     }
 
-    private IEnumerator ChangeAndWait(string mageName)
+    private IEnumerator WaitAndChange(string mageName)
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
 
         this.gameObject.SetActive(false);
-        UnitManager.Instance.SpawnHero(mageName, this.gameObject.transform.position);
+        GameManager.Player = UnitManager.Instance.SpawnHero(mageName, this.gameObject.transform.position);
         Destroy(this.gameObject);
 
         changeRoutine = null;
@@ -483,7 +482,8 @@ public class HeroUnitBase : UnitBase
 
     void OnInteraction()
     {
-        TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
+        //TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
+        GameManager.Instance.ChangeState(GameState.ChangeLevel);
     }
 
     #endregion
