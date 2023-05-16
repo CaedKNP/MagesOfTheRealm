@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: FrostBall
   m_EditorClassIdentifier: 
+  image: {fileID: -924069987, guid: 10a52e9440004564f88e8a7138fc2019, type: 3}
   Prefab: {fileID: 639514538004180302, guid: 4a0d019563540db40a47577db9de39c7, type: 3}
+  CastFromHeroeNoStaff: 0
   ID: 2
   cooldown: 1.2
   spellSlot: 1

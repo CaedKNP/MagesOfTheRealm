@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: SwordLvl1
   m_EditorClassIdentifier: 
+  image: {fileID: 1745238644, guid: 81bf015180083ad4eb05ff62baaf6cbd, type: 3}
   Prefab: {fileID: 639514538004180302, guid: 7c76460e93cc5a74f8e79051c3332587, type: 3}
   CastFromHeroeNoStaff: 1
   ID: 14
