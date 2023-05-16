@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,7 @@ public class ConditionUI : MonoBehaviour
     public List<Sprite> sprites;
     public List<Image> imageSlots;
 
+
     public void AddConditionSprite(int condition)
     {
         Debug.Log("AddConditionSprite");
@@ -26,6 +29,7 @@ public class ConditionUI : MonoBehaviour
         SetRectWidth(_currentConditionCount);
 
         Debug.Log("condition: added");
+
     }
 
     public void RemoveConditionSprite(int condition)
@@ -75,10 +79,12 @@ public class ConditionUI : MonoBehaviour
         sizeDelta.x = _finalWidth;
         sizeDelta.y = 40;
         _rectTransform.sizeDelta = sizeDelta;
+
     }
 
     void SetImageSprite(Image img, Sprite sprite)
     {
         img.sprite = sprite;
     }
+
 }

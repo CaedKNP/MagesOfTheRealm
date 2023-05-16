@@ -16,20 +16,8 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
-    void Start()
-    {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "LevelTest":
-                ChangeState(GameState.Starting);
-                break;
-            case "LevelHub":
-                ChangeState(GameState.Hub);
-                break;
-            default:
-                break;
-        }
-    }
+    //If u wanna play on hub change GameState to Hub
+    void Start() => ChangeState(GameState.Starting);
 
     public void ChangeState(GameState newState)
     {
@@ -40,9 +28,6 @@ public class GameManager : StaticInstance<GameManager>
         {
             case GameState.Hub:
                 HandleHub();
-                break;
-            case GameState.ChangeLevel:
-                HandleLevelChange();
                 break;
             case GameState.Starting:
                 HandleStarting();
@@ -73,18 +58,13 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
-        Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
+        Player = UnitManager.Instance.SpawnHero("BlueMage", new Vector2(27, 42));
         //ChangeState(GameState.SpawningHero);
-    }
-
-    void HandleLevelChange()
-    {
-        SceneManager.LoadScene("LevelTest");
-        ChangeState(GameState.Starting);
     }
 
     void HandleStarting()
     {
+        //SceneManager.LoadScene("LevelTest");
         map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }
@@ -106,7 +86,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandlePlaying()
     {
-
+        
     }
 
     void HandleLose()
