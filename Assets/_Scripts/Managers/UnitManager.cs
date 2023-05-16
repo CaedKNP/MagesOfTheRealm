@@ -37,7 +37,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableHero.BaseStats;
 
-            stats.CurrentHp = stats.MaxHp;
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp += 3;
 
             heroSpawned.SetStats(stats);
 
@@ -56,7 +56,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableEnemy.BaseStats;
 
-            stats.CurrentHp = stats.MaxHp;
+            // Apply possible modifications here (artifacts, clothets...): stats.MaxHp -= 3;
 
             enemySpawned.SetStats(stats);
             return enemySpawned.gameObject;
