@@ -1,8 +1,5 @@
 using Assets._Scripts.Utilities;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class BasicEnemy : EnemyBase
@@ -11,16 +8,13 @@ public class BasicEnemy : EnemyBase
     public float rangeOfRest = 2f;
     public float rangeOfChase = 5f;
     public float attackCooldown = 5;
+    public Spell spell;
     bool onCooldown = false;
 
     private float dotSize = 0.7f;
     private Color dotColor = Color.green;
 
     private float lastAttack = 0;
-
-    [SerializeField]
-    public GameObject ConditionsBar;
-
 
     public enum States
     {
@@ -34,7 +28,6 @@ public class BasicEnemy : EnemyBase
 
     void Start()
     {
-
         rb = GetComponent<Rigidbody2D>();
         player = GameManager.Player.transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -148,8 +141,13 @@ public class BasicEnemy : EnemyBase
             return;
         onCooldown = true;
         lastAttack = Time.time;
-        GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(1f, new List<ConditionBase>() { });
-        Debug.Log("HIT!");
+
+        Vector3 dirToPlayer = (player.position - transform.position);
+        dirToPlayer.Normalize();
+        dirToPlayer *= 2;
+        float angle = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
+        Instantiate(spell.Prefab, (transform.position + dirToPlayer), Quaternion.AngleAxis(angle, Vector3.forward));
+        //GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 1, 3, 1);
     }
 
     private void Escape()
