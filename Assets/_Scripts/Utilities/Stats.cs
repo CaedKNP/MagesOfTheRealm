@@ -13,7 +13,6 @@ namespace Assets._Scripts.Utilities
         int _MaxHp;
         public int MaxHp { get { return _MaxHp; } set { _MaxHp = value; } } 
 
-        [SerializeField]
         int _CurrentHp;
         public int CurrentHp { get { return _CurrentHp; } set { _CurrentHp = value; } }
 
