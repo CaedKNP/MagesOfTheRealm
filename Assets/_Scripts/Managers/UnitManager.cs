@@ -47,9 +47,9 @@ public class UnitManager : StaticInstance<UnitManager>
         return null;
     }
 
-    GameObject SpawnUnit(ExampleEnemyType t, Vector3 pos)
+    GameObject SpawnUnit(ExampleEnemyType enemyType, Vector3 pos)
     {
-        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(t);
+        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(enemyType);
 
         if (ScriptableEnemy != null)
         {

@@ -89,11 +89,6 @@ public class HeroUnitBase : UnitBase
         changeRoutine = null;
     }
 
-    private IEnumerator Nothing()
-    {
-        yield return new WaitForSeconds(0.00001f);
-    }
-
     #region Movement
 
     void TryMove()
@@ -109,7 +104,6 @@ public class HeroUnitBase : UnitBase
         // If movement input is not 0, try to move
         if (movementInput != Vector2.zero)
         {
-
             bool success = TryMove(movementInput);
             _anim.CrossFade("Walk", 0, 0);
             //Gliding around walls

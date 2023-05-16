@@ -74,7 +74,6 @@ public class GameManager : StaticInstance<GameManager>
     void HandleHub()
     {
         Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
-        //ChangeState(GameState.SpawningHero);
     }
 
     void HandleLevelChange()
@@ -98,9 +97,6 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningEnemies()
     {
-        for (int i = 0; i <= 15; i++)
-            UnitManager.Instance.SpawnEnemy((ExampleEnemyType)UnityEngine.Random.Range(0,3));
-
         ChangeState(GameState.Playing);
     }
 
