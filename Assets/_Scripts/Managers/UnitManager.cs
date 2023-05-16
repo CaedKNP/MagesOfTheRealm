@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
 /// <summary>
 /// An scene-specific manager spawning units
@@ -20,9 +21,9 @@ public class UnitManager : StaticInstance<UnitManager>
         return SpawnUnit(mageName, vector2);
     }
 
-    public GameObject SpawnEnemy()
+    public GameObject SpawnEnemy(ExampleEnemyType e)
     {
-        return SpawnUnit(ExampleEnemyType.SimpleEnemy, GetRandomVector());
+        return SpawnUnit(e, GetRandomSpawner());
     }
 
     GameObject SpawnUnit(string unitName, Vector3 pos)
@@ -82,5 +83,54 @@ public class UnitManager : StaticInstance<UnitManager>
             randomY = Random.Range(1, height);
         }
         return new Vector3(randomX * 1.6f, randomY * 1.6f, 0);
+    }
+
+    Vector3 GetRandomSpawner()
+    {
+        IEnumerable<Vector2Int> spawners = new List<Vector2Int>();
+        for (int i = 0; i < GameManager.map.GetLength(0); i++)
+        {
+            for (int j = 0; j < GameManager.map.GetLength(1); j++)
+            {
+                if (GameManager.map[i, j] == 2)
+                    spawners.Add(new(i, j));
+            }
+        }
+
+        Vector2Int tempPoint = spawners.ElementAt(Random.Range(0, spawners.Count)); // get random spwaner
+
+        //Choose direction 
+        switch (Random.Range(0, 8))
+        {
+            case 0:
+                tempPoint = new Vector2Int(tempPoint.x + 1, tempPoint.y);
+                break;
+            case 1:
+                tempPoint = new Vector2Int(tempPoint.x - 1, tempPoint.y);
+                break;
+            case 2:
+                tempPoint = new Vector2Int(tempPoint.x + 1, tempPoint.y + 1);
+                break;
+            case 3:
+                tempPoint = new Vector2Int(tempPoint.x - 1, tempPoint.y + 1);
+                break;
+            case 4:
+                tempPoint = new Vector2Int(tempPoint.x - 1, tempPoint.y - 1);
+                break;
+            case 5:
+                tempPoint = new Vector2Int(tempPoint.x + 1, tempPoint.y - 1);
+                break;
+            case 6:
+                tempPoint = new Vector2Int(tempPoint.x, tempPoint.y - 1);
+                break;
+            case 7:
+                tempPoint = new Vector2Int(tempPoint.x, tempPoint.y + 1);
+                break;
+        }
+        return TileToPosition(tempPoint);
+    }
+    Vector2 TileToPosition(Vector2Int target)
+    {
+        return target * 1.6f;
     }
 }

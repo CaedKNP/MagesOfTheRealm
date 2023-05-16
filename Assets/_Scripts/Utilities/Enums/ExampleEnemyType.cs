@@ -3,5 +3,7 @@
 [Serializable]
 public enum ExampleEnemyType
 {
-    SimpleEnemy = 0
+    Melee = 0,
+    Kamikaze = 1,
+    Ranged = 2
 }

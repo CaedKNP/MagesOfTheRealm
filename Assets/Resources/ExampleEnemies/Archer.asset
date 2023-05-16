@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats:
     _MaxHp: 5
-    _CurrentHp: 5
     _Armor: 1
     _MovementSpeed: 5
     _DmgModifier: 1
@@ -22,4 +21,5 @@ MonoBehaviour:
   Prefab: {fileID: 8109268066809691, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
   Description: 
   MenuSprite: {fileID: 0}
-  EnemyType: 0
+  EnemyName: 
+  EnemyType: 2
