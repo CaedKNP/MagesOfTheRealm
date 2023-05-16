@@ -78,8 +78,8 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningEnemies()
     {
-        for(int i = 0; i <= 0; i++)
-            UnitManager.Instance.SpawnEnemy();
+        for (int i = 0; i <= 15; i++)
+            UnitManager.Instance.SpawnEnemy((ExampleEnemyType)UnityEngine.Random.Range(0,3));
 
         ChangeState(GameState.Playing);
     }
