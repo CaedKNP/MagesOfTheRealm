@@ -10,8 +10,8 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    Stats stats;
-    bool _canMove = true;
+    Stats statistics;
+    bool _canMove;
 
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
@@ -50,6 +50,10 @@ public class HeroUnitBase : UnitBase
     private Animator _anim;
 
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
+
+    void Awake() => GameManager.OnBeforeStateChanged += OnStateChanged;
+
+    void OnDestroy() => GameManager.OnBeforeStateChanged -= OnStateChanged;
 
     void Start()
     {
@@ -111,6 +115,7 @@ public class HeroUnitBase : UnitBase
             _anim.CrossFade("Idle", 0, 0);
         }
 
+        // Set direction of sprite to movement direction
         if (movementInput.x < 0)
         {
             spriteRenderer.flipX = false;
@@ -140,6 +145,8 @@ public class HeroUnitBase : UnitBase
 
             return false;
         }
+
+        // Can't move if there's no direction to move in
         return false;
     }
 
@@ -149,6 +156,11 @@ public class HeroUnitBase : UnitBase
     }
 
     #endregion
+
+    void OnStateChanged(GameState newState)
+    {
+        if (newState == GameState.Playing) _canMove = true;
+    }
 
     public override void SetStats(Stats stats)
     {

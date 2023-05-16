@@ -59,9 +59,8 @@ public class MapFunctions
         {
             for (int y = 0; y < map.GetUpperBound(1); y++) //Loop through the height of the map
             {
-                if (map[x, y] == 0 || map[x, y]==3) // 1 = tile, 0 = no tile,
+                if (map[x, y] == 0) // 1 = tile, 0 = no tile,
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), null);
                     tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
 
@@ -247,12 +246,12 @@ public class MapFunctions
             }
 
         }
-        //Finding places for enemySpawners
+        //Return the updated map
         while (spawnerCount < 6)
         {
             int x = rand.Next(map.GetUpperBound(0));
             int y = rand.Next(map.GetUpperBound(1));
-            if (CheckSurroundedByZeroes(x, y, map))
+           if (CheckSurroundedByZeroes(x, y, map))
             {
 
                 map[x, y] = 2;
@@ -274,50 +273,26 @@ public class MapFunctions
 
             }
         }
-
-        int xPlayerSpawn = rand.Next(map.GetUpperBound(0));
-        int yPlayerSpawn = rand.Next(map.GetUpperBound(1));
-
-        map[xPlayerSpawn, yPlayerSpawn] = 3;
-
-        for (int i = xPlayerSpawn - 2; i < xPlayerSpawn + 2; i++)
-        {
-            for (int j = yPlayerSpawn - 2; j < yPlayerSpawn + 2; j++)
-            {
-                if (map[i, j] == 1 && i != map.GetUpperBound(0) && j != map.GetUpperBound(1))
-                {
-                    //Change it to not a tile
-                    map[i, j] = 0;
-                    //Increase the floor count
-
-                }
-            }
-
-        }
-
-
-
         return map;
-    } 
-
-
-/// <summary>
-/// Same as the Render function but finds spawners and add them in correct spots
-/// </summary>
-/// <param name="map">Map that we want to draw</param>
-static private bool CheckSurroundedByZeroes(int x, int y, int[,] map)
-{
-    int numRows = map.GetUpperBound(0);
-    int numCols = map.GetUpperBound(1);
-
-    // Check if the element is at a border position
-    if (x == 0 || y == 0 || x == numRows - 1 || y == numCols - 1)
-    {
-        return false;
     }
 
-    // Check if the element is surrounded by zeroes
-    return (map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0 &&
-            map[x - 1, y - 1] == 0 && map[x - 1, y + 1] == 0 && map[x + 1, y + 1] == 0 && map[x + 1, y - 1] == 0);
+    /// <summary>
+    /// Same as the Render function but finds spawners and add them in correct spots
+    /// </summary>
+    /// <param name="map">Map that we want to draw</param>
+    static private bool CheckSurroundedByZeroes(int x, int y, int[,] map)
+    {
+        int numRows = map.GetUpperBound(0);
+        int numCols = map.GetUpperBound(1);
+
+        // Check if the element is at a border position
+        if (x == 0 || y == 0 || x == numRows - 1 || y == numCols - 1)
+        {
+            return false;
+        }
+
+        // Check if the element is surrounded by zeroes
+        return (map[x - 1, y] == 0 && map[x + 1, y] == 0 && map[x, y - 1] == 0 && map[x, y + 1] == 0 &&
+                map[x - 1, y - 1] == 0 && map[x - 1, y + 1] == 0 && map[x + 1, y + 1] == 0 && map[x + 1, y - 1] == 0);
+    }
 }
-} 

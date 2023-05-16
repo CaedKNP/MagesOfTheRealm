@@ -3,11 +3,10 @@
 [Serializable]
 public enum GameState
 {
-    Hub = 0,
-    Starting = 1,
-    SpawningHero = 2,
-    SpawningEnemies = 3,
-    Playing = 4,
-    Win = 5,
-    Lose = 6
+    Starting = 0,
+    SpawningHero = 1,
+    SpawningEnemies = 2,
+    Playing = 3,
+    Win = 4,
+    Lose = 5,
 }

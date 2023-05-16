@@ -10,14 +10,9 @@ public class UnitManager : StaticInstance<UnitManager>
     [SerializeField]
     private Canvas worldSpaceCanvas;
 
-    public GameObject SpawnHero(string mageName)
+    public GameObject SpawnHero()
     {
-        return SpawnUnit(mageName, GetRandomVector());
-    }
-
-    public GameObject SpawnHero(string mageName, Vector2 vector2)
-    {
-        return SpawnUnit(mageName, vector2);
+        return SpawnUnit(ExampleHeroType.SimpleMage, GetRandomVector());
     }
 
     public GameObject SpawnEnemy()
@@ -25,9 +20,9 @@ public class UnitManager : StaticInstance<UnitManager>
         return SpawnUnit(ExampleEnemyType.SimpleEnemy, GetRandomVector());
     }
 
-    GameObject SpawnUnit(string unitName, Vector3 pos)
+    GameObject SpawnUnit(ExampleHeroType t, Vector3 pos)
     {
-        var ScriptableHero = ResourceSystem.Instance.GetExampleHero(unitName);
+        var ScriptableHero = ResourceSystem.Instance.GetExampleHero(t);
 
         if (ScriptableHero != null)
         {

@@ -2,9 +2,9 @@ using Assets._Scripts.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Stats = Assets._Scripts.Utilities.Stats;
 
 public abstract class EnemyBase : UnitBase
 {
@@ -33,24 +33,15 @@ public abstract class EnemyBase : UnitBase
     #endregion
 
     protected Transform player;
+    protected Stats statistics;
     protected Animator _anim;
     protected SpriteRenderer spriteRenderer;
 
-    protected Stats _stats;
-
-    [SerializeField]
     Component conditionsBar;
 
     ConditionUI _conditionUI;
 
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
-
-    void Awake()
-    {
-        conditionsBar = gameObject.transform.GetChild(0);
-
-        _conditionUI = conditionsBar.GetComponent<ConditionUI>();
-    }
 
     public override void Die()
     {
@@ -59,24 +50,24 @@ public abstract class EnemyBase : UnitBase
 
     public override void SetStats(Stats stats)
     {
-        this._stats = stats;
+        statistics = stats;
     }
 
-    public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
+    public override void TakeDamage(float dmg, List<ConditionBase> conditions)
     {
-        _stats.CurrentHp -= Convert.ToInt32(dmgToTake * _stats.Armor);
-
-        if (_stats.CurrentHp <= 0)
-            Die();
-
         ConditionAffect(conditions);
+        statistics.CurrentHp -= Convert.ToInt32(dmg);
+        if (statistics.CurrentHp <= 0)
+            Die();
+        return;
     }
 
     private void ConditionAffect(List<ConditionBase> conditions)
     {
-        if (conditions.Count > 0 && conditions != null)
-            foreach (ConditionBase condition in conditions)
-                Affect(condition);
+        foreach (ConditionBase condition in conditions)
+        {
+            Affect(condition);
+        }
     }
 
     private void Affect(ConditionBase condition)
@@ -141,9 +132,9 @@ public abstract class EnemyBase : UnitBase
 
         while (DateTime.Now.Second < end)
         {
-            _stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            if (_stats.CurrentHp <= 0)
+            if (statistics.CurrentHp <= 0)
                 Die();
 
             yield return new WaitForSeconds(1);
@@ -158,8 +149,9 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(1);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempSpeed = _stats.MovementSpeed;
-        _stats.MovementSpeed -= _stats.MovementSpeed * condition.AffectOnTick;
+        var tempSpeed = statistics.MovementSpeed;
+
+        statistics.MovementSpeed -= statistics.MovementSpeed * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
@@ -167,7 +159,7 @@ public abstract class EnemyBase : UnitBase
         }
 
         _conditionUI.RemoveConditionSprite(1);
-        _stats.MovementSpeed = tempSpeed;
+        statistics.MovementSpeed = tempSpeed;
         slowRoutine = null;
     }
 
@@ -178,9 +170,9 @@ public abstract class EnemyBase : UnitBase
 
         while (DateTime.Now.Second < end)
         {
-            _stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
+            statistics.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
-            if (_stats.CurrentHp <= 0)
+            if (statistics.CurrentHp <= 0)
                 Die();
 
             yield return new WaitForSeconds(1);
@@ -213,8 +205,9 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(4);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempMoveSpeed = _stats.MovementSpeed;
-        _stats.MovementSpeed += _stats.MovementSpeed * condition.AffectOnTick;
+        var tempMoveSpeed = statistics.MovementSpeed;
+
+        statistics.MovementSpeed += statistics.MovementSpeed * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
@@ -222,7 +215,7 @@ public abstract class EnemyBase : UnitBase
         }
 
         _conditionUI.RemoveConditionSprite(4);
-        _stats.MovementSpeed = tempMoveSpeed;
+        statistics.MovementSpeed = tempMoveSpeed;
         speedUpRoutine = null;
     }
 
@@ -231,15 +224,16 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(5);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempArmor = _stats.Armor;
-        _stats.Armor += _stats.Armor * condition.AffectOnTick;
+        var tempArmor = statistics.Armor;
+
+        statistics.Armor += statistics.Armor * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        _stats.Armor = tempArmor;
+        statistics.Armor = tempArmor;
 
         _conditionUI.RemoveConditionSprite(5);
         armorUpRoutine = null;
@@ -250,15 +244,16 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(6);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempArmorDown = _stats.Armor;
-        _stats.Armor -= _stats.Armor * condition.AffectOnTick;
+        var tempArmorDown = statistics.Armor;
+
+        statistics.Armor -= statistics.Armor * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        _stats.Armor = tempArmorDown;
+        statistics.Armor = tempArmorDown;
 
         _conditionUI.RemoveConditionSprite(6);
         armorDownRoutine = null;
@@ -269,15 +264,16 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(7);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempCooldown = _stats.CooldownModifier;
-        _stats.CooldownModifier += _stats.CooldownModifier * condition.AffectOnTick;
+        var tempCooldown = statistics.CooldownModifier;
+
+        statistics.CooldownModifier += statistics.CooldownModifier * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        _stats.CooldownModifier = tempCooldown;
+        statistics.CooldownModifier = tempCooldown;
 
         _conditionUI.RemoveConditionSprite(7);
         hasteRoutine = null;
@@ -288,15 +284,16 @@ public abstract class EnemyBase : UnitBase
         _conditionUI.AddConditionSprite(8);
 
         var end = DateTime.Now.Second + condition.AffectTime;
-        var tempDmg = _stats.DmgModifier;
-        _stats.DmgModifier += _stats.DmgModifier * condition.AffectOnTick;
+        var tempDmg = statistics.DmgModifier;
+
+        statistics.DmgModifier += statistics.DmgModifier * condition.AffectOnTick;
 
         while (DateTime.Now.Second < end)
         {
             yield return null;
         }
 
-        _stats.DmgModifier = tempDmg;
+        statistics.DmgModifier = tempDmg;
 
         _conditionUI.RemoveConditionSprite(8);
         dmgUpRoutine = null;
@@ -311,10 +308,7 @@ public abstract class EnemyBase : UnitBase
     public override bool TryMove(Vector2 direction)
     {
         if (!_canMove)
-        {
-            StopAnimation();
             return false;
-        }
 
         _anim.CrossFade("Walk", 0, 0);
         direction.Normalize();
@@ -326,11 +320,11 @@ public abstract class EnemyBase : UnitBase
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
-                _stats.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+                statistics.MovementSpeed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
 
             if (count == 0)
             {
-                Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * direction;
+                Vector3 pos = rb.position + statistics.MovementSpeed * Time.fixedDeltaTime * direction;
                 rb.MovePosition(pos);
                 if (direction.x < 0)
                 {

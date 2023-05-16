@@ -132,7 +132,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.6, y: 1.6}
+    oldSize: {x: 1.6, y: 3.2}
     newSize: {x: 0.15, y: 0.18}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -171,12 +171,11 @@ MonoBehaviour:
   PatrolPoint: {x: 5, y: 5}
   PatrolRadius: 5
   seeDistance: 1
-  conditionsBar: {fileID: 4971127554512380848}
-  rangeOfAttack: 5
-  rangeOfRest: 7
-  rangeOfChase: 15
+  rangeOfAttack: 1
+  rangeOfRest: 5
+  rangeOfChase: 7
   attackCooldown: 2
-  spell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  ConditionsBar: {fileID: 93546767448373356, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5

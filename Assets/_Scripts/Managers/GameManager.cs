@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// enum-based game manager
@@ -16,7 +15,7 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
-    //If u wanna play on hub change GameState to Hub
+    // Kick the game off with the first state
     void Start() => ChangeState(GameState.Starting);
 
     public void ChangeState(GameState newState)
@@ -26,9 +25,6 @@ public class GameManager : StaticInstance<GameManager>
         State = newState;
         switch (newState)
         {
-            case GameState.Hub:
-                HandleHub();
-                break;
             case GameState.Starting:
                 HandleStarting();
                 break;
@@ -42,10 +38,10 @@ public class GameManager : StaticInstance<GameManager>
                 HandlePlaying();
                 break;
             case GameState.Win:
-                HandleWin();
+                //Win logic
                 break;
             case GameState.Lose:
-                HandleLose();
+                //Lose logic
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
@@ -56,29 +52,23 @@ public class GameManager : StaticInstance<GameManager>
         Debug.Log($"New state: {newState}");
     }
 
-    void HandleHub()
-    {
-        Player = UnitManager.Instance.SpawnHero("BlueMage", new Vector2(27, 42));
-        //ChangeState(GameState.SpawningHero);
-    }
-
     void HandleStarting()
     {
-        //SceneManager.LoadScene("LevelTest");
+        //May do some start setup, could be environment, cinematics etc
         map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }
 
     void HandleSpawningHero()
     {
-        Player = UnitManager.Instance.SpawnHero("OrangeMage");
+        Player = UnitManager.Instance.SpawnHero();
 
         ChangeState(GameState.SpawningEnemies);
     }
 
     void HandleSpawningEnemies()
     {
-        for(int i = 0; i <= 0; i++)
+        for(int i = 0; i <= 5; i++)
             UnitManager.Instance.SpawnEnemy();
 
         ChangeState(GameState.Playing);
@@ -86,16 +76,6 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandlePlaying()
     {
-        
-    }
-
-    void HandleLose()
-    {
-
-    }
-
-    void HandleWin()
-    {
-
+        // Playing logic
     }
 }
