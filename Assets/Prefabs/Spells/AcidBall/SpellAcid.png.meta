@@ -70,7 +70,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -119,8 +119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00cec5376b6217d498bb6b960d6b94fc
-      internalID: -1057099749
+      spriteID: fb7dfe8978506f94fb05ce164be8abf1
+      internalID: 1289134059
       vertices: []
       indices: 
       edges: []
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ffb81f6ee667ad4c8437c0912ac3fc9
-      internalID: -440687930
+      spriteID: fb54155cc8c5107458c00a82e046837b
+      internalID: 666259248
       vertices: []
       indices: 
       edges: []
@@ -161,8 +161,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22c7d9dfe05ca1f438f0c1e05c1856b8
-      internalID: 1591880766
+      spriteID: 99f84c247d0583146a0a33fec4f487cc
+      internalID: 368113936
       vertices: []
       indices: 
       edges: []
@@ -182,8 +182,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 170b005d71936724f8f9c5ffd8082ac1
-      internalID: 34208964
+      spriteID: 8a319e4947ba4644a9857cd450ccfc05
+      internalID: 1917761371
       vertices: []
       indices: 
       edges: []
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2569ed2eed227ae4cb7f947366ca492a
-      internalID: 1643760798
+      spriteID: 9d10318e9dd50e34d96f1932c45eaa17
+      internalID: -1772943695
       vertices: []
       indices: 
       edges: []
@@ -220,11 +220,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      SpellAcid_0: -1057099749
-      SpellAcid_1: -440687930
-      SpellAcid_2: 1591880766
-      SpellAcid_3: 34208964
-      SpellAcid_4: 1643760798
+      SpellAcid_0: 1289134059
+      SpellAcid_1: 666259248
+      SpellAcid_2: 368113936
+      SpellAcid_3: 1917761371
+      SpellAcid_4: -1772943695
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
