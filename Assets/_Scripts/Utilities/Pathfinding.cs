@@ -41,7 +41,7 @@ public class Pathfinding : MonoBehaviour
     {
         if (Application.IsPlaying(this))
         {
-            GeneratePath(new Vector2(0, 0), (Vector2)GameManager.Player.transform.position);
+            //GeneratePath(new Vector2(0, 0), (Vector2)GameManager.Player.transform.position);
             //Gizmos.color = Color.red;
             //Vector2Int pos = GetStandingTile(new Vector2(35, 18));
             //Gizmos.DrawSphere(mapVector[pos.x, pos.y], dotSize);
