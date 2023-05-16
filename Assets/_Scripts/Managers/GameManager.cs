@@ -73,7 +73,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
-        Player = UnitManager.Instance.SpawnHero("BlueMage", new Vector2(27, 42));
+        Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
         //ChangeState(GameState.SpawningHero);
     }
 
