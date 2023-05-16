@@ -506,5 +506,6 @@ public class HeroUnitBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
+       // _anim.CrossFade("Death", 0, 0);
     }
 }

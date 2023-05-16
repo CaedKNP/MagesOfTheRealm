@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a911e262ccb860748b5d224d2c9b54fa
+guid: 63470af51190d5748a2578ee2af8dca1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,169 +105,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight2Sheet_0
+      name: Blue_Mage_DeathSheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
-        width: 16
-        height: 14
+        y: 190
+        width: 12
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9a84e7d5fff748442ab5090a2be1e624
-      internalID: -425291278
+      spriteID: 979c94b3814d62f40bcd199df85ece2e
+      internalID: -700513638
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_1
+      name: Blue_Mage_DeathSheet_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
-        width: 16
-        height: 14
+        y: 163
+        width: 12
+        height: 17
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 81ca32093327ced4894c764e03d6d2e2
-      internalID: 958540571
+      spriteID: 58c76e1f958d20d49b0737a04440fd15
+      internalID: 1504939849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_2
+      name: Blue_Mage_DeathSheet_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 160
-        width: 16
-        height: 14
+        y: 136
+        width: 12
+        height: 15
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3799ade6b49d281478a66957c4c418f5
-      internalID: 170563363
+      spriteID: 2a01997c84199aa44adc4d89cd630362
+      internalID: -1812636854
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_3
+      name: Blue_Mage_DeathSheet_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
-        width: 16
-        height: 16
+        y: 109
+        width: 12
+        height: 15
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a107cf2673ce28341837397380fe391d
-      internalID: -1654282328
+      spriteID: 6b0dfaa187bd9e74595f9d0d04abb78d
+      internalID: -796495969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_4
+      name: Blue_Mage_DeathSheet_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
-        width: 16
-        height: 16
+        x: 1
+        y: 82
+        width: 11
+        height: 13
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 112dbe3feefab7741824e79375495ff6
-      internalID: 163914825
+      spriteID: f2a41bb7765f2a24fa55cc7fc9b136a4
+      internalID: 2008387651
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_5
+      name: Blue_Mage_DeathSheet_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
-        width: 16
-        height: 16
+        x: 1
+        y: 55
+        width: 11
+        height: 10
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70040466814b9b549acea3fbf1c9e610
-      internalID: -1865266327
+      spriteID: 55dc1fde46f0a4d4bb292f777886ceae
+      internalID: 802770949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_6
+      name: Blue_Mage_DeathSheet_6
       rect:
         serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
+        x: 1
+        y: 28
+        width: 11
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f897703b2cb824c88b670df59a1581
-      internalID: -1614947914
+      spriteID: 035f86eb43027494ea4e723c6c8cc5c2
+      internalID: 995542740
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_7
+      name: Blue_Mage_DeathSheet_7
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
+        x: 4
+        y: 2
+        width: 8
+        height: 5
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e74a71f1880044c906cf5a74c39cb2
-      internalID: -1886907526
+      spriteID: f82a22f7cec9f9e4db6eebcc29523b7f
+      internalID: -2008700076
       vertices: []
       indices: 
       edges: []
@@ -283,14 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Knight2Sheet_0: -425291278
-      Knight2Sheet_1: 958540571
-      Knight2Sheet_2: 170563363
-      Knight2Sheet_3: -1654282328
-      Knight2Sheet_4: 163914825
-      Knight2Sheet_5: -1865266327
-      Knight2Sheet_6: -1614947914
-      Knight2Sheet_7: -1886907526
+      Blue_Mage_DeathSheet_0: -700513638
+      Blue_Mage_DeathSheet_1: 1504939849
+      Blue_Mage_DeathSheet_2: -1812636854
+      Blue_Mage_DeathSheet_3: -796495969
+      Blue_Mage_DeathSheet_4: 2008387651
+      Blue_Mage_DeathSheet_5: 802770949
+      Blue_Mage_DeathSheet_6: 995542740
+      Blue_Mage_DeathSheet_7: -2008700076
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

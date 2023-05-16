@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a911e262ccb860748b5d224d2c9b54fa
+guid: 9c21f951c3f4d4341ab5664a6bfb011a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -105,74 +105,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Knight2Sheet_0
+      name: Knight1_DeathSheet_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
-        width: 16
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9a84e7d5fff748442ab5090a2be1e624
-      internalID: -425291278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight2Sheet_1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 192
-        width: 16
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 81ca32093327ced4894c764e03d6d2e2
-      internalID: 958540571
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight2Sheet_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 160
-        width: 16
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3799ade6b49d281478a66957c4c418f5
-      internalID: 170563363
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Knight2Sheet_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
+        y: 190
         width: 16
         height: 16
       alignment: 0
@@ -182,18 +119,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a107cf2673ce28341837397380fe391d
-      internalID: -1654282328
+      spriteID: 6c6a38e696ae96b43b1ab3565984658e
+      internalID: -1083455491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_4
+      name: Knight1_DeathSheet_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 163
         width: 16
         height: 16
       alignment: 0
@@ -203,18 +140,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 112dbe3feefab7741824e79375495ff6
-      internalID: 163914825
+      spriteID: 5d99c4c758931924fb0734b9a1ab8717
+      internalID: -1084520795
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_5
+      name: Knight1_DeathSheet_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 64
+        y: 136
         width: 16
         height: 16
       alignment: 0
@@ -224,18 +161,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 70040466814b9b549acea3fbf1c9e610
-      internalID: -1865266327
+      spriteID: 824508f4a892dbd45aa12946f3f6890c
+      internalID: 799847564
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_6
+      name: Knight1_DeathSheet_3
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 109
         width: 16
         height: 16
       alignment: 0
@@ -245,18 +182,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e8f897703b2cb824c88b670df59a1581
-      internalID: -1614947914
+      spriteID: c9a1dd2ad61883d4b851e30536222ea4
+      internalID: -464799571
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Knight2Sheet_7
+      name: Knight1_DeathSheet_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 82
         width: 16
         height: 16
       alignment: 0
@@ -266,8 +203,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e74a71f1880044c906cf5a74c39cb2
-      internalID: -1886907526
+      spriteID: ad351b97ff3b18a498cc511da01c8e51
+      internalID: 726075402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight1_DeathSheet_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2aa4142a0c73a41ae1ff79c1f06116
+      internalID: -1159165085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight1_DeathSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 28
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b3b00fd89421154db5f8a23c9934546
+      internalID: 1442755464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Knight1_DeathSheet_7
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f51553a324dbde74f91e7a7523233c47
+      internalID: -1645226776
       vertices: []
       indices: 
       edges: []
@@ -283,14 +283,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Knight2Sheet_0: -425291278
-      Knight2Sheet_1: 958540571
-      Knight2Sheet_2: 170563363
-      Knight2Sheet_3: -1654282328
-      Knight2Sheet_4: 163914825
-      Knight2Sheet_5: -1865266327
-      Knight2Sheet_6: -1614947914
-      Knight2Sheet_7: -1886907526
+      Knight1_DeathSheet_0: -1083455491
+      Knight1_DeathSheet_1: -1084520795
+      Knight1_DeathSheet_2: 799847564
+      Knight1_DeathSheet_3: -464799571
+      Knight1_DeathSheet_4: 726075402
+      Knight1_DeathSheet_5: -1159165085
+      Knight1_DeathSheet_6: 1442755464
+      Knight1_DeathSheet_7: -1645226776
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
