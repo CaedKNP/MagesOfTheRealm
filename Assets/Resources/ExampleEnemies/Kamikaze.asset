@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f070beb36af68014e95ebef8d9f629eb, type: 3}
-  m_Name: SimpleEnemy 1
+  m_Name: Kamikaze
   m_EditorClassIdentifier: 
   _stats:
     _MaxHp: 5
-    _CurrentHp: 5
     _Armor: 1
     _MovementSpeed: 5
     _DmgModifier: 1
     _CooldownModifier: 1
-  Prefab: {fileID: 8109268066809691, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}
+  Prefab: {fileID: 8109268066809691, guid: 2dff9ec6625f6d74fbde6b7f9a04df95, type: 3}
   Description: 
   MenuSprite: {fileID: 0}
-  EnemyType: 0
+  EnemyName: 
+  EnemyType: 1
