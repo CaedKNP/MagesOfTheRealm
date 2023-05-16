@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8109268066809691}
   - component: {fileID: 3214218647730200590}
   m_Layer: 9
-  m_Name: Enemy
+  m_Name: Mele
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2041798487, guid: ba9cb1034f0e1e140ace9816a765708e, type: 3}
+  m_Sprite: {fileID: -1160237726, guid: 0d99971492de94b4dae60af3c7cc2268, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -172,11 +172,11 @@ MonoBehaviour:
   PatrolRadius: 5
   seeDistance: 1
   conditionsBar: {fileID: 4971127554512380848}
-  rangeOfAttack: 5
-  rangeOfRest: 7
-  rangeOfChase: 15
+  rangeOfAttack: 1
+  rangeOfRest: 5
+  rangeOfChase: 7
   attackCooldown: 2
-  spell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  spell: {fileID: 11400000, guid: d49a602c786428d46b04ff35ff2963d7, type: 2}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5
