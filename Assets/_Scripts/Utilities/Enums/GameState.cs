@@ -4,10 +4,11 @@
 public enum GameState
 {
     Hub = 0,
-    Starting = 1,
-    SpawningHero = 2,
-    SpawningEnemies = 3,
-    Playing = 4,
-    Win = 5,
-    Lose = 6
+    ChangeLevel = 1,
+    Starting = 2,
+    SpawningHero = 3,
+    SpawningEnemies = 4,
+    Playing = 5,
+    Win = 6,
+    Lose = 7
 }
