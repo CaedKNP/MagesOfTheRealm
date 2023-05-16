@@ -109,7 +109,7 @@ public class BasicEnemy : EnemyBase
     private void Moving()
     {
         dotColor = Color.green;
-        TryMove(player.position - transform.position);
+        Move(player.position - transform.position);
         if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
             ChangeState(States.Attacking);
         if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
@@ -152,6 +152,6 @@ public class BasicEnemy : EnemyBase
 
     private void Escape()
     {
-        TryMove(-(player.position - transform.position));
+        Move(-(player.position - transform.position));
     }
 }

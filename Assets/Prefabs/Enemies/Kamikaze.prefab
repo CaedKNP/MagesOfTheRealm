@@ -171,6 +171,9 @@ MonoBehaviour:
   PatrolPoint: {x: 5, y: 5}
   PatrolRadius: 5
   seeDistance: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
   rangeOfAttack: 1
   rangeOfRest: 2

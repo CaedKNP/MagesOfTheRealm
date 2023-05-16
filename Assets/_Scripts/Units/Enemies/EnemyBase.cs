@@ -2,6 +2,7 @@ using Assets._Scripts.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using Stats = Assets._Scripts.Utilities.Stats;
@@ -32,6 +33,9 @@ public abstract class EnemyBase : UnitBase
     protected float coneDirection = 180;
     #endregion
 
+    [SerializeField]
+    private LayerMask layerMask;
+
     protected Transform player;
     protected Animator _anim;
     protected SpriteRenderer spriteRenderer;
@@ -55,6 +59,8 @@ public abstract class EnemyBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
+        GameManager.enemies.Remove(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     public override void SetStats(Stats stats)
@@ -330,16 +336,6 @@ public abstract class EnemyBase : UnitBase
 
             if (count == 0)
             {
-                Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * direction;
-                rb.MovePosition(pos);
-                if (direction.x < 0)
-                {
-                    spriteRenderer.flipX = false;
-                }
-                else if (direction.x > 0)
-                {
-                    spriteRenderer.flipX = true;
-                }
                 //Debug.Log(direction);
                 return true;
             }
@@ -382,5 +378,109 @@ public abstract class EnemyBase : UnitBase
             return true;
         else
             return false;
+    }
+
+    protected void Move(Vector2 desiredDir)
+    {
+        int choosenDir = 0;
+        Vector2[] dir = new Vector2[8];//possible directions
+        float[] wagesGood = new float[8];
+        float[] wagesBad = new float[8];
+        float[] wages = new float[8];
+        Collider2D[] avoid = Detect();
+
+        dir[0] = new Vector2(0, 1).normalized;
+        dir[1] = new Vector2(1, 1).normalized;
+        dir[2] = new Vector2(1, 0).normalized;
+        dir[3] = new Vector2(1, -1).normalized;
+        dir[4] = new Vector2(0, -1).normalized;
+        dir[5] = new Vector2(-1, -1).normalized;
+        dir[6] = new Vector2(-1, 0).normalized;
+        dir[7] = new Vector2(-1, 1).normalized;
+
+        foreach (Collider2D obstacleCollider in avoid)
+        {
+            Vector2 directionToObstacle
+                = obstacleCollider.ClosestPoint(transform.position) - (Vector2)transform.position;
+            float distanceToObstacle = directionToObstacle.magnitude;
+
+            //calculate weight based on the distance Enemy<--->Obstacle
+            float weight = distanceToObstacle;
+
+            Vector2 directionToObstacleNormalized = directionToObstacle.normalized;
+
+            //Add obstacle parameters to the danger array
+            for (int i = 0; i < dir.Length; i++)
+            {
+                float result = Vector2.Dot(directionToObstacleNormalized, dir[i]);
+
+                float valueToPutIn = result * weight;
+
+                //override value only if it is higher than the current one stored in the danger array
+                if (valueToPutIn > wagesBad[i])
+                {
+                    wagesBad[i] = valueToPutIn;
+                }
+            }
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            float result = Vector2.Dot(desiredDir.normalized, dir[i]);
+            if (result > 0)
+            {
+                float valueToPutIn = result;
+                if (valueToPutIn > wages[i])
+                {
+                    wagesGood[i] = valueToPutIn;
+                }
+
+            }
+        }
+
+        for (int i = 0; i < 8; i++)
+        {
+            wages[i] = wagesGood[i] - wagesBad[i];
+            if (wages[choosenDir] < wages[i])
+                choosenDir = i;
+        }
+
+        if (TryMove(dir[choosenDir]))
+           return;
+
+        Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * dir[choosenDir];
+        rb.MovePosition(pos);
+        if (dir[choosenDir].x < 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (dir[choosenDir].x > 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
+
+    private Vector2 GetClosestEnemy()
+    {
+        Vector2 pos = rb.position;
+        Vector2 closestEnemy = rb.position;
+        float closestDist = float.MaxValue;
+        foreach (GameObject e in GameManager.enemies)
+        {
+            float tempDist = Vector2.Distance((Vector2)e.transform.position, pos);
+            if (tempDist == 0)
+                continue;
+            if (tempDist < closestDist)
+            {
+                closestDist = tempDist;
+                closestEnemy = e.transform.position;
+            }
+        }
+
+        return closestEnemy;
+    }
+    public Collider2D[] Detect()
+    {
+        return Physics2D.OverlapCircleAll(transform.position, 25, layerMask);
     }
 }
