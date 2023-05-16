@@ -87,7 +87,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     Vector3 GetRandomSpawner()
     {
-        IEnumerable<Vector2Int> spawners = new List<Vector2Int>();
+        List<Vector2Int> spawners = new List<Vector2Int>();
         for (int i = 0; i < GameManager.map.GetLength(0); i++)
         {
             for (int j = 0; j < GameManager.map.GetLength(1); j++)
@@ -131,6 +131,6 @@ public class UnitManager : StaticInstance<UnitManager>
     }
     Vector2 TileToPosition(Vector2Int target)
     {
-        return target * 1.6f;
+        return new(target.x * 1.6f, target.y * 1.6f);
     }
 }
