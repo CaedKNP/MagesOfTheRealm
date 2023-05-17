@@ -36,7 +36,7 @@ namespace Assets._Scripts.Managers
         Wave currentWave;
         int currentWaveNumber = 1;
         float nextSpawnTime = 0;
-        float spawnInterval = 5;
+        float spawnInterval = 3;
         int allEnemiesToSpawn;
         int spawnCountNow;
         int totalEnemies;
@@ -74,7 +74,7 @@ namespace Assets._Scripts.Managers
 
             while (allEnemiesToSpawn > 0)
             {
-                if (allEnemiesToSpawn != 1 && !_bossWave)
+                if (!_bossWave)
                 {
                     EnemiesToSpawnSetter(allEnemiesToSpawn);
 
