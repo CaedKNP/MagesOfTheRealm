@@ -25,7 +25,8 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnEnemy(ExampleEnemyType e, float scaleMultiplier)
     {
-        return SpawnUnit(e, GetRandomSpawner(), scaleMultiplier);
+        GameManager.enemies.Add(SpawnUnit(e, GetRandomSpawner(), scaleMultiplier));
+        return GameManager.enemies.Last();
     }
 
     GameObject SpawnUnit(string unitName, Vector3 pos)

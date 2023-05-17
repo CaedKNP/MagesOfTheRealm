@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 2118176075510762966}
   - component: {fileID: 3762617227965691116}
   m_Layer: 11
-  m_Name: ToAttack
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

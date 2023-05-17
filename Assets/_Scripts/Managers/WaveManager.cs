@@ -28,6 +28,8 @@ namespace Assets._Scripts.Managers
     {
         public Animator animator;
         public Text waveName;
+        public Text enemyCounter;
+
 
         bool _canSpawn = true;
         bool _bossWave = false;
@@ -47,7 +49,13 @@ namespace Assets._Scripts.Managers
             if (!gameOver)
             {
                 TrySpawn();
-                totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+                //totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+                totalEnemies = GameManager.enemies.Count;
+
+                if (currentWaveNumber % 10 == 0)
+                    enemyCounter.text = "Enemies Left: \n" + totalEnemies;
+                else
+                    enemyCounter.text = "";
 
                 Debug.Log(currentWave.waveName);
                 //animator.SetTrigger("WaveComplete");
@@ -60,8 +68,10 @@ namespace Assets._Scripts.Managers
             {
                 currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
 
+
                 if (currentWaveNumber % 10 == 0)
                 {
+                    enemyCounter.text = "Enemies Left: \n" + totalEnemies;
                     allEnemiesToSpawn = 1;
                     _bossWave = true;
                 }
