@@ -108,12 +108,12 @@ TextureImporter:
       name: Ogre_DeathSheet_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 138
-        width: 18
-        height: 25
+        width: 24
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -129,12 +129,12 @@ TextureImporter:
       name: Ogre_DeathSheet_1
       rect:
         serializedVersion: 2
-        x: 3
+        x: 0
         y: 111
-        width: 18
-        height: 24
+        width: 24
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -150,12 +150,12 @@ TextureImporter:
       name: Ogre_DeathSheet_2
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 84
-        width: 19
-        height: 21
+        width: 24
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -171,12 +171,12 @@ TextureImporter:
       name: Ogre_DeathSheet_3
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 57
-        width: 19
-        height: 19
+        width: 24
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: Ogre_DeathSheet_4
       rect:
         serializedVersion: 2
-        x: 2
+        x: 0
         y: 30
-        width: 19
-        height: 15
+        width: 24
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,10 +215,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 3
-        width: 21
-        height: 11
+        width: 24
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

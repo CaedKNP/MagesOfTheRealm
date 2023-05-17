@@ -110,10 +110,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 190
-        width: 12
+        width: 16
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,10 +131,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 163
-        width: 12
-        height: 17
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,10 +152,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 136
-        width: 12
-        height: 15
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,10 +173,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 109
-        width: 12
-        height: 15
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -192,12 +192,12 @@ TextureImporter:
       name: Green_Mage_DeathSheet_4
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 82
-        width: 11
-        height: 13
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -213,12 +213,12 @@ TextureImporter:
       name: Green_Mage_DeathSheet_5
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 55
-        width: 11
-        height: 10
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: Green_Mage_DeathSheet_6
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 28
-        width: 11
-        height: 8
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -255,12 +255,12 @@ TextureImporter:
       name: Green_Mage_DeathSheet_7
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 2
-        width: 8
-        height: 5
+        width: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
