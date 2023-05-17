@@ -29,14 +29,13 @@ namespace Assets._Scripts.Managers
         public Animator animator;
         public Text waveName;
 
-
         bool _canSpawn = true;
         bool _bossWave = false;
-
+        int scaleMultiplier = 1;
         Wave currentWave;
         int currentWaveNumber = 1;
         float nextSpawnTime = 0;
-        float spawnInterval = 3;
+        readonly float spawnInterval = 3;
         int allEnemiesToSpawn;
         int spawnCountNow;
         int totalEnemies;
@@ -52,10 +51,10 @@ namespace Assets._Scripts.Managers
 
         void TrySpawn()
         {
-
             if (_canSpawn && Time.time > nextSpawnTime)
             {
                 currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
+
                 if (currentWaveNumber % 10 == 0)
                 {
                     allEnemiesToSpawn = 1;
@@ -63,7 +62,9 @@ namespace Assets._Scripts.Managers
                 }
                 else
                     allEnemiesToSpawn = currentWave.noOfEnemies;
+
                 _ = StartCoroutine(SpawnWave());
+                scaleMultiplier++;
                 waveName.text = currentWave.waveName;//set UI Text to waveName
             }
         }
@@ -80,7 +81,7 @@ namespace Assets._Scripts.Managers
 
                     for (int i = 0; i < spawnCountNow; i++)
                     {
-                        UnitManager.Instance.SpawnEnemy((ExampleEnemyType)Random.Range(0, 3));
+                        UnitManager.Instance.SpawnEnemy((ExampleEnemyType)Random.Range(0, 3), scaleMultiplier);
                         allEnemiesToSpawn--;
                     }
                 }
