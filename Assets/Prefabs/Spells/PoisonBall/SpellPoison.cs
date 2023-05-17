@@ -17,9 +17,9 @@ public class SpellPoison : SpellBase
             new ConditionBase() { Conditions = Conditions.Poison, AffectOnTick = 2, AffectTime = 2 }
         };
 
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
+        if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            unit.TakeDamage(2, conditions);
+            attack.DAMAGE(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
