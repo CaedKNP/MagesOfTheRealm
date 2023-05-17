@@ -17,6 +17,7 @@ public class HeroUnitBase : UnitBase
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
+    BoxCollider2D collider;
     List<RaycastHit2D> castCollisions = new();
 
     [SerializeField]
@@ -55,6 +56,7 @@ public class HeroUnitBase : UnitBase
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<BoxCollider2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         spellRotator = GetComponentInChildren<StaffRotation>();
 
@@ -144,7 +146,7 @@ public class HeroUnitBase : UnitBase
         if (direction != Vector2.zero)
         {
             // Check for potential collisions
-            int count = rb.Cast(
+            int count = collider.Cast(
                 direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
                 movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
                 castCollisions, // List of collisions to store the found collisions into after the Cast is finished
