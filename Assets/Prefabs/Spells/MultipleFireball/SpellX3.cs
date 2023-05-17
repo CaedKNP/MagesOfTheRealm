@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellX3 : MonoBehaviour
+public class SpellX3 : SpellBase
 {
     public GameObject prefab;
     private void Awake()
@@ -14,10 +14,10 @@ public class SpellX3 : MonoBehaviour
     void Spawn()
     {
         transform.Rotate(0f, 0f, -30f);
-        Instantiate(prefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(prefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(prefab, transform.position, transform.rotation);
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
     }
 }

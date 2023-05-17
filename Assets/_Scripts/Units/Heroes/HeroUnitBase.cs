@@ -498,7 +498,7 @@ public class HeroUnitBase : UnitBase
             }
             else
             {
-                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).GetComponent<SpellBase>().caster = this.collider;
             }
         }
         else
