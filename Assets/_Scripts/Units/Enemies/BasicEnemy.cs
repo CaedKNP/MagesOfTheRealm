@@ -11,7 +11,7 @@ public class BasicEnemy : EnemyBase
     public Spell spell;
     bool onCooldown = false;
 
-    private float dotSize = 0.7f;
+    private float dotSize = 0.2f;
     private Color dotColor = Color.green;
 
     private float lastAttack = 0;
@@ -50,6 +50,46 @@ public class BasicEnemy : EnemyBase
         //Gizmos.DrawRay(transform.position, upRayDirection);
         //Gizmos.DrawRay(transform.position, downRayDirection);
         //Gizmos.DrawLine(transform.position + downRayDirection, transform.position + upRayDirection);
+
+        if (!Application.isPlaying)
+            return;
+        Vector2[] dir = new Vector2[8];//possible directions
+        dir[0] = new Vector2(0, 1).normalized;
+        dir[1] = new Vector2(1, 1).normalized;
+        dir[2] = new Vector2(1, 0).normalized;
+        dir[3] = new Vector2(1, -1).normalized;
+        dir[4] = new Vector2(0, -1).normalized;
+        dir[5] = new Vector2(-1, -1).normalized;
+        dir[6] = new Vector2(-1, 0).normalized;
+        dir[7] = new Vector2(-1, 1).normalized;
+
+        if (wages != null)
+        {
+            for (int i = 0; i < wages.Length; i++)
+            {
+                if (wages[i] < 0)
+                {
+                    Gizmos.color = Color.red;
+                    wages[i] = -wages[i];
+                }else
+                    Gizmos.color = Color.green;
+
+                Gizmos.DrawRay(transform.position, dir[i] * wages[i] * 2);
+            }
+        }
+
+        if (avoid.Length == 0)
+            return;
+
+        //Gizmos.color = Color.red;
+
+        //foreach (Collider2D e in avoid)
+        //{
+        //    if (e == null)
+        //        continue;
+        //    Gizmos.DrawSphere(e.transform.position, dotSize);
+        //}
+
     }
 
     void Update()
