@@ -1,3 +1,4 @@
+using Assets._Scripts.Managers;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -14,10 +15,14 @@ public class GameManager : StaticInstance<GameManager>
     public static int[,] map;
     public static Vector2[,] mapPositions;
 
+
+
     public GameState State { get; private set; }
 
     void Start()
     {
+
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "LevelTest":
@@ -29,6 +34,8 @@ public class GameManager : StaticInstance<GameManager>
             default:
                 break;
         }
+
+
     }
 
     public void ChangeState(GameState newState)
@@ -73,6 +80,11 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
+        if (SceneManager.GetActiveScene().name != "LevelHub")
+        {
+            SceneManager.LoadScene("LevelHub");
+        }
+        
         Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
     }
 
@@ -107,7 +119,11 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleLose()
     {
+        WaveManager.Instance.gameOver = true;
+        WaveManager.Instance.waveName.text = "YOUDIED!";
 
+        //new WaitForSeconds(3);
+        //ChangeState(GameState.Hub);
     }
 
     void HandleWin()
