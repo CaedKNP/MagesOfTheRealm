@@ -17,9 +17,19 @@ public class SpellFrost : SpellBase
             new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 2 }
         };
 
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
+        if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            unit.TakeDamage(2, conditions);
+            attack.DAMAGE(2, conditions);
+
+            if (!BeforeDelete())
+                Destroy(gameObject);
+        }
+
+        if (collision.gameObject.layer == 11)
+        {
+            var asd = collision.gameObject.GetComponent<AttackHandler>();
+
+            asd.DAMAGE(2, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);

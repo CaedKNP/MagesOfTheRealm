@@ -49,8 +49,8 @@ namespace Assets._Scripts.Managers
             if (!gameOver)
             {
                 TrySpawn();
-                totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
-
+                //totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+                totalEnemies = GameManager.enemies.Count;
 
                 if (currentWaveNumber % 10 == 0)
                     enemyCounter.text = "Enemies Left: \n" + totalEnemies;
