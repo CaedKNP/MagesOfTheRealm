@@ -126,7 +126,9 @@ public class HeroUnitBase : UnitBase
         }
         else
         {
-            _anim.CrossFade("Idle", 0, 0);
+            if (stats.CurrentHp > 0)
+                _anim.CrossFade("Idle", 0, 0);
+            
         }
 
         if (movementInput.x < 0)
@@ -508,6 +510,9 @@ public class HeroUnitBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
-       // _anim.CrossFade("Death", 0, 0);
+     
+        _anim.CrossFade("Death", 0, 0);
+        Destroy(this.gameObject, 3f);
+        GameManager.Instance.ChangeState(GameState.Lose);
     }
 }

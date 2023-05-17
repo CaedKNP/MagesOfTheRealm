@@ -24,13 +24,15 @@ namespace Assets._Scripts.Managers
         }
     }
 
-    public class WaveManager : MonoBehaviour
+    public class WaveManager : StaticInstance<WaveManager>
     {
         public Animator animator;
         public Text waveName;
 
         bool _canSpawn = true;
         bool _bossWave = false;
+        public bool gameOver = false;
+
         int scaleMultiplier = 1;
         Wave currentWave;
         int currentWaveNumber = 1;
@@ -42,11 +44,14 @@ namespace Assets._Scripts.Managers
 
         private void Update()
         {
-            TrySpawn();
-            totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
+            if (!gameOver)
+            {
+                TrySpawn();
+                totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-            Debug.Log(currentWave.waveName);
-            //animator.SetTrigger("WaveComplete");
+                Debug.Log(currentWave.waveName);
+                //animator.SetTrigger("WaveComplete");
+            }
         }
 
         void TrySpawn()
