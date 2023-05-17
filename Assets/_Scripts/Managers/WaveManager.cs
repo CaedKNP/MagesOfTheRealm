@@ -29,11 +29,14 @@ namespace Assets._Scripts.Managers
         public Animator animator;
         public Text waveName;
 
+
         bool _canSpawn = true;
+        bool _bossWave = false;
+
         Wave currentWave;
         int currentWaveNumber = 1;
         float nextSpawnTime = 0;
-        float spawnInterval = 5;
+        float spawnInterval = 3;
         int allEnemiesToSpawn;
         int spawnCountNow;
         int totalEnemies;
@@ -43,19 +46,25 @@ namespace Assets._Scripts.Managers
             TrySpawn();
             totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
-            //waveName.text = currentWave.waveName;
+            Debug.Log(currentWave.waveName);
             //animator.SetTrigger("WaveComplete");
         }
 
         void TrySpawn()
         {
+
             if (_canSpawn && Time.time > nextSpawnTime)
             {
                 currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
                 if (currentWaveNumber % 10 == 0)
+                {
                     allEnemiesToSpawn = 1;
-                allEnemiesToSpawn = currentWave.noOfEnemies;
+                    _bossWave = true;
+                }
+                else
+                    allEnemiesToSpawn = currentWave.noOfEnemies;
                 _ = StartCoroutine(SpawnWave());
+                waveName.text = currentWave.waveName;//set UI Text to waveName
             }
         }
 
@@ -65,7 +74,7 @@ namespace Assets._Scripts.Managers
 
             while (allEnemiesToSpawn > 0)
             {
-                if (allEnemiesToSpawn != 1)
+                if (!_bossWave)
                 {
                     EnemiesToSpawnSetter(allEnemiesToSpawn);
 

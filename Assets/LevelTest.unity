@@ -42135,6 +42135,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1751369874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2043431968770231280, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
+  m_PrefabInstance: {fileID: 93546768619145674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1826169109
 GameObject:
   m_ObjectHideFlags: 0
@@ -42165,7 +42176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  waveName: {fileID: 0}
+  waveName: {fileID: 1751369874}
 --- !u!4 &1826169111
 Transform:
   m_ObjectHideFlags: 0
