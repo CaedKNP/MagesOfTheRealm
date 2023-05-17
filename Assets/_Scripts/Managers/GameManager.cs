@@ -1,3 +1,4 @@
+using Assets._Scripts.Managers;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,14 @@ public class GameManager : StaticInstance<GameManager>
     public static Vector2[,] mapPositions;
     public static List<GameObject> enemies;
 
+
+
     public GameState State { get; private set; }
 
     void Start()
     {
+
+
         switch (SceneManager.GetActiveScene().name)
         {
             case "LevelTest":
@@ -31,6 +36,8 @@ public class GameManager : StaticInstance<GameManager>
             default:
                 break;
         }
+
+
     }
 
     public void ChangeState(GameState newState)
@@ -75,8 +82,12 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
+        if (SceneManager.GetActiveScene().name != "LevelHub")
+        {
+            SceneManager.LoadScene("LevelHub");
+        }
+        
         Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
-        //ChangeState(GameState.SpawningHero);
     }
 
     void HandleLevelChange()
@@ -101,9 +112,6 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningEnemies()
     {
-        for (int i = 0; i < 15; i++)
-            enemies.Add(UnitManager.Instance.SpawnEnemy((ExampleEnemyType)UnityEngine.Random.Range(0,3)));
-
         ChangeState(GameState.Playing);
     }
 
@@ -114,7 +122,11 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleLose()
     {
+        WaveManager.Instance.gameOver = true;
+        WaveManager.Instance.waveName.text = "YOUDIED!";
 
+        //new WaitForSeconds(3);
+        //ChangeState(GameState.Hub);
     }
 
     void HandleWin()

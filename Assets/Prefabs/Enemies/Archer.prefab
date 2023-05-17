@@ -179,7 +179,7 @@ MonoBehaviour:
   rangeOfRest: 7
   rangeOfChase: 15
   attackCooldown: 2
-  spell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
+  spell: {fileID: 11400000, guid: eff8f4f1a437b2a458e622c8f50a65aa, type: 2}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5

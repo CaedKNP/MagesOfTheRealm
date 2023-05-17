@@ -1650,6 +1650,7 @@ GameObject:
   - component: {fileID: 1294487450}
   - component: {fileID: 1294487451}
   - component: {fileID: 1294487449}
+  - component: {fileID: 1294487452}
   m_Layer: 0
   m_Name: GameManagers
   m_TagString: Untagged
@@ -1697,6 +1698,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   worldSpaceCanvas: {fileID: 1114441742}
+--- !u!114 &1294487452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294487448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af3d5a3ab6607d24badb7543fb585949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  waveName: {fileID: 1751369874}
 --- !u!1 &1369151030
 GameObject:
   m_ObjectHideFlags: 0
@@ -42135,6 +42150,17 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1751369874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2043431968770231280, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
+  m_PrefabInstance: {fileID: 93546768619145674}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2117541211
 PrefabInstance:
   m_ObjectHideFlags: 0
