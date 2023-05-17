@@ -512,6 +512,7 @@ public class HeroUnitBase : UnitBase
         Debug.Log($"{name} is dead");
      
         _anim.CrossFade("Death", 0, 0);
+        _canMove = false;
         Destroy(this.gameObject, 3f);
         GameManager.Instance.ChangeState(GameState.Lose);
     }

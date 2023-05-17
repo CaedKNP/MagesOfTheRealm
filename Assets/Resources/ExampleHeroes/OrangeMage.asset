@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OrangeMage
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 12
+    _MaxHp: 1200
     _Armor: 1.1
     _MovementSpeed: 5.1
     _DmgModifier: 1.3
