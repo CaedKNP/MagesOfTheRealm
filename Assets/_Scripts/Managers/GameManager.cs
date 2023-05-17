@@ -1,5 +1,6 @@
 using Assets._Scripts.Managers;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,7 @@ public class GameManager : StaticInstance<GameManager>
     public static GameObject Player;
     public static int[,] map;
     public static Vector2[,] mapPositions;
+    public static List<GameObject> enemies;
 
 
 
@@ -96,6 +98,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleStarting()
     {
+        enemies = new();//not sure where to put it
         map = FindObjectOfType<LevelGenerator>().GenerateMap();
         ChangeState(GameState.SpawningHero);
     }

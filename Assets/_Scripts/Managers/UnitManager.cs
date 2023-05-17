@@ -15,7 +15,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnHero(string mageName)
     {
-        return SpawnUnit(mageName, GetRandomVector());
+        return SpawnUnit(mageName, GetPlayerSpawner());
     }
 
     public GameObject SpawnHero(string mageName, Vector2 vector2)
@@ -133,6 +133,18 @@ public class UnitManager : StaticInstance<UnitManager>
                 break;
         }
         return TileToPosition(tempPoint);
+    }
+    Vector3 GetPlayerSpawner()
+    {
+        for (int i = 0; i < GameManager.map.GetLength(0); i++)
+        {
+            for (int j = 0; j < GameManager.map.GetLength(1); j++)
+            {
+                if (GameManager.map[i, j] == 3)
+                    return TileToPosition(new(i, j));
+            }
+        }
+        return TileToPosition(new(GameManager.map.GetLength(0) / 2, GameManager.map.GetLength(1) / 2));
     }
     Vector2 TileToPosition(Vector2Int target)
     {
