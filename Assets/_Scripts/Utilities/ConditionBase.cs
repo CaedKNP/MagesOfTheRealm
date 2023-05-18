@@ -1,5 +1,9 @@
-﻿namespace Assets._Scripts.Utilities
+﻿using System;
+using UnityEngine;
+
+namespace Assets._Scripts.Utilities
 {
+    [Serializable]
     public struct ConditionBase
     {
         public ConditionBase(Conditions conditions, float affectTime, float affectOnTick)
@@ -9,10 +13,13 @@
             AffectTime = affectTime;
         }
 
-        public Conditions Conditions { get; set; }
+        [SerializeField]
+        public Conditions Conditions;
 
-        public float AffectTime { get; set; }
+        [SerializeField]
+        public float AffectTime;
 
-        public float AffectOnTick { get; set;}
+        [SerializeField]
+        public float AffectOnTick;
     }
 }

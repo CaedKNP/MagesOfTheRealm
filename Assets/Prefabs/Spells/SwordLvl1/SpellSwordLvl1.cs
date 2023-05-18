@@ -13,7 +13,7 @@ public class SpellSwordLvl1 : SpellBase
 
     void Animation()
     {
-        animator.speed=animator.speed*2.5f;
+        animator.speed *= 2.5f;
         animator.enabled = true; // Enable the Animator
         StartCoroutine(WaitForAnimationToEnd());
         ExplosiveDamage();
@@ -37,8 +37,8 @@ public class SpellSwordLvl1 : SpellBase
 
         foreach (var collider in hitColliders)
         {
-            if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(2, new List<ConditionBase>());
+            if (collider.TryGetComponent(out AttackHandler unit))
+                unit.DAMAGE(2, new List<ConditionBase>());
         }
     }
 }

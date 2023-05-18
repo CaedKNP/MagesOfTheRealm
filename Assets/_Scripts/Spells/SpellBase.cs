@@ -1,9 +1,13 @@
+using Assets._Scripts.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public abstract class SpellBase : MonoBehaviour
 {
-    public string Name { get; set; }
+    [SerializeField]
+    public float Dmg;
+    [SerializeField]
+    public List<ConditionBase> Conditions;
 
     protected float speed;
     protected float destroyTime;
@@ -26,4 +30,10 @@ public abstract class SpellBase : MonoBehaviour
     }
 
     protected virtual bool BeforeDelete() { return false; }
+
+    //public void SetDmgAndConditions(float dmg, List<ConditionBase> conditions)
+    //{
+    //    this.Dmg = dmg;
+    //    this.Conditions = conditions;
+    //}
 }

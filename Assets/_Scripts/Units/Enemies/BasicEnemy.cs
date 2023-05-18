@@ -73,7 +73,8 @@ public class BasicEnemy : EnemyBase
                 {
                     Gizmos.color = Color.red;
                     wages[i] = -wages[i];
-                }else
+                }
+                else
                     Gizmos.color = Color.green;
 
                 Gizmos.DrawRay(transform.position, dir[i] * wages[i] * 2);
@@ -185,7 +186,8 @@ public class BasicEnemy : EnemyBase
         lastAttack = Time.time;
         if (attackFromCenter)
         {
-            Instantiate(spell.Prefab, (transform.position), Quaternion.identity);
+            spell.Cast(transform.position, Quaternion.identity);
+            //Instantiate(spell.Prefab, transform.position, Quaternion.identity);
             return;
         }
 
@@ -193,7 +195,8 @@ public class BasicEnemy : EnemyBase
         dirToPlayer.Normalize();
         dirToPlayer *= 2;
         float angle = Mathf.Atan2(dirToPlayer.y, dirToPlayer.x) * Mathf.Rad2Deg;
-        Instantiate(spell.Prefab, (transform.position + dirToPlayer), Quaternion.AngleAxis(angle, Vector3.forward));
+        spell.Cast(transform.position + dirToPlayer, Quaternion.AngleAxis(angle, Vector3.forward));
+        //Instantiate(spell.Prefab, (transform.position + dirToPlayer), Quaternion.AngleAxis(angle, Vector3.forward));
         //GameManager.Player.GetComponent<HeroUnitBase>().TakeDamage(new List<Conditions>(), 1, 3, 1);
     }
 
