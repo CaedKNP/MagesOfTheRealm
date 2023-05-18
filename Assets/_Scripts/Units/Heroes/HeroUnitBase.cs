@@ -10,7 +10,6 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    GameObject newMage;
     Stats stats;
     bool _canMove = true;
     bool _isDead = false;

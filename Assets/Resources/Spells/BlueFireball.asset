@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: -1782053002, guid: ce7e133b0845cdd4683a8674f032139f, type: 3}
   Prefab: {fileID: 639514538004180302, guid: 4a1089971e99df1459a4b3e5379a551d, type: 3}
   CastFromHeroeNoStaff: 0
-  ID: 7
+  ID: 2
   cooldown: 4
   spellSlot: 2
   Name: Blue Fireball

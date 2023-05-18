@@ -18,8 +18,8 @@ MonoBehaviour:
     _MovementSpeed: 5
     _DmgModifier: 1
     _CooldownModifier: 1
-  Prefab: {fileID: 8109268066809691, guid: 38f55053b979162419e74f767a9342e3, type: 3}
+  Prefab: {fileID: 8109268066809691, guid: 1e0182bae0f28554392b4b8f570a5002, type: 3}
   Description: 
   MenuSprite: {fileID: 0}
   EnemyName: 
-  EnemyType: 0
+  EnemyType: 3
