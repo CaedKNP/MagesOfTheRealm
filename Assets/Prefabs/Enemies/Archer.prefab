@@ -176,7 +176,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
+<<<<<<< Updated upstream
   scoreSO: {fileID: 11400000, guid: a9706e22191d9cf408d8fc6984d0f444, type: 2}
+=======
+>>>>>>> Stashed changes
   attackFromCenter: 0
   rangeOfAttack: 5
   rangeOfRest: 7
