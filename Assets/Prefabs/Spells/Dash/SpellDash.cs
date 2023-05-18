@@ -8,8 +8,8 @@ public class SpellDash : MonoBehaviour
     public float moveSpeed = 40f;
     Rigidbody2D rb;
     Vector2 mousePosition;
-    float destroyTimer = 0.3f; // Licznik czasu
-    Vector2 direction; // Kierunek poruszania się
+    float destroyTimer = 0.3f; // Licznik czasu 
+    Vector2 direction; // Kierunek poruszania się 
 
     void Awake()
     {
@@ -38,7 +38,7 @@ public class SpellDash : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (TryMove(direction)) {}
+        if (TryMove(direction)) { }
         PullPlayer();
     }
 
@@ -72,25 +72,17 @@ public class SpellDash : MonoBehaviour
     {
         if (direction != Vector2.zero)
         {
-            // Sprawdzanie potencjalnych kolizji
+            // Sprawdzanie potencjalnych kolizji 
             RaycastHit2D[] hits = new RaycastHit2D[1];
-            int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
-
-            //Vector2 offsetPos = transform.position;
-            //offsetPos.y -= 0.6f;
-            //hits = Physics2D.RaycastAll(offsetPos, direction, 20, 7);
-
-            //int count = hits.Length;
+            int count = rb.Cast(direction, hits, moveSpeed * Time.deltaTime);
 
             if (count == 0)
             {
                 rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
-                moved = true;
                 return true;
             }
         }
-        // Nie można poruszać się, jeśli brak kierunku ruchu
-        rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
+        // Nie można poruszać się, jeśli brak kierunku ruchu 
         DestroyObject();
         return false;
     }
