@@ -10,15 +10,18 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    GameObject newMage;
     Stats stats;
     bool _canMove = true;
+    bool _isDead = false;
 
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
     BoxCollider2D collider;
     List<RaycastHit2D> castCollisions = new();
+
+    [SerializeField]
+    private stringSO mageNameSO;
 
     [SerializeField]
     Spell PrimarySpell;
@@ -72,7 +75,8 @@ public class HeroUnitBase : UnitBase
 
     void FixedUpdate()
     {
-        TryMove();
+        if (!_isDead)
+            TryMove();
     }
 
     public void ChangeMage(string mageName)
@@ -85,6 +89,7 @@ public class HeroUnitBase : UnitBase
         yield return new WaitForSeconds(1f);
 
         this.gameObject.SetActive(false);
+        mageNameSO.String = mageName;
         GameManager.Player = UnitManager.Instance.SpawnHero(mageName, this.gameObject.transform.position);
         Destroy(this.gameObject);
 
@@ -128,7 +133,7 @@ public class HeroUnitBase : UnitBase
         {
             if (stats.CurrentHp > 0)
                 _anim.CrossFade("Idle", 0, 0);
-            
+
         }
 
         if (movementInput.x < 0)
@@ -456,53 +461,59 @@ public class HeroUnitBase : UnitBase
 
     void OnPrimaryAttack()
     {
-        if (Time.time > primaryCooldownCounter)
-        {
-            CastSpell(PrimarySpell);
-            primaryCooldownCounter = Time.time + PrimarySpell.cooldown * stats.CooldownModifier;
-        }
+        if (!_isDead)
+            if (Time.time > primaryCooldownCounter)
+            {
+                CastSpell(PrimarySpell);
+                primaryCooldownCounter = Time.time + PrimarySpell.cooldown * stats.CooldownModifier;
+            }
     }
 
     void OnSecondaryAttack()
     {
-        if (Time.time > secondaryCooldownCounter)
-        {
-            CastSpell(SecondarySpell);
-            secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * stats.CooldownModifier;
-        }
+        if (!_isDead)
+            if (Time.time > secondaryCooldownCounter)
+            {
+                CastSpell(SecondarySpell);
+                secondaryCooldownCounter = Time.time + SecondarySpell.cooldown * stats.CooldownModifier;
+            }
     }
 
     void OnQSpell()
     {
-        if (Time.time > QCooldownCounter)
-        {
-            CastSpell(QSpell);
-            QCooldownCounter = Time.time + QSpell.cooldown * stats.CooldownModifier;
-        }
+        if (!_isDead)
+            if (Time.time > QCooldownCounter)
+            {
+                CastSpell(QSpell);
+                QCooldownCounter = Time.time + QSpell.cooldown * stats.CooldownModifier;
+            }
     }
 
     void OnESpell()
     {
-        if (Time.time > ECooldownCounter)
-        {
-            CastSpell(ESpell);
-            ECooldownCounter = Time.time + ESpell.cooldown * stats.CooldownModifier;
-        }
+        if (!_isDead)
+            if (Time.time > ECooldownCounter)
+            {
+                CastSpell(ESpell);
+                ECooldownCounter = Time.time + ESpell.cooldown * stats.CooldownModifier;
+            }
     }
 
     void OnDodge()
     {
-        if (Time.time > DashCooldownCounter)
-        {
-            CastSpell(DashSpell);
-            DashCooldownCounter = Time.time + DashSpell.cooldown * stats.CooldownModifier;
-        }
+        if (!_isDead)
+            if (Time.time > DashCooldownCounter)
+            {
+                CastSpell(DashSpell);
+                DashCooldownCounter = Time.time + DashSpell.cooldown * stats.CooldownModifier;
+            }
     }
 
     void OnInteraction()
     {
-        //TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
-        GameManager.Instance.ChangeState(GameState.ChangeLevel);
+        if (!_isDead)
+            //TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
+            GameManager.Instance.ChangeState(GameState.ChangeLevel);
     }
 
     #endregion
@@ -531,7 +542,7 @@ public class HeroUnitBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
-     
+
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
         Destroy(this.gameObject, 3f);
