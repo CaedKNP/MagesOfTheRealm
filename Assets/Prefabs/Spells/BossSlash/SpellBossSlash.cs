@@ -38,7 +38,7 @@ public class SpellBossSlash : SpellBase
         foreach (var collider in hitColliders)
         {
             if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(Dmg, Conditions);
+                unit.TakeDamage(5, new List<ConditionBase>());
         }
     }
 }

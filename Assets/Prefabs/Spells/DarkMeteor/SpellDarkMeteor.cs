@@ -16,9 +16,14 @@ public class SpellDarkMeteor : SpellBase
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out AttackHandler attack))
+        var conditions = new List<ConditionBase>
         {
-            attack.DAMAGE(0, Conditions);
+            new ConditionBase() { Conditions = Conditions.Poison, AffectTime  = 5, AffectOnTick = 1 }
+        };
+
+        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
+        {
+            unit.TakeDamage(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
@@ -62,8 +67,8 @@ public class SpellDarkMeteor : SpellBase
 
         foreach (var collider in hitColliders)
         {
-            if (collider.TryGetComponent(out AttackHandler attack))
-                attack.DAMAGE(Dmg, new List<ConditionBase>());
+            if (collider.TryGetComponent(out UnitBase unit))
+                unit.TakeDamage(2, new List<ConditionBase>());
         }
     }
 }
