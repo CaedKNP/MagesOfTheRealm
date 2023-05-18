@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 639514538004180303}
   - component: {fileID: -766159839102585204}
   - component: {fileID: 1343789464}
-  - component: {fileID: 3588281737434258268}
+  - component: {fileID: 3701035171190824695}
   - component: {fileID: 23302610432077427}
   m_Layer: 6
   m_Name: Spell3ThunderBoltInit
@@ -112,8 +112,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.06}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.1, y: 0.1}
+  m_EdgeRadius: 1.5
 --- !u!50 &1343789464
 Rigidbody2D:
   serializedVersion: 4
@@ -135,7 +135,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &3588281737434258268
+--- !u!114 &3701035171190824695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,10 +144,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 291922bb0c7a81f49b8e167188bf9d09, type: 3}
+  m_Script: {fileID: 11500000, guid: 2632357248c045241b94b52d1814fd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeOut: 0.4
 --- !u!95 &23302610432077427
 Animator:
   serializedVersion: 5
