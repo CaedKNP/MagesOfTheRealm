@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
-  m_Name: Thunder
+  m_Name: MultiplePoisonBall
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 63d3dfe7044a4994b9942728f71a3f60, type: 3}
+  Prefab: {fileID: 639514538004180302, guid: 96b477b6b8b0a7447aaa2b25fde34a04, type: 3}
   CastFromHeroeNoStaff: 0
-  ID: 15
-  cooldown: 10
-  spellSlot: 2
-  Name: Thunder
+  ID: 16
+  cooldown: 4.5
+  spellSlot: 0
+  Name: 
   Description: 
