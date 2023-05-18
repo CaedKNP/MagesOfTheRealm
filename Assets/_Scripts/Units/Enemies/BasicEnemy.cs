@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
+    public bool attackFromCenter;
+
     public float rangeOfAttack = 0.1f;
     public float rangeOfRest = 2f;
     public float rangeOfChase = 5f;
@@ -181,6 +183,11 @@ public class BasicEnemy : EnemyBase
             return;
         onCooldown = true;
         lastAttack = Time.time;
+        if (attackFromCenter)
+        {
+            Instantiate(spell.Prefab, (transform.position), Quaternion.identity);
+            return;
+        }
 
         Vector3 dirToPlayer = (player.position - transform.position);
         dirToPlayer.Normalize();
