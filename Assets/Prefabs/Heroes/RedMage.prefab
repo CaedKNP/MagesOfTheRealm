@@ -472,6 +472,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  mageNameSO: {fileID: 11400000, guid: 488fa0a66c85f7747b4582dc17b80341, type: 2}
   PrimarySpell: {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
   SecondarySpell: {fileID: 0}
   QSpell: {fileID: 0}
