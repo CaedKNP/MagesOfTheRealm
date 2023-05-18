@@ -4,7 +4,7 @@ using UnityEngine;
 public class stringSO : ScriptableObject
 {
     [SerializeField]
-    private string _string;
+    private string _string = "RedMage";
 
     public string String
     {

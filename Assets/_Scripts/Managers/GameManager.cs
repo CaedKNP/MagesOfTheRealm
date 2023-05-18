@@ -20,8 +20,6 @@ public class GameManager : StaticInstance<GameManager>
 
     [SerializeField]
     private stringSO mageNameSO;
-    [SerializeField]
-    private intSO scoreSO;
 
     public GameState State { get; private set; }
 

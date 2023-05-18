@@ -12,9 +12,24 @@ public class SpellBlueFireball : SpellBase
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        var conditions = new List<ConditionBase>
+        {
+            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 2f, AffectTime = 3f }
+        };
+
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(Dmg, Conditions);
+            unit.TakeDamage(6, conditions);
+
+            if (!BeforeDelete())
+                Destroy(gameObject);
+        }
+
+        if (collision.gameObject.layer == 11)
+        {
+            var asd = collision.gameObject.GetComponent<AttackHandler>();
+
+            asd.DAMAGE(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);

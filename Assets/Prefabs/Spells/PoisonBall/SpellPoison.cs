@@ -12,12 +12,19 @@ public class SpellPoison : SpellBase
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        var conditions = new List<ConditionBase>
+        {
+            new ConditionBase() { Conditions = Conditions.Poison, AffectOnTick = 2, AffectTime = 2 }
+        };
+
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            attack.DAMAGE(Dmg, Conditions);
+            attack.DAMAGE(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
         }
+
+        
     }
 }
