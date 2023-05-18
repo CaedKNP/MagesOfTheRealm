@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
+  m_Name: MageArmor
+  m_EditorClassIdentifier: 
+  image: {fileID: 21300000, guid: 9d2b2c3e669efe744876854de2740ed1, type: 3}
+  Prefab: {fileID: 639514538004180302, guid: a7b3980a6f3c2584ab0050a14a939d47, type: 3}
+  CastFromHeroeNoStaff: 1
+  ID: 17
+  cooldown: 5
+  spellSlot: 3
+  Name: MageArmor
+  Description: 
