@@ -120,7 +120,7 @@ public class GameManager : StaticInstance<GameManager>
     void HandleLose()
     {
         WaveManager.Instance.gameOver = true;
-        WaveManager.Instance.waveName.text = "YOUDIED!";
+        WaveManager.Instance.waveName.text = "YOU DIED!";
 
         var wait = StartCoroutine(WaitSomeSecs());
     }
