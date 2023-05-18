@@ -15,14 +15,9 @@ public class SpellFireball : SpellBase
         if (collision == caster)
             return;
 
-        var conditions = new List<ConditionBase>
-        {
-            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 3f, AffectTime = 3f }
-        };
-
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            attack.DAMAGE(3, conditions);
+            attack.DAMAGE(Dmg, Conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
