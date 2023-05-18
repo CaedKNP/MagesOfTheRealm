@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: d7fb05e749c06ca4fafbc5726bd92b17, type: 3}
   Prefab: {fileID: 639514538004180302, guid: b85d32e0559008143975122f89e98706, type: 3}
   CastFromHeroeNoStaff: 0
-  ID: 5
+  ID: 1
   cooldown: 2
   spellSlot: 3
   Name: Arrow
