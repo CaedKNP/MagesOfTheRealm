@@ -6,6 +6,7 @@ public class SpellDash : MonoBehaviour
     StaffRotation staffRotation;
     public float moveSpeed = 40f;
     private Rigidbody2D rb;
+    public ContactFilter2D movementFilter;
     private Vector2 mousePosition;
     public float destroyDelay = 0.5f; // Czas opóźnienia przed zniszczeniem
     public float positionThreshold = 0.1f; // Prog odchylenia od pozycji docelowej
@@ -100,7 +101,13 @@ public class SpellDash : MonoBehaviour
         {
             // Sprawdzanie potencjalnych kolizji
             RaycastHit2D[] hits = new RaycastHit2D[1];
-            int count = rb.Cast(direction, hits, moveSpeed * Time.deltaTime);
+            int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
+
+            //Vector2 offsetPos = transform.position;
+            //offsetPos.y -= 0.6f;
+            //hits = Physics2D.RaycastAll(offsetPos, direction, moveSpeed * Time.deltaTime + 1);
+
+            //int count = hits.Length;
 
             if (count == 0)
             {

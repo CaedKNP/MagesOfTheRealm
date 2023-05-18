@@ -162,6 +162,27 @@ public class HeroUnitBase : UnitBase
         }
         return false;
     }
+    public bool TryMove(Vector2 direction, float speed)
+    {
+        if (direction != Vector2.zero)
+        {
+            // Check for potential collisions
+            int count = collider.Cast(
+                direction, // X and Y values between -1 and 1 that represent the direction from the body to look for collisions
+                movementFilter, // The settings that determine where a collision can occur on such as layers to collide with
+                castCollisions, // List of collisions to store the found collisions into after the Cast is finished
+                speed * Time.fixedDeltaTime + collisionOffset); // The amount to cast equal to the movement plus an offset
+
+            if (count == 0)
+            {
+                rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * direction);
+                return true;
+            }
+
+            return false;
+        }
+        return false;
+    }
 
     #endregion
 
@@ -498,7 +519,7 @@ public class HeroUnitBase : UnitBase
             }
             else
             {
-                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).GetComponent<SpellBase>().caster = this.collider;
             }
         }
         else

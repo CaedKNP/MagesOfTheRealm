@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473902857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.594, y: -0.036, z: 0}
+  m_LocalPosition: {x: 2.591, y: -0.036, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39,7 +39,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473902857}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -487,9 +487,9 @@ MonoBehaviour:
     maxNormalAngle: 0
   PrimarySpell: {fileID: 11400000, guid: 9292ee4cde0b9f0489ee860d09e1e39a, type: 2}
   SecondarySpell: {fileID: 11400000, guid: c46f6169fbb50aa42a2839a6025df91c, type: 2}
-  QSpell: {fileID: 11400000, guid: f3cee71c71868824f8b384ba3a4fb3b2, type: 2}
+  QSpell: {fileID: 11400000, guid: dc084a62e7a0d8448b3c13768c5b9d71, type: 2}
   ESpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
-  DashSpell: {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
+  DashSpell: {fileID: 11400000, guid: d962d4341603dc64aace384a3e19e3d0, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
 --- !u!95 &8531856476346468769
 Animator:

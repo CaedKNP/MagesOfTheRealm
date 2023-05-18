@@ -39,7 +39,7 @@ namespace Assets._Scripts.Managers
         Wave currentWave;
         int currentWaveNumber = 1;
         float nextSpawnTime = 0;
-        readonly float spawnInterval = 3;
+        readonly float spawnInterval = 0.1f;
         int allEnemiesToSpawn;
         int spawnCountNow;
         int totalEnemies;
