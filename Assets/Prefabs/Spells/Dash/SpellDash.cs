@@ -13,6 +13,7 @@ public class SpellDash : MonoBehaviour
 
     private float destroyTimer; // Licznik czasu
     private bool isDashing; // Flaga określająca, czy trwa dash
+    private bool moved = false; // Flaga określająca, czy trwa dash
 
     private void Awake()
     {
@@ -57,8 +58,13 @@ public class SpellDash : MonoBehaviour
         if (Vector2.Distance(transform.position, mousePosition) <= positionThreshold)
         {
             DestroyObject();
+            return;
         }
-
+        //if (Physics2D.Raycast((Vector2)transform.position, mousePosition, Vector2.Distance(transform.position, mousePosition) + 2, 7).collider != null)
+        //{
+        //    DestroyObject();
+        //    return;
+        //}
         if (TryMove(direction))
         {
             destroyTimer += Time.deltaTime; // Zwiększanie licznika czasu
@@ -68,10 +74,13 @@ public class SpellDash : MonoBehaviour
             destroyTimer = destroyDelay; // Resetowanie licznika czasu, jeśli ruch został zatrzymany przez ograniczenie
         }
 
-        // Przemieszczanie gracza w kierunku dashu
-        Vector3 playerDirection = transform.position - player.transform.position;
-        playerDirection.Normalize();
-        player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        //Przemieszczanie gracza w kierunku dashu
+        if (moved)
+        {
+            Vector3 playerDirection = transform.position - player.transform.position;
+            playerDirection.Normalize();
+            player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -101,21 +110,23 @@ public class SpellDash : MonoBehaviour
         {
             // Sprawdzanie potencjalnych kolizji
             RaycastHit2D[] hits = new RaycastHit2D[1];
-            //int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
+            int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
 
-            Vector2 offsetPos = transform.position;
-            offsetPos.y -= 0.6f;
-            hits = Physics2D.RaycastAll(offsetPos, direction, 20);
+            //Vector2 offsetPos = transform.position;
+            //offsetPos.y -= 0.6f;
+            //hits = Physics2D.RaycastAll(offsetPos, direction, 20, 7);
 
-            int count = hits.Length;
+            //int count = hits.Length;
 
             if (count == 0)
             {
                 rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+                moved = true;
                 return true;
             }
         }
         // Nie można poruszać się, jeśli brak kierunku ruchu
+        rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
         DestroyObject();
         return false;
     }
