@@ -177,9 +177,9 @@ MonoBehaviour:
     m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
   attackFromCenter: 0
-  rangeOfAttack: 5
-  rangeOfRest: 7
-  rangeOfChase: 15
+  rangeOfAttack: 10
+  rangeOfRest: 15
+  rangeOfChase: 25
   attackCooldown: 2
   spell: {fileID: 11400000, guid: 6d9754bdbdd79ac42aa1a888e0569874, type: 2}
 --- !u!95 &3214218647730200590
