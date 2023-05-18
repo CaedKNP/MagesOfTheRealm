@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5c23fd834c21743bf7677711b06d5e, type: 3}
+  m_Name: RedMage
+  m_EditorClassIdentifier: 
+  _stats:
+    _MaxHp: 50
+    _Armor: 1
+    _MovementSpeed: 5
+    _DmgModifier: 1
+    _CooldownModifier: 1
+  Prefab: {fileID: -7794513531059996055, guid: 76f2a9e4edbc87c40ab109994159960c, type: 3}
+  Description: Red Mage
+  MenuSprite: {fileID: -850875246, guid: d438e555addcf5747b2d5e4ab0aa3472, type: 3}
+  HeroName: RedMage

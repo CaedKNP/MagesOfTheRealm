@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56108ee06b19b2d428bc25058329b3d6, type: 3}
+  m_Name: Random Walk Cave
+  m_EditorClassIdentifier: 
+  algorithm: 5
+  randomSeed: 1
+  seed: 6
+  fillAmount: 0
+  smoothAmount: 0
+  clearAmount: 80
+  interval: 0
+  minPathWidth: 0
+  maxPathWidth: 0
+  maxPathChange: 0
+  roughness: 0
+  windyness: 0
+  edgesAreWalls: 0
+  modifier: 0

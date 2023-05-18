@@ -1,91 +1,144 @@
+using Assets._Scripts.Managers;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Nice, easy to understand enum-based game manager. For larger and more complex games, look into
-/// state machines. But this will serve just fine for most games.
+/// enum-based game manager
 /// </summary>
-public class GameManager : StaticInstance<GameManager> {
+public class GameManager : StaticInstance<GameManager>
+{
     public static event Action<GameState> OnBeforeStateChanged;
     public static event Action<GameState> OnAfterStateChanged;
 
+    public static GameObject Player;
+    public static int[,] map;
+    public static Vector2[,] mapPositions;
+    public static List<GameObject> enemies;
+
+    [SerializeField]
+    private stringSO mageNameSO;
+
     public GameState State { get; private set; }
 
-    // Kick the game off with the first state
-    void Start() => ChangeState(GameState.Starting);
-
-    public void ChangeState(GameState newState) {
+    void Start()
+    {
+        switch (SceneManager.GetActiveScene().name)
+        {
+            case "LevelTest":
+                ChangeState(GameState.Starting);
+                break;
+            case "LevelHub":
+                ChangeState(GameState.Hub);
+                break;
+            default:
+                break;
+        }
+    }
+    public void ChangeState(GameState newState)
+    {
         OnBeforeStateChanged?.Invoke(newState);
 
         State = newState;
-        switch (newState) {
+        switch (newState)
+        {
+            case GameState.Hub:
+                HandleHub();
+                break;
+            case GameState.ChangeLevel:
+                HandleLevelChange();
+                break;
             case GameState.Starting:
                 HandleStarting();
                 break;
-            case GameState.SpawningHeroes:
-                HandleSpawningHeroes();
+            case GameState.SpawningHero:
+                HandleSpawningHero();
                 break;
             case GameState.SpawningEnemies:
                 HandleSpawningEnemies();
                 break;
-            case GameState.HeroTurn:
-                HandleHeroTurn();
-                break;
-            case GameState.EnemyTurn:
+            case GameState.Playing:
+                HandlePlaying();
                 break;
             case GameState.Win:
+                HandleWin();
                 break;
             case GameState.Lose:
+                HandleLose();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
         }
 
         OnAfterStateChanged?.Invoke(newState);
-        
+
         Debug.Log($"New state: {newState}");
     }
 
-    private void HandleStarting() {
-        // Do some start setup, could be environment, cinematics etc
+    void HandleHub()
+    {
+        if (SceneManager.GetActiveScene().name != "LevelHub")
+        {
+            SceneManager.LoadScene("LevelHub");
+        }
 
-        // Eventually call ChangeState again with your next state
-        
-        ChangeState(GameState.SpawningHeroes);
+        Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
     }
 
-    private void HandleSpawningHeroes() {
-        UnitManager.Instance.SpawnHeroes();
-        
+    void HandleLevelChange()
+    {
+        SceneManager.LoadScene("LevelTest");
+        ChangeState(GameState.Starting);
+    }
+
+    void HandleStarting()
+    {
+        enemies = new();//not sure where to put it
+        map = FindObjectOfType<LevelGenerator>().GenerateMap();
+        ChangeState(GameState.SpawningHero);
+    }
+
+    void HandleSpawningHero()
+    {
+        Player = UnitManager.Instance.SpawnHero(mageNameSO.String);
+
         ChangeState(GameState.SpawningEnemies);
     }
 
-    private void HandleSpawningEnemies() {
-        
-        // Spawn enemies
-        
-        ChangeState(GameState.HeroTurn);
+    void HandleSpawningEnemies()
+    {
+        ChangeState(GameState.Playing);
     }
 
-    private void HandleHeroTurn() {
-        // If you're making a turn based game, this could show the turn menu, highlight available units etc
-        
-        // Keep track of how many units need to make a move, once they've all finished, change the state. This could
-        // be monitored in the unit manager or the units themselves.
-    }
-}
+    void HandlePlaying()
+    {
 
-/// <summary>
-/// This is obviously an example and I have no idea what kind of game you're making.
-/// You can use a similar manager for controlling your menu states or dynamic-cinematics, etc
-/// </summary>
-[Serializable]
-public enum GameState {
-    Starting = 0,
-    SpawningHeroes = 1,
-    SpawningEnemies = 2,
-    HeroTurn = 3,
-    EnemyTurn = 4,
-    Win = 5,
-    Lose = 6,
+    }
+
+    void HandleLose()
+    {
+        WaveManager.Instance.gameOver = true;
+        WaveManager.Instance.waveName.text = "YOU DIED!";
+
+        var wait = StartCoroutine(WaitSomeSecs());
+    }
+
+    IEnumerator WaitSomeSecs ()
+    {
+        var end = Time.time + 3;
+
+        while (Time.time < end)
+        {
+            yield return null;
+        }
+
+        ChangeState(GameState.Hub);
+    }
+
+    void HandleWin()
+    {
+
+    }
 }
