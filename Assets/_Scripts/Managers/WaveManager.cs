@@ -102,7 +102,7 @@ namespace Assets._Scripts.Managers
                 }
                 else
                 {
-                    //UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss);
+                    UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss, scaleMultiplier);
                     if (totalEnemies == 0)
                     {
                         allEnemiesToSpawn--;

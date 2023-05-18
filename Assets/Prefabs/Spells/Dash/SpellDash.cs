@@ -101,13 +101,13 @@ public class SpellDash : MonoBehaviour
         {
             // Sprawdzanie potencjalnych kolizji
             RaycastHit2D[] hits = new RaycastHit2D[1];
-            int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
+            //int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
 
-            //Vector2 offsetPos = transform.position;
-            //offsetPos.y -= 0.6f;
-            //hits = Physics2D.RaycastAll(offsetPos, direction, moveSpeed * Time.deltaTime + 1);
+            Vector2 offsetPos = transform.position;
+            offsetPos.y -= 0.6f;
+            hits = Physics2D.RaycastAll(offsetPos, direction, 20);
 
-            //int count = hits.Length;
+            int count = hits.Length;
 
             if (count == 0)
             {
