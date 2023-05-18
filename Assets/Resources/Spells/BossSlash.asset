@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: 0}
   Prefab: {fileID: 0}
   CastFromHeroeNoStaff: 0
-  ID: 0
+  ID: 3
   cooldown: 0
   spellSlot: 0
   Name: 

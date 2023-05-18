@@ -33,6 +33,7 @@ namespace Assets._Scripts.Managers
 
         bool _canSpawn = true;
         bool _bossWave = false;
+        bool _bossSpawned = false;
         public bool gameOver = false;
 
         int scaleMultiplier = 1;
@@ -102,11 +103,16 @@ namespace Assets._Scripts.Managers
                 }
                 else
                 {
-                    UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss, scaleMultiplier);
+                    if (!_bossSpawned)
+                    {
+                        UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss, scaleMultiplier);
+                        _bossSpawned = true;
+                    }
                     if (totalEnemies == 0)
                     {
                         allEnemiesToSpawn--;
                         _bossWave = false;
+                        _bossSpawned = false;
                     }
                 }
 
