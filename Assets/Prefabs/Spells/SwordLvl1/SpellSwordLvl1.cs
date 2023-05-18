@@ -38,7 +38,7 @@ public class SpellSwordLvl1 : SpellBase
         foreach (var collider in hitColliders)
         {
             if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(2, new List<ConditionBase>());
+                unit.TakeDamage(7, new List<ConditionBase>());
         }
     }
 }

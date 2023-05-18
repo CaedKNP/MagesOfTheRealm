@@ -14,12 +14,12 @@ public class SpellArrow : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 3f, AffectOnTick = 0.3f }
+            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 0.3f, AffectOnTick = 0.7f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(3, conditions);
+            unit.TakeDamage(6, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
