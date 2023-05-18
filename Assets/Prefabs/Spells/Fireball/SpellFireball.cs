@@ -17,9 +17,19 @@ public class SpellFireball : SpellBase
             new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 3f, AffectTime = 3f }
         };
 
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
+        if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            unit.TakeDamage(3, conditions);
+            attack.DAMAGE(3, conditions);
+
+            if (!BeforeDelete())
+                Destroy(gameObject);
+        }
+
+        if (collision.gameObject.layer == 11)
+        {
+            var asd = collision.gameObject.GetComponent<AttackHandler>();
+
+            asd.DAMAGE(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);

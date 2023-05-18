@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System;
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// An scene-specific manager spawning units
@@ -13,7 +15,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     public GameObject SpawnHero(string mageName)
     {
-        return SpawnUnit(mageName, GetRandomVector());
+        return SpawnUnit(mageName, GetPlayerSpawner());
     }
 
     public GameObject SpawnHero(string mageName, Vector2 vector2)
@@ -21,9 +23,10 @@ public class UnitManager : StaticInstance<UnitManager>
         return SpawnUnit(mageName, vector2);
     }
 
-    public GameObject SpawnEnemy(ExampleEnemyType e)
+    public GameObject SpawnEnemy(ExampleEnemyType e, float scaleMultiplier)
     {
-        return SpawnUnit(e, GetRandomSpawner());
+        GameManager.enemies.Add(SpawnUnit(e, GetRandomSpawner(), scaleMultiplier));
+        return GameManager.enemies.Last();
     }
 
     GameObject SpawnUnit(string unitName, Vector3 pos)
@@ -47,9 +50,9 @@ public class UnitManager : StaticInstance<UnitManager>
         return null;
     }
 
-    GameObject SpawnUnit(ExampleEnemyType t, Vector3 pos)
+    GameObject SpawnUnit(ExampleEnemyType enemyType, Vector3 pos, float scaleMultiplier)
     {
-        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(t);
+        var ScriptableEnemy = ResourceSystem.Instance.GetExampleEnemy(enemyType);
 
         if (ScriptableEnemy != null)
         {
@@ -57,7 +60,10 @@ public class UnitManager : StaticInstance<UnitManager>
 
             var stats = ScriptableEnemy.BaseStats;
 
+            stats.MaxHp = Convert.ToInt32(stats.MaxHp * scaleMultiplier);
             stats.CurrentHp = stats.MaxHp;
+            stats.Armor *= scaleMultiplier;
+            stats.DmgModifier *= scaleMultiplier;
 
             enemySpawned.SetStats(stats);
             return enemySpawned.gameObject;
@@ -87,7 +93,7 @@ public class UnitManager : StaticInstance<UnitManager>
 
     Vector3 GetRandomSpawner()
     {
-        List<Vector2Int> spawners = new List<Vector2Int>();
+        List<Vector2Int> spawners = new();
         for (int i = 0; i < GameManager.map.GetLength(0); i++)
         {
             for (int j = 0; j < GameManager.map.GetLength(1); j++)
@@ -128,6 +134,18 @@ public class UnitManager : StaticInstance<UnitManager>
                 break;
         }
         return TileToPosition(tempPoint);
+    }
+    Vector3 GetPlayerSpawner()
+    {
+        for (int i = 0; i < GameManager.map.GetLength(0); i++)
+        {
+            for (int j = 0; j < GameManager.map.GetLength(1); j++)
+            {
+                if (GameManager.map[i, j] == 3)
+                    return TileToPosition(new(i, j));
+            }
+        }
+        return TileToPosition(new(GameManager.map.GetLength(0) / 2, GameManager.map.GetLength(1) / 2));
     }
     Vector2 TileToPosition(Vector2Int target)
     {

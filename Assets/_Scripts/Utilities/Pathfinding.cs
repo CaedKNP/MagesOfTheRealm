@@ -30,27 +30,6 @@ public class Pathfinding : MonoBehaviour
             }
         }
     }
-
-    private void Start()
-    {
-        path = new List<Vector2Int>();
-        GenerateVectorMap();
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (Application.IsPlaying(this))
-        {
-            //GeneratePath(new Vector2(0, 0), (Vector2)GameManager.Player.transform.position);
-            //Gizmos.color = Color.red;
-            //Vector2Int pos = GetStandingTile(new Vector2(35, 18));
-            //Gizmos.DrawSphere(mapVector[pos.x, pos.y], dotSize);
-            Gizmos.color = Color.blue;
-
-            foreach (Vector2Int v in path)
-                Gizmos.DrawSphere(mapVector[v.x, v.y], dotSize);
-        }
-    }
     public void GeneratePath(Vector2 _origin, Vector2 _destination)
     {
         path.Clear();
