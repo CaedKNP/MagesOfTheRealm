@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedMage
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 50
+    _MaxHp: 5000
     _Armor: 1
     _MovementSpeed: 5
     _DmgModifier: 1
