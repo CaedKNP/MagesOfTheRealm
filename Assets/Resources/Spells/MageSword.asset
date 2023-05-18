@@ -16,7 +16,7 @@ MonoBehaviour:
   Prefab: {fileID: 639514538004180302, guid: 96e1dff1310ebc9458fe9cb82f6202ce, type: 3}
   CastFromHeroeNoStaff: 1
   ID: 9
-  cooldown: 0.3
+  cooldown: 2.75
   spellSlot: 0
   Name: MageSword
   Description: 

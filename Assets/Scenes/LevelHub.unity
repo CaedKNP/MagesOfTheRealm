@@ -6781,6 +6781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mageNameSO: {fileID: 11400000, guid: 488fa0a66c85f7747b4582dc17b80341, type: 2}
+  scoreSO: {fileID: 11400000, guid: a9706e22191d9cf408d8fc6984d0f444, type: 2}
 --- !u!4 &1294487450
 Transform:
   m_ObjectHideFlags: 0
