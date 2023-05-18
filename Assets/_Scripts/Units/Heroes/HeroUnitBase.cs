@@ -524,13 +524,23 @@ public class HeroUnitBase : UnitBase
 
         if (spellRotator != null)
         {
+            //if (spell.CastFromHeroeNoStaff)
+            //{
+            //    var spellInstance = Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+            //    spellInstance.SetDmgAndConditions(spell.Dmg, spell.Conditions);
+            //}
+            //else
+            //{
+            //    Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).GetComponent<SpellBase>().caster = this.collider;
+            //}
+
             if (spell.CastFromHeroeNoStaff)
             {
-                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+                spell.Cast(transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
             else
             {
-                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).GetComponent<SpellBase>().caster = this.collider;
+                spell.Cast(spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).caster = this.collider;
             }
         }
         else
