@@ -487,7 +487,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   PrimarySpell: {fileID: 11400000, guid: 9292ee4cde0b9f0489ee860d09e1e39a, type: 2}
   SecondarySpell: {fileID: 11400000, guid: c46f6169fbb50aa42a2839a6025df91c, type: 2}
-  QSpell: {fileID: 11400000, guid: f3cee71c71868824f8b384ba3a4fb3b2, type: 2}
+  QSpell: {fileID: 11400000, guid: e1fb58d9855315c4290acf3c2bed5924, type: 2}
   ESpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
   DashSpell: {fileID: 11400000, guid: d962d4341603dc64aace384a3e19e3d0, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
