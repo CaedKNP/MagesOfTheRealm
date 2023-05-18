@@ -516,6 +516,12 @@ public class HeroUnitBase : UnitBase
             GameManager.Instance.ChangeState(GameState.ChangeLevel);
     }
 
+    void OnRestart()
+    {
+        if(GameManager.Instance.State == GameState.Playing)
+            GameManager.Instance.ChangeState(GameState.Hub);
+    }
+
     void OnInteraction()
     {
     }

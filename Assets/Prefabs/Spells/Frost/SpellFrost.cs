@@ -14,7 +14,7 @@ public class SpellFrost : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 2 }
+            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 1.2f }
         };
 
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))

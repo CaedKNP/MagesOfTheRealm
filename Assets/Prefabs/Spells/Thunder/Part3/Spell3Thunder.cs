@@ -14,12 +14,12 @@ public class Spell3Thunder : MonoBehaviour
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.ArmorDown, AffectOnTick = 2f, AffectTime = 2f }
+            new ConditionBase() { Conditions = Conditions.Slow, AffectOnTick = 0.8f, AffectTime = 0.5f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(15, conditions);
+            unit.TakeDamage(25, conditions);
         }
     }
     void TimeOut()
