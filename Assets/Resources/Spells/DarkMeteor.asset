@@ -16,7 +16,12 @@ MonoBehaviour:
   Prefab: {fileID: 639514538004180302, guid: dbe8377215a6ff84d85524e9a801efd3, type: 3}
   CastFromHeroeNoStaff: 1
   ID: 4
-  cooldown: 2
+  cooldown: 5
   spellSlot: 2
+  Dmg: 12
+  Conditions:
+  - Conditions: 1
+    AffectTime: 2
+    AffectOnTick: 0.3
   Name: DarkMeteor
   Description: 

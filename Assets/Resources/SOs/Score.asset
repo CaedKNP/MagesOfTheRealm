@@ -9,14 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
-  m_Name: BossSlash
+  m_Script: {fileID: 11500000, guid: c61a7ab4bcfdcb241bf0cf4667adefb0, type: 3}
+  m_Name: Score
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  Prefab: {fileID: 0}
-  CastFromHeroeNoStaff: 0
-  ID: 3
-  cooldown: 2.73
-  spellSlot: 0
-  Name: 
-  Description: 
+  _int: 0
