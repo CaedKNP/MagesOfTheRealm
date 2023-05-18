@@ -458,15 +458,25 @@ public abstract class EnemyBase : UnitBase
         heading.Normalize();
 
         if (!TryMove(heading))
-           return;
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                heading = dir[i];
+                if (TryMove(heading))
+                    break;
+            }
+        }
 
-        Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * heading;
+        if (!TryMove(heading))
+            return;
+
+            Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * heading;
         rb.MovePosition(pos);
-        if (heading.x <= 0)
+        if (heading.x <= 0.1)
         {
             spriteRenderer.flipX = false;
         }
-        else if (heading.x > 0)
+        else if (heading.x > 0.1)
         {
             spriteRenderer.flipX = true;
         }
