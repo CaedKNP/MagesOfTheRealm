@@ -453,7 +453,7 @@ GameObject:
   - component: {fileID: 996343441049783506}
   - component: {fileID: 5721721695472732800}
   - component: {fileID: 8196260185533056340}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -598,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.61
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

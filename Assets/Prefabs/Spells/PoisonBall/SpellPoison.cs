@@ -25,14 +25,6 @@ public class SpellPoison : SpellBase
                 Destroy(gameObject);
         }
 
-        if (collision.gameObject.layer == 11)
-        {
-            var asd = collision.gameObject.GetComponent<AttackHandler>();
-
-            asd.DAMAGE(3, conditions);
-
-            if (!BeforeDelete())
-                Destroy(gameObject);
-        }
+        
     }
 }
