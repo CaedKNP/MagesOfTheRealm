@@ -122,8 +122,10 @@ public class SpellDash : MonoBehaviour
             }
             else
             {
-                rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * -direction);
+                rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
+                DestroyObject();
                 return false;
+
             }
         }
         // Nie można poruszać się, jeśli brak kierunku ruchu
