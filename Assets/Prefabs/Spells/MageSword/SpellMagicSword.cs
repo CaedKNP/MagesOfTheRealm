@@ -52,7 +52,7 @@ public class SpellMagicSword : MonoBehaviour
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
             unit.TakeDamage(3, conditions);
-            Destroy(spellCore); // Destroy the spellCore when collided with an object
+            //Destroy(spellCore); // Destroy the spellCore when collided with an object
         }
     }
 
