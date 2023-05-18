@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.Utilities;
+using Assets._Scripts.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
