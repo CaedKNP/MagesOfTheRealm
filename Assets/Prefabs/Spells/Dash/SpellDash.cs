@@ -74,7 +74,7 @@ public class SpellDash : MonoBehaviour
             destroyTimer = destroyDelay; // Resetowanie licznika czasu, jeśli ruch został zatrzymany przez ograniczenie
         }
 
-        // Przemieszczanie gracza w kierunku dashu
+        //Przemieszczanie gracza w kierunku dashu
         if (moved)
         {
             Vector3 playerDirection = transform.position - player.transform.position;
