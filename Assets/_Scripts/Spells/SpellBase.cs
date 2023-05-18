@@ -7,6 +7,7 @@ public abstract class SpellBase : MonoBehaviour
 
     protected float speed;
     protected float destroyTime;
+    public Collider2D caster;
 
     protected void SetSpeedDestroyTime(float speed, float destroyTime)
     {
