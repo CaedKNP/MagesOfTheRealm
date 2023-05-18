@@ -275,24 +275,32 @@ public class MapFunctions
             }
         }
 
-        int xPlayerSpawn = rand.Next(map.GetUpperBound(0));
-        int yPlayerSpawn = rand.Next(map.GetUpperBound(1));
-
-        map[xPlayerSpawn, yPlayerSpawn] = 3;
-
-        for (int i = xPlayerSpawn - 2; i < xPlayerSpawn + 2; i++)
+        bool flag = true;
+        while (flag)
         {
-            for (int j = yPlayerSpawn - 2; j < yPlayerSpawn + 2; j++)
+            int xPlayerSpawn = rand.Next(map.GetUpperBound(0));
+            int yPlayerSpawn = rand.Next(map.GetUpperBound(1));
+
+            if (CheckSurroundedByZeroes(xPlayerSpawn, yPlayerSpawn, map))
             {
-                if (map[i, j] == 1 && i != map.GetUpperBound(0) && j != map.GetUpperBound(1))
+                flag = false;
+                map[xPlayerSpawn, yPlayerSpawn] = 3;
+
+                for (int i = xPlayerSpawn - 2; i < xPlayerSpawn + 2; i++)
                 {
-                    //Change it to not a tile
-                    map[i, j] = 0;
-                    //Increase the floor count
+                    for (int j = yPlayerSpawn - 2; j < yPlayerSpawn + 2; j++)
+                    {
+                        if (map[i, j] == 1 && i != map.GetUpperBound(0) && j != map.GetUpperBound(1))
+                        {
+                            //Change it to not a tile
+                            map[i, j] = 0;
+                            //Increase the floor count
+
+                        }
+                    }
 
                 }
             }
-
         }
 
 

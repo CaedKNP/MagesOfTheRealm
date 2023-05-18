@@ -1,5 +1,6 @@
 using Assets._Scripts.Managers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,14 +18,15 @@ public class GameManager : StaticInstance<GameManager>
     public static Vector2[,] mapPositions;
     public static List<GameObject> enemies;
 
-
+    [SerializeField]
+    private stringSO mageNameSO;
+    [SerializeField]
+    private intSO scoreSO;
 
     public GameState State { get; private set; }
 
     void Start()
     {
-
-
         switch (SceneManager.GetActiveScene().name)
         {
             case "LevelTest":
@@ -36,8 +38,6 @@ public class GameManager : StaticInstance<GameManager>
             default:
                 break;
         }
-
-
     }
 
     public void ChangeState(GameState newState)
@@ -86,8 +86,8 @@ public class GameManager : StaticInstance<GameManager>
         {
             SceneManager.LoadScene("LevelHub");
         }
-        
-        Player = UnitManager.Instance.SpawnHero("GreenMage", new Vector2(27, 42));
+
+        Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
     }
 
     void HandleLevelChange()
@@ -105,7 +105,7 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleSpawningHero()
     {
-        Player = UnitManager.Instance.SpawnHero("OrangeMage");
+        Player = UnitManager.Instance.SpawnHero(mageNameSO.String);
 
         ChangeState(GameState.SpawningEnemies);
     }
@@ -125,8 +125,19 @@ public class GameManager : StaticInstance<GameManager>
         WaveManager.Instance.gameOver = true;
         WaveManager.Instance.waveName.text = "YOUDIED!";
 
-        //new WaitForSeconds(3);
-        //ChangeState(GameState.Hub);
+        var wait = StartCoroutine(WaitSomeSecs());
+    }
+
+    IEnumerator WaitSomeSecs ()
+    {
+        var end = Time.time + 3;
+
+        while (Time.time < end)
+        {
+            yield return null;
+        }
+
+        ChangeState(GameState.Hub);
     }
 
     void HandleWin()

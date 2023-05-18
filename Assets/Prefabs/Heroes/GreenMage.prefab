@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473902857}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.594, y: -0.036, z: 0}
+  m_LocalPosition: {x: 2.591, y: -0.036, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -39,7 +39,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 473902857}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -414,11 +414,12 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  mageNameSO: {fileID: 11400000, guid: 488fa0a66c85f7747b4582dc17b80341, type: 2}
   PrimarySpell: {fileID: 11400000, guid: eff8f4f1a437b2a458e622c8f50a65aa, type: 2}
   SecondarySpell: {fileID: 0}
   QSpell: {fileID: 0}
-  ESpell: {fileID: 0}
-  DashSpell: {fileID: 11400000, guid: 73bad2014ba9fc4468bb4c527dc55f3d, type: 2}
+  ESpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}
+  DashSpell: {fileID: 11400000, guid: d962d4341603dc64aace384a3e19e3d0, type: 2}
   healthBarManagerObj: {fileID: 93546767448373356, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
 --- !u!95 &8531856476346468769
 Animator:
@@ -452,7 +453,7 @@ GameObject:
   - component: {fileID: 996343441049783506}
   - component: {fileID: 5721721695472732800}
   - component: {fileID: 8196260185533056340}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.61
+      value: 1.22
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

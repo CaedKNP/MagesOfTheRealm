@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: MageSword
   m_EditorClassIdentifier: 
-  image: {fileID: 21300000, guid: fa0de24592013054d91fa78bff0c09f8, type: 3}
-  Prefab: {fileID: 639514538004180302, guid: fbc1829e65a691844989607bef40c834, type: 3}
+  image: {fileID: 0}
+  Prefab: {fileID: 639514538004180302, guid: 96e1dff1310ebc9458fe9cb82f6202ce, type: 3}
   CastFromHeroeNoStaff: 1
-  ID: 12
-  cooldown: 0.8
+  ID: 9
+  cooldown: 2.75
   spellSlot: 0
   Name: MageSword
   Description: 

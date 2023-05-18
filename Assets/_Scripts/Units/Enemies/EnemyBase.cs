@@ -48,9 +48,13 @@ public abstract class EnemyBase : UnitBase
     [SerializeField]
     Component conditionsBar;
 
+    [SerializeField]
+    private intSO scoreSO;
+
     ConditionUI _conditionUI;
 
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
+    protected bool _isDead = false;
 
     void Awake()
     {
@@ -62,8 +66,12 @@ public abstract class EnemyBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
+        _anim.CrossFade("Death", 0, 0);
+        _canMove = false;
+        _isDead = true;
+        scoreSO.Int++;
         GameManager.enemies.Remove(this.gameObject);
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, 0.8f);
     }
 
     public override void SetStats(Stats stats)
@@ -321,6 +329,8 @@ public abstract class EnemyBase : UnitBase
     {
         if (!_canMove)
         {
+            if(_isDead)
+                return false;
             StopAnimation();
             return false;
         }
@@ -458,15 +468,25 @@ public abstract class EnemyBase : UnitBase
         heading.Normalize();
 
         if (!TryMove(heading))
-           return;
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                heading = dir[i];
+                if (TryMove(heading))
+                    break;
+            }
+        }
+
+        if (!TryMove(heading))
+            return;
 
         Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * heading;
         rb.MovePosition(pos);
-        if (heading.x <= 0)
+        if (heading.x <= 0.1)
         {
             spriteRenderer.flipX = false;
         }
-        else if (heading.x > 0)
+        else if (heading.x > 0.1)
         {
             spriteRenderer.flipX = true;
         }

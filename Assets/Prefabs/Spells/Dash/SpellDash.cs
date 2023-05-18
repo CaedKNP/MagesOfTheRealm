@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 public class SpellDash : MonoBehaviour
@@ -74,15 +74,23 @@ public class SpellDash : MonoBehaviour
         {
             // Sprawdzanie potencjalnych kolizji
             RaycastHit2D[] hits = new RaycastHit2D[1];
-            int count = rb.Cast(direction, hits, moveSpeed * Time.deltaTime);
+            int count = rb.Cast(direction, movementFilter, hits, moveSpeed * Time.deltaTime);
+
+            //Vector2 offsetPos = transform.position;
+            //offsetPos.y -= 0.6f;
+            //hits = Physics2D.RaycastAll(offsetPos, direction, 20, 7);
+
+            //int count = hits.Length;
 
             if (count == 0)
             {
                 rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+                moved = true;
                 return true;
             }
         }
         // Nie można poruszać się, jeśli brak kierunku ruchu
+        rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
         DestroyObject();
         return false;
     }

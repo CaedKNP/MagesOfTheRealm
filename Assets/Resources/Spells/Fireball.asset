@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
-  image: {fileID: -1782053002, guid: 8e318dd771fc3b9449061f49b7a121ef, type: 3}
+  image: {fileID: 0}
   Prefab: {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
   CastFromHeroeNoStaff: 0
-  ID: 1
-  cooldown: 0.7
+  ID: 7
+  cooldown: 1
   spellSlot: 0
   Name: Fireball
   Description: simple ball of fire

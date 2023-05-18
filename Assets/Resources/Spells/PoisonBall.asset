@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: PoisonBall
   m_EditorClassIdentifier: 
-  image: {fileID: 1239046094, guid: 8bb0f01d6a47ff4459d96689a300336d, type: 3}
+  image: {fileID: 0}
   Prefab: {fileID: 639514538004180302, guid: 90712f16b9d483a43aceff43e05a1eed, type: 3}
-  CastFromHeroeNoStaff: 1
-  ID: 8
+  CastFromHeroeNoStaff: 0
+  ID: 13
   cooldown: 1
   spellSlot: 0
   Name: Posion Ball

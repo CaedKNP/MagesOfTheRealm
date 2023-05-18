@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: MultipleFrost
   m_EditorClassIdentifier: 
-  image: {fileID: -924069987, guid: 10a52e9440004564f88e8a7138fc2019, type: 3}
+  image: {fileID: 0}
   Prefab: {fileID: 639514538004180302, guid: 3c403cc8a8556e54aadddb23aae0bfdb, type: 3}
   CastFromHeroeNoStaff: 0
-  ID: 10
-  cooldown: 2
+  ID: 12
+  cooldown: 6
   spellSlot: 3
   Name: MultipleFrostSpike
   Description: 
