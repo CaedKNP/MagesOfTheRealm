@@ -48,9 +48,6 @@ public abstract class EnemyBase : UnitBase
     [SerializeField]
     Component conditionsBar;
 
-    [SerializeField]
-    private intSO scoreSO;
-
     ConditionUI _conditionUI;
 
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
@@ -69,7 +66,6 @@ public abstract class EnemyBase : UnitBase
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
         _isDead = true;
-        scoreSO.Int++;
         GameManager.enemies.Remove(this.gameObject);
         Destroy(this.gameObject, 0.8f);
     }

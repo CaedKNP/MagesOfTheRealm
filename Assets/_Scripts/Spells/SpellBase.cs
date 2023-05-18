@@ -1,13 +1,10 @@
-using Assets._Scripts.Utilities;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class SpellBase : MonoBehaviour
 {
-    public int spellID;
-    public float Dmg { get; set; }
-    public List<ConditionBase> Conditions { get; set; }
+    public string Name { get; set; }
+
     protected float speed;
     protected float destroyTime;
     public Collider2D caster;
@@ -24,8 +21,6 @@ public abstract class SpellBase : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>(); // pobieramy Rigidbody2D komponent z prefabu 
         rb.velocity = transform.right * speed; // ustawiamy prędkość w kierunku "przodu" prefabu 
-        Dmg = ResourceSystem.Instance.GetExampleSpell(spellID).Dmg;
-        Conditions = ResourceSystem.Instance.GetExampleSpell(spellID).Conditions;
         //Invoke("BeforeDelete", destroyTime);
         Destroy(gameObject, destroyTime); 
     }

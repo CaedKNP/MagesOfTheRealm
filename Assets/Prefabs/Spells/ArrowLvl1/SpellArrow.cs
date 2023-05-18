@@ -1,3 +1,5 @@
+using Assets._Scripts.Utilities;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellArrow : SpellBase
@@ -10,9 +12,22 @@ public class SpellArrow : SpellBase
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent(out AttackHandler attack))
+        var conditions = new List<ConditionBase>
         {
-            attack.DAMAGE(Dmg, Conditions);
+            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 3f, AffectOnTick = 0.3f }
+        };
+
+        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
+        {
+            unit.TakeDamage(3, conditions);
+
+            if (!BeforeDelete())
+                Destroy(gameObject);
+        }
+
+        if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
+        {
+            attack.DAMAGE(3, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
