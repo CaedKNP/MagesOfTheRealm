@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +24,8 @@ public class BasicEnemy : EnemyBase
         Idle,
         Moving,
         Attacking,
-        Rest
+        Rest,
+        Die
     }
 
     private States currentState;
@@ -110,10 +112,18 @@ public class BasicEnemy : EnemyBase
             case States.Rest:
                 Resting();
                 break;
+            case States.Die:
+                Death();
+                break;
             default:
                 Debug.LogWarning($"Invalid state: {currentState}");
                 break;
         }
+    }
+
+    private void Death()
+    {
+        dotColor = Color.black;
     }
 
     #region states
@@ -129,6 +139,8 @@ public class BasicEnemy : EnemyBase
             Escape();
         else
             ChangeState(States.Idle);
+        if (_isDead)
+            ChangeState(States.Die);
     }
     private void Idle()
     {
@@ -147,6 +159,8 @@ public class BasicEnemy : EnemyBase
             ChangeState(States.Rest);
         if (!onCooldown)
             ChangeState(States.Moving);
+        if (_isDead)
+            ChangeState(States.Die);
     }
     private void Moving()
     {
@@ -159,6 +173,8 @@ public class BasicEnemy : EnemyBase
                 ChangeState(States.Rest);
         //if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
         //    ChangeState(States.Rest);
+        if (_isDead)
+            ChangeState(States.Die);
     }
 
     private void Attacking()
@@ -169,6 +185,8 @@ public class BasicEnemy : EnemyBase
             ChangeState(States.Rest);
         if (Vector2.Distance(transform.position, player.position) > rangeOfAttack)
             ChangeState(States.Moving);
+        if (_isDead)
+            ChangeState(States.Die);
     }
 
     private void ChangeState(States newState)
