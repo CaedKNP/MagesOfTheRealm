@@ -13,6 +13,7 @@ public class SpellDash : MonoBehaviour
 
     private float destroyTimer; // Licznik czasu
     private bool isDashing; // Flaga określająca, czy trwa dash
+    private bool moved = false; // Flaga określająca, czy trwa dash
 
     private void Awake()
     {
@@ -74,14 +75,16 @@ public class SpellDash : MonoBehaviour
         }
 
         // Przemieszczanie gracza w kierunku dashu
-        Vector3 playerDirection = transform.position - player.transform.position;
-        playerDirection.Normalize();
-        player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        if (moved)
+        {
+            Vector3 playerDirection = transform.position - player.transform.position;
+            playerDirection.Normalize();
+            player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        DestroyObject();
         if (collision.gameObject.layer == 7)
         {
             DestroyObject();
@@ -118,17 +121,12 @@ public class SpellDash : MonoBehaviour
             if (count == 0)
             {
                 rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * direction);
+                moved = true;
                 return true;
-            }
-            else
-            {
-                rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
-                DestroyObject();
-                return false;
-
             }
         }
         // Nie można poruszać się, jeśli brak kierunku ruchu
+        rb.MovePosition(rb.position + (moveSpeed) * Time.deltaTime * -direction);
         DestroyObject();
         return false;
     }
