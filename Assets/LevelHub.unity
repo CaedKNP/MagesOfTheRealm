@@ -6780,6 +6780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7efb1ae7a61b254489a4d92a2d5a7065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mageNameSO: {fileID: 11400000, guid: 488fa0a66c85f7747b4582dc17b80341, type: 2}
 --- !u!4 &1294487450
 Transform:
   m_ObjectHideFlags: 0
@@ -55154,7 +55155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93546769161026142, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.4000244
+      value: 5.3999023
       objectReference: {fileID: 0}
     - target: {fileID: 1869959344171433974, guid: 5839fd94658f5d8478df7c081c688f01, type: 3}
       propertyPath: m_AnchorMax.y

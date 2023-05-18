@@ -104,7 +104,10 @@ namespace Assets._Scripts.Managers
                 {
                     UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss, scaleMultiplier);
                     if (totalEnemies == 0)
+                    {
                         allEnemiesToSpawn--;
+                        _bossWave = false;
+                    }
                 }
 
                 yield return new WaitForSeconds(spawnInterval);
