@@ -51,6 +51,7 @@ public abstract class EnemyBase : UnitBase
     ConditionUI _conditionUI;
 
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
+    protected bool _isDead = false;
 
     void Awake()
     {
@@ -64,8 +65,9 @@ public abstract class EnemyBase : UnitBase
         Debug.Log($"{name} is dead");
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
+        _isDead = true;
         GameManager.enemies.Remove(this.gameObject);
-        Destroy(this.gameObject, 3f);
+        Destroy(this.gameObject, 0.8f);
     }
 
     public override void SetStats(Stats stats)
@@ -323,6 +325,8 @@ public abstract class EnemyBase : UnitBase
     {
         if (!_canMove)
         {
+            if(_isDead)
+                return false;
             StopAnimation();
             return false;
         }
