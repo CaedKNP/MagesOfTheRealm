@@ -19,7 +19,7 @@ public class Spell3Thunder : MonoBehaviour
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(11, conditions);
+            unit.TakeDamage(15, conditions);
         }
     }
     void TimeOut()
