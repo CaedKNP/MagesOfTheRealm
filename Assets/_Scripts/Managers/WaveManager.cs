@@ -67,8 +67,8 @@ namespace Assets._Scripts.Managers
         {
             if (_canSpawn && Time.time > nextSpawnTime)
             {
-                // currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
-                currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, 1);
+                currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
+                //currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, 1);
 
                 if (currentWaveNumber % 10 == 0)
                 {
