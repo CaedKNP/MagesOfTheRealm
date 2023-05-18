@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MultipleBlueFireball
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 639514538004180302, guid: bc906d649cf5e3d40807f1de74ff71ef, type: 3}
   CastFromHeroeNoStaff: 0
   ID: 0
-  cooldown: 0
-  spellSlot: 0
-  Name: 
+  cooldown: 5
+  spellSlot: 2
+  Name: MultipleBlueFireball
   Description: 
