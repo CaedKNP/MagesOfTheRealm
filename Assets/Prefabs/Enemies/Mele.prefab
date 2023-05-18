@@ -176,7 +176,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
-  rangeOfAttack: 1
+  attackFromCenter: 0
+  rangeOfAttack: 2
   rangeOfRest: 5
   rangeOfChase: 7
   attackCooldown: 2

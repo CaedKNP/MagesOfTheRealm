@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using Assets._Scripts.Utilities;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class SpellDash : MonoBehaviour
 {
     GameObject player;
+    HeroUnitBase playerScript;
     StaffRotation staffRotation;
     public float moveSpeed = 40f;
     private Rigidbody2D rb;
@@ -18,6 +21,12 @@ public class SpellDash : MonoBehaviour
     private void Awake()
     {
         player = GameManager.Player;
+        if (player.TryGetComponent<UnitBase>(out UnitBase unit))
+        {
+            unit.TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorUp, 0.6f, 200f) });
+        }
+        player.TryGetComponent<HeroUnitBase>(out playerScript);
+        playerScript.HideWand();
         rb = GetComponent<Rigidbody2D>();
         transform.rotation = Quaternion.identity;
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -99,6 +108,7 @@ public class SpellDash : MonoBehaviour
     void DestroyObject()
     {
         SetPlayerRendering(true);
+        playerScript.UnHideWand();
         TeleportPlayer();
         isDashing = false; // Ustawienie flagi na false po zakończeniu dashu
         Destroy(gameObject);

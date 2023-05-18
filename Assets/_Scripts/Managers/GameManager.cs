@@ -37,7 +37,6 @@ public class GameManager : StaticInstance<GameManager>
                 break;
         }
     }
-
     public void ChangeState(GameState newState)
     {
         OnBeforeStateChanged?.Invoke(newState);
