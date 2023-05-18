@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class SpellMagicArmor : MonoBehaviour
 {
+    GameObject player;
     private GameObject spellCore; // Reference to the spellCore object
     private void Awake()
     {
         Invoke("TimeOut", 2f);
-
         // Find the spellCore object in the swordCore prefab
         spellCore = transform.parent?.gameObject;
     }
@@ -18,12 +18,13 @@ public class SpellMagicArmor : MonoBehaviour
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { /*Conditions = Conditions.Haste, AffectOnTick = 1f, AffectTime = 1f*/ }
+            new ConditionBase() { Conditions = Conditions.ArmorUp, AffectOnTick = 50f, AffectTime = 2f },
+            new ConditionBase() { Conditions = Conditions.SpeedUp, AffectOnTick = 2f, AffectTime = 2f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(1, conditions);
+            unit.TakeDamage(0, conditions);
         }
     }
 
