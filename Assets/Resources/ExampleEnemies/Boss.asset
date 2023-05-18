@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Boss
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 5
+    _MaxHp: 450
     _Armor: 1
-    _MovementSpeed: 5
+    _MovementSpeed: 5.2
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: 8109268066809691, guid: 1e0182bae0f28554392b4b8f570a5002, type: 3}

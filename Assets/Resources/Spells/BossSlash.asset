@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BossSlash
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  Prefab: {fileID: 0}
+  Prefab: {fileID: 639514538004180302, guid: 8ca5ad1d908b88044ac029039f121606, type: 3}
   CastFromHeroeNoStaff: 0
   ID: 3
   cooldown: 0
