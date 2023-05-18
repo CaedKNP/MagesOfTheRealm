@@ -62,8 +62,10 @@ public abstract class EnemyBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
+        _anim.CrossFade("Death", 0, 0);
+        _canMove = false;
         GameManager.enemies.Remove(this.gameObject);
-        Destroy(this.gameObject);
+        Destroy(this.gameObject, 3f);
     }
 
     public override void SetStats(Stats stats)
@@ -470,7 +472,7 @@ public abstract class EnemyBase : UnitBase
         if (!TryMove(heading))
             return;
 
-            Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * heading;
+        Vector3 pos = rb.position + _stats.MovementSpeed * Time.fixedDeltaTime * heading;
         rb.MovePosition(pos);
         if (heading.x <= 0.1)
         {
