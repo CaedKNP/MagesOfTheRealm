@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.Utilities;
+using Assets._Scripts.Utilities;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,13 +46,13 @@ public class SpellMagicSword : MonoBehaviour
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 1f, AffectTime = 1f }
+            new ConditionBase() { Conditions = Conditions.ArmorDown, AffectOnTick = 0.2f, AffectTime = 2f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(3, conditions);
-            //Destroy(spellCore); // Destroy the spellCore when collided with an object
+            unit.TakeDamage(5, conditions);
+            Destroy(spellCore); // Destroy the spellCore when collided with an object
         }
     }
 

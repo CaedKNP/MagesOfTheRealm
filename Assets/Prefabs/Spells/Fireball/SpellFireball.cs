@@ -17,12 +17,12 @@ public class SpellFireball : SpellBase
 
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 3f, AffectTime = 3f }
+            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 2f, AffectTime = 3f }
         };
 
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            attack.DAMAGE(3, conditions);
+            attack.DAMAGE(5, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
