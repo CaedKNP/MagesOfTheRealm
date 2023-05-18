@@ -1,52 +1,86 @@
-using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpellDash : MonoBehaviour
 {
     GameObject player;
     StaffRotation staffRotation;
     public float moveSpeed = 40f;
-    Rigidbody2D rb;
-    Vector2 mousePosition;
-    float destroyTimer = 0.3f; // Licznik czasu
-    Vector2 direction; // Kierunek poruszania się
+    private Rigidbody2D rb;
+    public ContactFilter2D movementFilter;
+    private Vector2 mousePosition;
+    public float destroyDelay = 0.5f; // Czas opóźnienia przed zniszczeniem
+    public float positionThreshold = 0.1f; // Prog odchylenia od pozycji docelowej
 
-    void Awake()
-    {
-        SetPrefPosition();
-        SetDirection();
-        Invoke("DestroyObject", destroyTimer);
-    }
-    void SetPrefPosition()
+    private float destroyTimer; // Licznik czasu
+    private bool isDashing; // Flaga określająca, czy trwa dash
+    private bool moved = false; // Flaga określająca, czy trwa dash
+
+    private void Awake()
     {
         player = GameManager.Player;
         rb = GetComponent<Rigidbody2D>();
         transform.rotation = Quaternion.identity;
-        transform.position = player.transform.position;
-    }
-
-    void SetDirection()
-    {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = mousePosition - (Vector2)transform.position;
-        direction.Normalize();
+        destroyTimer = 1f; // Zerowanie licznika czasu na starcie
+        transform.position = player.transform.position;
+        Invoke("DestroyObject", destroyTimer);
+        SetPlayerRendering(false);
+        isDashing = true; // Ustawienie flagi na true na początku dashu
+
     }
 
     void SetPlayerRendering(bool enableRendering)
     {
+        if (enableRendering)
+        {
+            //Renderer staffRotatorRenderer = staffRotation.GetComponent<Renderer>();
+            //Color staffRotatorColor = staffRotatorRenderer.material.color;
+            //staffRotatorColor.a = 0.5f; // 50% przezroczystość
+            //staffRotatorRenderer.material.color = staffRotatorColor;
+            //.
+
+        }
+        else
+        {
+
+        }
+        Renderer playerRenderer = player.GetComponent<Renderer>();
+        playerRenderer.enabled = enableRendering;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (TryMove(direction)) {}
-        PullPlayer();
-    }
+        if (!isDashing) return; // Przerwij działanie, jeśli nie trwa dash
 
-    void PullPlayer()
-    {
-        Vector3 playerDirection = transform.position - player.transform.position;
-        playerDirection.Normalize();
-        player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        Vector2 direction = mousePosition - (Vector2)transform.position;
+        direction.Normalize();
+
+        if (Vector2.Distance(transform.position, mousePosition) <= positionThreshold)
+        {
+            DestroyObject();
+            return;
+        }
+        //if (Physics2D.Raycast((Vector2)transform.position, mousePosition, Vector2.Distance(transform.position, mousePosition) + 2, 7).collider != null)
+        //{
+        //    DestroyObject();
+        //    return;
+        //}
+        if (TryMove(direction))
+        {
+            destroyTimer += Time.deltaTime; // Zwiększanie licznika czasu
+        }
+        else
+        {
+            destroyTimer = destroyDelay; // Resetowanie licznika czasu, jeśli ruch został zatrzymany przez ograniczenie
+        }
+
+        //Przemieszczanie gracza w kierunku dashu
+        if (moved)
+        {
+            Vector3 playerDirection = transform.position - player.transform.position;
+            playerDirection.Normalize();
+            player.transform.position += playerDirection * moveSpeed * Time.deltaTime;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -64,7 +98,9 @@ public class SpellDash : MonoBehaviour
 
     void DestroyObject()
     {
+        SetPlayerRendering(true);
         TeleportPlayer();
+        isDashing = false; // Ustawienie flagi na false po zakończeniu dashu
         Destroy(gameObject);
     }
 
