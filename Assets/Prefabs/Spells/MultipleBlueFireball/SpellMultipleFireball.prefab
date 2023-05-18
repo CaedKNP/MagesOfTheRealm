@@ -67,4 +67,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   caster: {fileID: 0}
-  prefab: {fileID: 639514538004180302, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
+  prefab: {fileID: 639514538004180302, guid: 4a1089971e99df1459a4b3e5379a551d, type: 3}
