@@ -16,7 +16,7 @@ MonoBehaviour:
   Prefab: {fileID: 639514538004180302, guid: 63d3dfe7044a4994b9942728f71a3f60, type: 3}
   CastFromHeroeNoStaff: 0
   ID: 15
-  cooldown: 0.7
+  cooldown: 10
   spellSlot: 2
   Name: Thunder
   Description: 

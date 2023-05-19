@@ -14,25 +14,25 @@ public class SpellFrost : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 2 }
+            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 1.2f }
         };
 
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            attack.DAMAGE(2, conditions);
+            attack.DAMAGE(4, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
         }
 
-        if (collision.gameObject.layer == 11)
-        {
-            var asd = collision.gameObject.GetComponent<AttackHandler>();
+        //if (collision.gameObject.layer == 11)
+        //{
+        //    var asd = collision.gameObject.GetComponent<AttackHandler>();
 
-            asd.DAMAGE(2, conditions);
+        //    asd.DAMAGE(2, conditions);
 
-            if (!BeforeDelete())
-                Destroy(gameObject);
-        }
+        //    if (!BeforeDelete())
+        //        Destroy(gameObject);
+        //}
     }
 }

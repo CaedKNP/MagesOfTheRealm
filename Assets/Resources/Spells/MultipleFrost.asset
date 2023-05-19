@@ -16,7 +16,7 @@ MonoBehaviour:
   Prefab: {fileID: 639514538004180302, guid: 3c403cc8a8556e54aadddb23aae0bfdb, type: 3}
   CastFromHeroeNoStaff: 0
   ID: 12
-  cooldown: 2
+  cooldown: 4.5
   spellSlot: 3
   Name: MultipleFrostSpike
   Description: 

@@ -14,25 +14,25 @@ public class SpellBlueFireball : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 2f, AffectTime = 3f }
+            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 5f, AffectTime = 1f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(6, conditions);
+            unit.TakeDamage(7, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
         }
 
-        if (collision.gameObject.layer == 11)
-        {
-            var asd = collision.gameObject.GetComponent<AttackHandler>();
+        //if (collision.gameObject.layer == 11)
+        //{
+        //    var asd = collision.gameObject.GetComponent<AttackHandler>();
 
-            asd.DAMAGE(3, conditions);
+        //    asd.DAMAGE(3, conditions);
 
-            if (!BeforeDelete())
-                Destroy(gameObject);
-        }
+        //    if (!BeforeDelete())
+        //        Destroy(gameObject);
+        //}
     }
 }

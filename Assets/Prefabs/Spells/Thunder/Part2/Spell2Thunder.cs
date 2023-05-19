@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spell2Thunder : MonoBehaviour
 {
-    public float timeOut = 0.4f;
+    public float timeOut = 0.3f;
     private void Awake()
     {
         Invoke("TimeOut", timeOut);

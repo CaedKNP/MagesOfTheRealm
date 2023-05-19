@@ -18,12 +18,11 @@ public class SpellDarkMeteor : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Poison, AffectTime  = 5, AffectOnTick = 1 }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(3, conditions);
+            unit.TakeDamage(5, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
@@ -68,7 +67,7 @@ public class SpellDarkMeteor : SpellBase
         foreach (var collider in hitColliders)
         {
             if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(2, new List<ConditionBase>());
+                unit.TakeDamage(9, new List<ConditionBase>());
         }
     }
 }

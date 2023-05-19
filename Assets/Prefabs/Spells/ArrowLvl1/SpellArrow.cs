@@ -6,7 +6,7 @@ public class SpellArrow : SpellBase
 {
     protected void Awake()
     {
-        SetSpeedDestroyTime(5f, 5f); // Nowe wartości dla speed i destroyTime
+        SetSpeedDestroyTime(10f, 5f); // Nowe wartości dla speed i destroyTime
         base.MyAwake();
     }
 
@@ -14,12 +14,12 @@ public class SpellArrow : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 3f, AffectOnTick = 0.3f }
+            new ConditionBase { Conditions = Conditions.Slow, AffectTime = 0.3f, AffectOnTick = 0.7f }
         };
 
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unit.TakeDamage(3, conditions);
+            unit.TakeDamage(2, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);

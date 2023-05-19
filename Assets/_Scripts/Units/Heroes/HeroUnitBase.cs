@@ -198,7 +198,8 @@ public class HeroUnitBase : UnitBase
 
     public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
-        stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor);
+        //stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor); DMG UP
+        stats.CurrentHp -= Convert.ToInt32(dmgToTake / stats.Armor); //Armor up
 
         healthBar.SetHealth(stats.CurrentHp);
 
@@ -509,11 +510,20 @@ public class HeroUnitBase : UnitBase
             }
     }
 
+    void OnStart()
+    {
+        if(GameManager.Instance.State == GameState.Hub)
+            GameManager.Instance.ChangeState(GameState.ChangeLevel);
+    }
+
+    void OnRestart()
+    {
+        if(GameManager.Instance.State == GameState.Playing)
+            GameManager.Instance.ChangeState(GameState.Hub);
+    }
+
     void OnInteraction()
     {
-        if (!_isDead)
-            //TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorDown, 1, 1) });
-            GameManager.Instance.ChangeState(GameState.ChangeLevel);
     }
 
     #endregion
@@ -530,7 +540,7 @@ public class HeroUnitBase : UnitBase
             }
             else
             {
-                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation).GetComponent<SpellBase>().caster = this.collider;
+                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);//.GetComponent<SpellBase>().caster = this.collider;
             }
         }
         else
@@ -539,10 +549,19 @@ public class HeroUnitBase : UnitBase
         }
     }
 
+    public void HideWand()
+    {
+        spellRotator.gameObject.active = false;
+    }
+    public void UnHideWand()
+    {
+        spellRotator.gameObject.active = true;
+    }
+
     public override void Die()
     {
         Debug.Log($"{name} is dead");
-
+        HideWand();
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
         Destroy(this.gameObject, 3f);

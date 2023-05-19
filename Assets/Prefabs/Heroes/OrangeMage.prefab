@@ -486,7 +486,7 @@ MonoBehaviour:
     minNormalAngle: 0
     maxNormalAngle: 0
   mageNameSO: {fileID: 11400000, guid: 488fa0a66c85f7747b4582dc17b80341, type: 2}
-  PrimarySpell: {fileID: 11400000, guid: 9292ee4cde0b9f0489ee860d09e1e39a, type: 2}
+  PrimarySpell: {fileID: 11400000, guid: 497e8287116868f439d223a737b3e764, type: 2}
   SecondarySpell: {fileID: 11400000, guid: c46f6169fbb50aa42a2839a6025df91c, type: 2}
   QSpell: {fileID: 11400000, guid: dc084a62e7a0d8448b3c13768c5b9d71, type: 2}
   ESpell: {fileID: 11400000, guid: 4e001c705f74f744f9bbafa477f29eae, type: 2}

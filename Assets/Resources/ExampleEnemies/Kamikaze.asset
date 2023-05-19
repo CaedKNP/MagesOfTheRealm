@@ -15,7 +15,7 @@ MonoBehaviour:
   _stats:
     _MaxHp: 5
     _Armor: 1
-    _MovementSpeed: 5
+    _MovementSpeed: 5.6
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: 8109268066809691, guid: 2dff9ec6625f6d74fbde6b7f9a04df95, type: 3}

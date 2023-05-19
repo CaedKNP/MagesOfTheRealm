@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Archer
   m_EditorClassIdentifier: 
   _stats:
-    _MaxHp: 5
+    _MaxHp: 25
     _Armor: 1
-    _MovementSpeed: 5
+    _MovementSpeed: 4.7
     _DmgModifier: 1
     _CooldownModifier: 1
   Prefab: {fileID: 8109268066809691, guid: 20e05c161fce5a040b6551e1b288f40a, type: 3}

@@ -14,12 +14,12 @@ public class SpellPoison : SpellBase
     {
         var conditions = new List<ConditionBase>
         {
-            new ConditionBase() { Conditions = Conditions.Poison, AffectOnTick = 2, AffectTime = 2 }
+            new ConditionBase() { Conditions = Conditions.Poison, AffectOnTick = 2, AffectTime = 5 }
         };
 
         if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
         {
-            attack.DAMAGE(3, conditions);
+            attack.DAMAGE(2, conditions);
 
             if (!BeforeDelete())
                 Destroy(gameObject);
