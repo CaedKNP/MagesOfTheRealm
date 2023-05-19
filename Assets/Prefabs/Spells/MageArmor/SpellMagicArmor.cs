@@ -1,30 +1,22 @@
-using Assets._Scripts.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellMagicArmor : MonoBehaviour
+public class SpellMagicArmor : SpellBase
 {
     GameObject player;
     private GameObject spellCore; // Reference to the spellCore object
     private void Awake()
     {
-        Invoke("TimeOut", 2f);
+        SetSpellStats();
+        Invoke("TimeOut", destroyTime);
         // Find the spellCore object in the swordCore prefab
         spellCore = transform.parent?.gameObject;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        var conditions = new List<ConditionBase>
+        if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
-            new ConditionBase() { Conditions = Conditions.ArmorUp, AffectOnTick = 50f, AffectTime = 2f },
-            new ConditionBase() { Conditions = Conditions.SpeedUp, AffectOnTick = 2f, AffectTime = 2f }
-        };
-
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
-        {
-            unit.TakeDamage(0, conditions);
+            unit.DAMAGE(DMG, conditions);
         }
     }
 

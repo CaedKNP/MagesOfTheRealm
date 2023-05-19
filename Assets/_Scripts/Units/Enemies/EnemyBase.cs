@@ -94,7 +94,7 @@ public abstract class EnemyBase : UnitBase
 
     private void Affect(ConditionBase condition)
     {
-        switch (condition.Conditions)
+        switch (condition.Condition)
         {
             case global::Conditions.Burn:
 

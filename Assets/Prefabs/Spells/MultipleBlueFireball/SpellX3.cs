@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpellX3 : SpellBase
@@ -14,10 +12,10 @@ public class SpellX3 : SpellBase
     void Spawn()
     {
         transform.Rotate(0f, 0f, -30f);
-        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>();
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>();
         transform.Rotate(0f, 0f, 30f);
-        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>().caster = caster;
+        Instantiate(prefab, transform.position, transform.rotation).GetComponent<SpellBase>();
     }
 }

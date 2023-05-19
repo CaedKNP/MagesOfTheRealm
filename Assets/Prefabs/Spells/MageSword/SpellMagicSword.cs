@@ -1,9 +1,6 @@
-using Assets._Scripts.Utilities;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellMagicSword : MonoBehaviour
+public class SpellMagicSword : SpellBase
 {
     private GameObject spellCore; // Reference to the spellCore object
     public float rotationSpeed = 7f;
@@ -13,6 +10,7 @@ public class SpellMagicSword : MonoBehaviour
 
     protected void Awake()
     {
+        SetSpellStats();
         // Find the spellCore object in the swordCore prefab
         spellCore = transform.parent?.gameObject;
 
@@ -29,7 +27,7 @@ public class SpellMagicSword : MonoBehaviour
         }
 
         spellCore.transform.Rotate(Vector3.forward, rotationImpact); // Rotate the spellCore at the start by -65 degrees
-        Invoke("TimeOut", 5f); // Destroy the spellCore after 5 seconds
+        Invoke("TimeOut", destroyTime); // Destroy the spellCore after 5 seconds
     }
 
     private void FixedUpdate()
@@ -44,14 +42,9 @@ public class SpellMagicSword : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        var conditions = new List<ConditionBase>
+        if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
-            new ConditionBase() { Conditions = Conditions.ArmorDown, AffectOnTick = 0.2f, AffectTime = 2f }
-        };
-
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
-        {
-            unit.TakeDamage(5, conditions);
+            unit.DAMAGE(DMG, conditions);
             Destroy(spellCore); // Destroy the spellCore when collided with an object
         }
     }

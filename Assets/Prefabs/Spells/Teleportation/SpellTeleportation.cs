@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SpellTeleportation : MonoBehaviour
+public class SpellTeleportation : SpellBase
 {
     GameObject player;
     StaffRotation staffrotator;
@@ -15,9 +13,9 @@ public class SpellTeleportation : MonoBehaviour
     public float moveSpeed = 5f;
     private bool isOnWater = false;
 
-
     private void Awake()
     {
+        SetSpellStats();
         player = GameManager.Player;
         mainCam = Camera.main;
         SpawnInPlace();

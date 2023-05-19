@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: MageArmor
   m_EditorClassIdentifier: 
+  Name: Mage Armor
+  Description: 
   image: {fileID: 21300000, guid: fcc03f2f4e168544e8697c245c5ccca1, type: 3}
-  Prefab: {fileID: 639514538004180302, guid: a7b3980a6f3c2584ab0050a14a939d47, type: 3}
+  Prefab: {fileID: -4902862479254270185, guid: d8ca164d75b7afe4caf0dbc8e3e79cb2, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
   CastFromHeroeNoStaff: 1
-  ID: 31
   cooldown: 5
   spellSlot: 3
-  Name: MageArmor
-  Description: 

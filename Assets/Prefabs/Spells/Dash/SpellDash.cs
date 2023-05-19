@@ -1,8 +1,6 @@
-﻿using Assets._Scripts.Utilities;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class SpellDash : MonoBehaviour
+public class SpellDash : SpellBase
 {
     GameObject player;
     HeroUnitBase playerScript;
@@ -20,10 +18,11 @@ public class SpellDash : MonoBehaviour
 
     private void Awake()
     {
+        SetSpellStats();
         player = GameManager.Player;
-        if (player.TryGetComponent<UnitBase>(out UnitBase unit))
+        if (player.TryGetComponent(out AttackHandler unit))
         {
-            unit.TakeDamage(0, new List<ConditionBase>() { new ConditionBase(Conditions.ArmorUp, 0.6f, 200f) });
+            unit.DAMAGE(DMG, conditions);
         }
         player.TryGetComponent<HeroUnitBase>(out playerScript);
         playerScript.HideWand();
@@ -35,7 +34,6 @@ public class SpellDash : MonoBehaviour
         Invoke("DestroyObject", destroyTimer);
         SetPlayerRendering(false);
         isDashing = true; // Ustawienie flagi na true na początku dashu
-
     }
 
     void SetPlayerRendering(bool enableRendering)

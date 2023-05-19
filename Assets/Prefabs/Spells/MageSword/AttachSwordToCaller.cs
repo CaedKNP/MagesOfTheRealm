@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class AttachSwordToCaller : MonoBehaviour
+public class AttachSwordToCaller : SpellBase
 {
     //GameObject player;
     public GameObject swordPrefab; // Sword prefab

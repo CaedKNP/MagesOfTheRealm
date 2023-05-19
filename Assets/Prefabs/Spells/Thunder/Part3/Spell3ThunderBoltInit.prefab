@@ -147,6 +147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2632357248c045241b94b52d1814fd89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Thunder
+  timeOut: 0.3
 --- !u!95 &23302610432077427
 Animator:
   serializedVersion: 5

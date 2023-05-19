@@ -1,38 +1,20 @@
-using Assets._Scripts.Utilities;
-using System.Collections.Generic;
+using Assets._Scripts.Spells;
 using UnityEngine;
 
-public class SpellFrost : SpellBase
+public class SpellFrost : SpellProjectileBase
 {
     protected void Awake()
     {
-        SetSpeedDestroyTime(8f, 4f); // Nowe wartości dla speed i destroyTime
-        base.MyAwake();
+        MyAwake();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        var conditions = new List<ConditionBase>
+        if (collision.gameObject.TryGetComponent(out AttackHandler attack))
         {
-            new ConditionBase() { Conditions = Conditions.Freeze, AffectOnTick = 0, AffectTime = 1.2f }
-        };
+            attack.DAMAGE(DMG, conditions);
 
-        if (collision.gameObject.TryGetComponent<AttackHandler>(out AttackHandler attack))
-        {
-            attack.DAMAGE(4, conditions);
-
-            if (!BeforeDelete())
-                Destroy(gameObject);
+            Destroy(gameObject);
         }
-
-        //if (collision.gameObject.layer == 11)
-        //{
-        //    var asd = collision.gameObject.GetComponent<AttackHandler>();
-
-        //    asd.DAMAGE(2, conditions);
-
-        //    if (!BeforeDelete())
-        //        Destroy(gameObject);
-        //}
     }
 }

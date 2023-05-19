@@ -1,40 +1,33 @@
+using Assets._Scripts.Spells;
 using Assets._Scripts.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellDarkMeteor : SpellBase
+public class SpellDarkMeteor : SpellProjectileBase
 {
     public Animator darkMeteorAnimator; // Komponent Animator dla obiektu darkMeteor 
     private bool hasPlayedAnimation = false; // Flaga, czy animacja została odtworzona 
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(6f, 2.2f); // Nowe wartości dla speed i destroyTime
-        base.MyAwake();
+        MyAwake();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        var conditions = new List<ConditionBase>
+        if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
-        };
+            unit.DAMAGE(3, conditions);
 
-        if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
-        {
-            unit.TakeDamage(5, conditions);
-
-            if (!BeforeDelete())
-                Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 
-    protected override bool BeforeDelete()
+    void OnDestroy()
     {
         StartCoroutine(AnimateTextureChange());
         rb.velocity = Vector2.zero;
-
-        return true;
     }
 
     private IEnumerator AnimateTextureChange()
@@ -66,8 +59,8 @@ public class SpellDarkMeteor : SpellBase
 
         foreach (var collider in hitColliders)
         {
-            if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(9, new List<ConditionBase>());
+            if (collider.TryGetComponent(out AttackHandler unit))
+                unit.DAMAGE(DMG, new List<ConditionBase>());
         }
     }
 }

@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: MultipleFrost
   m_EditorClassIdentifier: 
+  Name: Multiple Frost Spike
+  Description: 
   image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 3c403cc8a8556e54aadddb23aae0bfdb, type: 3}
+  Prefab: {fileID: -6438123666561493070, guid: 3c403cc8a8556e54aadddb23aae0bfdb, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
   CastFromHeroeNoStaff: 0
-  ID: 12
   cooldown: 4.5
   spellSlot: 3
-  Name: MultipleFrostSpike
-  Description: 

@@ -1,7 +1,7 @@
 using Assets._Scripts.Spells;
 using UnityEngine;
 
-public class SpellBlueFireball : SpellProjectileBase
+public class Arrow : SpellProjectileBase
 {
     protected void Awake()
     {
