@@ -11,7 +11,14 @@ namespace Assets._Scripts.Spells
             SetSpellStats();
             rb = GetComponent<Rigidbody2D>();
             rb.velocity = transform.right * speed;
-            Destroy(gameObject, destroyTime);
+
+            if (BeforeDestroy())
+                Destroy(gameObject, destroyTime);
+        }
+
+        public virtual bool BeforeDestroy()
+        {
+            return true;
         }
     }
 }

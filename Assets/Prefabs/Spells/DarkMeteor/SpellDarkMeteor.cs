@@ -20,14 +20,15 @@ public class SpellDarkMeteor : SpellProjectileBase
         {
             unit.DAMAGE(3, conditions);
 
-            Destroy(gameObject);
+            BeforeDestroy();
         }
     }
 
-    void OnDestroy()
+    public override bool BeforeDestroy()
     {
         StartCoroutine(AnimateTextureChange());
         rb.velocity = Vector2.zero;
+        return false;
     }
 
     private IEnumerator AnimateTextureChange()
