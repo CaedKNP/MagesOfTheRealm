@@ -6,36 +6,38 @@ using UnityEngine;
 public class Spell1LaserGreen : SpellBase
 {
     List<UnitBase> unitsInCollision = new List<UnitBase>();
-    GameObject laserPoint;
+    public GameObject laserPoint; // MonoBehaviour
+    StaffRotation staff;
+
     protected void Awake()
     {
-
         SetSpeedDestroyTime(40f, 1f);
         base.MyAwake();
         Invoke("TimeOut", 0.5f);
-
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
+        var conditions = new List<ConditionBase>
+        {
+            new ConditionBase() { Conditions = Conditions.Burn, AffectOnTick = 1f, AffectTime = 5f }
+        };
+
         if (collision.gameObject.TryGetComponent<UnitBase>(out UnitBase unit))
         {
-            unitsInCollision.Add(unit); 
+            unit.TakeDamage(1, conditions);
+            unitsInCollision.Add(unit);
         }
     }
-    private void MoveLaserToUnits(ref GameObject laserPointPref)
-    {
-        foreach (UnitBase unit in unitsInCollision)
-        {
-            laserPointPref.transform.position = unit.transform.position;
-        }
-    }
+
     void TimeOut()
     {
-        laserPoint = GetComponent<GameObject>();
-        GameObject laserPointPref = Instantiate(laserPoint, transform.position, transform.rotation);
-        MoveLaserToUnits(ref laserPointPref);
+        GameObject laser = Instantiate(laserPoint, staff.WizandStaffFirePint.transform.position, transform.rotation);
+
+        Spell2LaserGreen spell2Laser = laser.GetComponent<Spell2LaserGreen>();
+        spell2Laser.SetUnitsInCollision(unitsInCollision);
+        spell2Laser.StartMoving();
+
         Destroy(gameObject);
-        Destroy(laserPointPref);//nie działa
     }
 }

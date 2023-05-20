@@ -17,6 +17,6 @@ MonoBehaviour:
   CastFromHeroeNoStaff: 0
   ID: 24
   cooldown: 1
-  spellSlot: 0
+  spellSlot: 3
   Name: Laser Green
   Description: 
