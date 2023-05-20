@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 639514538004180300}
   - component: {fileID: 1343789464}
-  - component: {fileID: 3765477769883046411}
+  - component: {fileID: -6438123666561493070}
   m_Layer: 6
   m_Name: SpellMultipleFrost
   m_TagString: Untagged
@@ -54,7 +54,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &3765477769883046411
+--- !u!114 &-6438123666561493070
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

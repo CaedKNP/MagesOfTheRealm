@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -766159839102585204}
   - component: {fileID: 1343789464}
   - component: {fileID: 6446294594402300159}
-  - component: {fileID: -4656792457940676002}
+  - component: {fileID: 235982382515569504}
   m_Layer: 6
   m_Name: SpellPissFrost
   m_TagString: Untagged
@@ -156,7 +156,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-4656792457940676002
+--- !u!114 &235982382515569504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -165,6 +165,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 639514538004180302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7176ce59723d08a47947e1c324d17699, type: 3}
+  m_Script: {fileID: 11500000, guid: f3bb4285a766a0c47bf2f571a76ee050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  caster: {fileID: 0}

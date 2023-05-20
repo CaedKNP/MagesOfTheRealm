@@ -16,7 +16,7 @@ MonoBehaviour:
   Prefab: {fileID: 639514538004180302, guid: 90712f16b9d483a43aceff43e05a1eed, type: 3}
   CastFromHeroeNoStaff: 0
   ID: 13
-  cooldown: 0.8
+  cooldown: 0.4
   spellSlot: 0
   Name: Posion Ball
   Description: Ball of poisonous fluid

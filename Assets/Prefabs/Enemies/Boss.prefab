@@ -129,10 +129,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -1}
+  m_Offset: {x: 0.060000002, y: -0.013031006}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.1229706}
     oldSize: {x: 1.8, y: 2.5}
     newSize: {x: 0.15, y: 0.18}
     adaptiveTilingThreshold: 0.5
@@ -140,7 +140,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.99, y: 0.4}
+  m_Size: {x: 0.7, y: 0.36663818}
   m_EdgeRadius: 0
 --- !u!114 &8109268066809691
 MonoBehaviour:
@@ -176,6 +176,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
+  attackFromCenter: 0
   rangeOfAttack: 1
   rangeOfRest: 10
   rangeOfChase: 15
@@ -265,7 +266,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.055603027, y: -0.05831909}
+  m_Offset: {x: -0.055603027, y: 0.94451904}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -276,7 +277,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3079834, y: 2.0853882}
+  m_Size: {x: 1.3079834, y: 2.390625}
   m_EdgeRadius: 0
 --- !u!1001 &5021696542079753168
 PrefabInstance:
@@ -363,7 +364,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 2.64
+      value: 4.231
       objectReference: {fileID: 0}
     - target: {fileID: 93546767448373344, guid: 159ff84223d7a384ea1b2df60c926362, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
