@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: DarkMeteor
   m_EditorClassIdentifier: 
+  Name: Dark Meteor
+  Description: 
   image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: dbe8377215a6ff84d85524e9a801efd3, type: 3}
+  Prefab: {fileID: 1084759959181815820, guid: dbe8377215a6ff84d85524e9a801efd3, type: 3}
+  DMG: 15
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
   CastFromHeroeNoStaff: 1
-  ID: 4
   cooldown: 5
   spellSlot: 2
-  Name: DarkMeteor
-  Description: 

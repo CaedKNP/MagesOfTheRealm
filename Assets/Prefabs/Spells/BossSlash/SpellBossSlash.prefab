@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 639514538004180303}
   - component: {fileID: 1343789464}
   - component: {fileID: 1959568447677229900}
-  - component: {fileID: 1099537924596150824}
   - component: {fileID: 9032830588418902039}
+  - component: {fileID: 3826924771597330631}
   m_Layer: 6
   m_Name: SpellBossSlash
   m_TagString: Untagged
@@ -135,20 +135,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.03, y: 0.02}
   m_EdgeRadius: 1
---- !u!114 &1099537924596150824
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 639514538004180302}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b0d792f1a1397e4399c8e7d257bb3d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  caster: {fileID: 0}
-  animator: {fileID: 9032830588418902039}
 --- !u!95 &9032830588418902039
 Animator:
   serializedVersion: 5
@@ -170,3 +156,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3826924771597330631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639514538004180302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 251b46b7ad3be474eb49a56e7b5a468c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Boss Slash
+  radius: 4.5
+  animator: {fileID: 9032830588418902039}

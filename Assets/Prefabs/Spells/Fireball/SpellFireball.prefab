@@ -122,6 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c622d0ecf58620b4788b534d333664d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Fireball
 --- !u!96 &-5179455020467653721
 TrailRenderer:
   serializedVersion: 2

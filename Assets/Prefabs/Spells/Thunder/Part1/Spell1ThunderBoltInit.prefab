@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db19de2b2cc5c6042857daa14cef1a15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caster: {fileID: 0}
+  Name: Thunder
   prefabPart2: {fileID: 639514538004180302, guid: e9b3c0c24b59ad14cb9dd39baf55861d, type: 3}
   prefabPart3: {fileID: 639514538004180302, guid: 604d464960380714eaf8ce39cad459f0, type: 3}
   interval: 0.3
