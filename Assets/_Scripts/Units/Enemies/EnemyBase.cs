@@ -1,9 +1,11 @@
 using Assets._Scripts.Utilities;
+using Assets.Resources.SOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 using Stats = Assets._Scripts.Utilities.Stats;
 
@@ -50,6 +52,9 @@ public abstract class EnemyBase : UnitBase
 
     ConditionUI _conditionUI;
 
+    [SerializeField]
+    private intSO scoreSO;
+
     Coroutine burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
     protected bool _isDead = false;
 
@@ -63,6 +68,7 @@ public abstract class EnemyBase : UnitBase
     public override void Die()
     {
         Debug.Log($"{name} is dead");
+        scoreSO.Int++;
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
         _isDead = true;

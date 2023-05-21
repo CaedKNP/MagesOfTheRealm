@@ -1,13 +1,12 @@
 using Assets._Scripts.Managers;
+using Assets.Resources.Entities;
+using Assets.Resources.SOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// enum-based game manager
-/// </summary>
 public class GameManager : StaticInstance<GameManager>
 {
     public static event Action<GameState> OnBeforeStateChanged;
@@ -17,6 +16,12 @@ public class GameManager : StaticInstance<GameManager>
     public static int[,] map;
     public static Vector2[,] mapPositions;
     public static List<GameObject> enemies;
+
+    //private HighScore highScore;
+    //private List<HighScore> highScores;
+
+    [SerializeField]
+    private intSO scoreSO;
 
     [SerializeField]
     private stringSO mageNameSO;
@@ -37,6 +42,7 @@ public class GameManager : StaticInstance<GameManager>
                 break;
         }
     }
+
     public void ChangeState(GameState newState)
     {
         OnBeforeStateChanged?.Invoke(newState);
@@ -82,6 +88,7 @@ public class GameManager : StaticInstance<GameManager>
         if (SceneManager.GetActiveScene().name != "LevelHub")
         {
             SceneManager.LoadScene("LevelHub");
+            //highScore = new();
         }
 
         Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
@@ -122,10 +129,14 @@ public class GameManager : StaticInstance<GameManager>
         WaveManager.Instance.gameOver = true;
         WaveManager.Instance.waveName.text = "YOU DIED!";
 
-        var wait = StartCoroutine(WaitSomeSecs());
+        //highScore.score = scoreSO.Int;
+        //highScores.Add(highScore);
+        scoreSO.Int = 0;
+
+        var asd = StartCoroutine(WaitSomeSecs());
     }
 
-    IEnumerator WaitSomeSecs ()
+    IEnumerator WaitSomeSecs()
     {
         var end = Time.time + 3;
 

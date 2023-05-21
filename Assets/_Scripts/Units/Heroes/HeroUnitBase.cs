@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using Assets.Resources.SOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
