@@ -150,9 +150,9 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(0);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             _stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
@@ -170,11 +170,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(1);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempSpeed = _stats.MovementSpeed;
         _stats.MovementSpeed -= _stats.MovementSpeed * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -187,9 +187,9 @@ public abstract class EnemyBase : UnitBase
     private IEnumerator PoisonTask(ConditionBase condition)
     {
         _conditionUI.AddConditionSprite(2);
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             _stats.CurrentHp -= Convert.ToInt32(condition.AffectOnTick);
 
@@ -209,9 +209,9 @@ public abstract class EnemyBase : UnitBase
 
         _canMove = false;
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -225,11 +225,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(4);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempMoveSpeed = _stats.MovementSpeed;
         _stats.MovementSpeed += _stats.MovementSpeed * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -243,11 +243,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(5);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempArmor = _stats.Armor;
         _stats.Armor += _stats.Armor * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -262,11 +262,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(6);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempArmorDown = _stats.Armor;
         _stats.Armor -= _stats.Armor * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -281,11 +281,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(7);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempCooldown = _stats.CooldownModifier;
         _stats.CooldownModifier += _stats.CooldownModifier * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
@@ -300,11 +300,11 @@ public abstract class EnemyBase : UnitBase
     {
         _conditionUI.AddConditionSprite(8);
 
-        var end = DateTime.Now.Second + condition.AffectTime;
+        var end = Time.time + condition.AffectTime;
         var tempDmg = _stats.DmgModifier;
         _stats.DmgModifier += _stats.DmgModifier * condition.AffectOnTick;
 
-        while (DateTime.Now.Second < end)
+        while (Time.time < end)
         {
             yield return null;
         }
