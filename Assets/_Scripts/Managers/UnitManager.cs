@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class UnitManager : StaticInstance<UnitManager>
 {
-
     [SerializeField]
     private Canvas worldSpaceCanvas;
 

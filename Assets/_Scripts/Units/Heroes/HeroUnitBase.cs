@@ -566,7 +566,7 @@ public class HeroUnitBase : UnitBase
         HideWand();
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
-        Destroy(this.gameObject, 3f);
+        Destroy(gameObject, 3f);
         GameManager.Instance.ChangeState(GameState.Lose);
     }
 }

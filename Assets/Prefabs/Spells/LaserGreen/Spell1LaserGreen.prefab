@@ -255,4 +255,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971c945247054a84a934c397f64a5cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caster: {fileID: 1959568447677229900, guid: ed4d63c41bcae5b40913cecd0b0eaef2, type: 3}
+  Name: Laser Green
