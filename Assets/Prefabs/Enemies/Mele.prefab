@@ -176,6 +176,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16
   conditionsBar: {fileID: 4971127554512380848}
+  scoreSO: {fileID: 11400000, guid: a537fb5d8087b124a8e1e8f4b21500ba, type: 2}
   attackFromCenter: 0
   rangeOfAttack: 2
   rangeOfRest: 5
