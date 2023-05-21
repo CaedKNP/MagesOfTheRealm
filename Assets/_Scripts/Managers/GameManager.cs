@@ -133,7 +133,7 @@ public class GameManager : StaticInstance<GameManager>
         //highScores.Add(highScore);
         scoreSO.Int = 0;
 
-        StartCoroutine(WaitSomeSecs());
+        var asd = StartCoroutine(WaitSomeSecs());
     }
 
     IEnumerator WaitSomeSecs()
