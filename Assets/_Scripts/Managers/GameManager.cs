@@ -1,5 +1,4 @@
 using Assets._Scripts.Managers;
-using Assets.Resources.Entities;
 using Assets.Resources.SOs;
 using System;
 using System.Collections;
