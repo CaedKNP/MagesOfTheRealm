@@ -16,6 +16,8 @@ public class GameManager : StaticInstance<GameManager>
     public static Vector2[,] mapPositions;
     public static List<GameObject> enemies;
 
+    public List<GameObject> gameObjects;
+
     //private HighScore highScore;
     //private List<HighScore> highScores;
 
@@ -29,8 +31,19 @@ public class GameManager : StaticInstance<GameManager>
 
     private Scene _currentScene;
 
+    void DontDestroyEach()
+    {
+        if (gameObjects is not null)
+            foreach (var gameObject in gameObjects)
+            {
+                DontDestroyOnLoad(this.gameObject);
+            }
+    }
+
     void Start()
     {
+        //DontDestroyEach();
+
         //switch (SceneManager.GetActiveScene().name)
         //{
         //    case "LevelTest":
@@ -94,17 +107,33 @@ public class GameManager : StaticInstance<GameManager>
         //    //highScore = new();
         //}
 
-        SceneManager.LoadScene("LevelHub", LoadSceneMode.Additive);
+        var _ = StartCoroutine(LoadAsync("LevelHub", true));
+    }
+
+    IEnumerator LoadAsync(string SceneName, bool spawnPlayer)
+    {
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
         _currentScene = SceneManager.GetSceneAt(1);
-        Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
+
+        while (!_currentScene.isLoaded)
+        {
+            yield return null;
+        }
+
+        SceneManager.SetActiveScene(_currentScene);
+
+        if (spawnPlayer)
+            Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
+        else
+            ChangeState(GameState.Starting);
     }
 
     void HandleLevelChange()
     {
-        SceneManager.UnloadSceneAsync(_currentScene);
-        SceneManager.LoadScene("LevelTest", LoadSceneMode.Additive);
-        _currentScene = SceneManager.GetSceneAt(1);
-        ChangeState(GameState.Starting);
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+        SceneManager.UnloadScene("LevelHub");
+
+        var _ = StartCoroutine(LoadAsync("LevelTest", false));
     }
 
     void HandleStarting()

@@ -30,7 +30,6 @@ namespace Assets._Scripts.Managers
         public Text waveName;
         public Text enemyCounter;
 
-
         bool _canSpawn = true;
         bool _bossWave = false;
         bool _bossSpawned = false;
