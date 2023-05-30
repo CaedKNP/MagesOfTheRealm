@@ -27,19 +27,23 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
+    private Scene _currentScene;
+
     void Start()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "LevelTest":
-                ChangeState(GameState.Starting);
-                break;
-            case "LevelHub":
-                ChangeState(GameState.Hub);
-                break;
-            default:
-                break;
-        }
+        //switch (SceneManager.GetActiveScene().name)
+        //{
+        //    case "LevelTest":
+        //        ChangeState(GameState.Starting);
+        //        break;
+        //    case "LevelHub":
+        //        ChangeState(GameState.Hub);
+        //        break;
+        //    default:
+        //        break;
+        //}
+
+        ChangeState(GameState.Hub);
     }
 
     public void ChangeState(GameState newState)
@@ -84,18 +88,22 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
-        if (SceneManager.GetActiveScene().name != "LevelHub")
-        {
-            SceneManager.LoadScene("LevelHub");
-            //highScore = new();
-        }
+        //if (SceneManager.GetActiveScene().name != "LevelHub")
+        //{
+        //    SceneManager.LoadScene("LevelHub");
+        //    //highScore = new();
+        //}
 
+        SceneManager.LoadScene("LevelHub", LoadSceneMode.Additive);
+        _currentScene = SceneManager.GetSceneAt(1);
         Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
     }
 
     void HandleLevelChange()
     {
-        SceneManager.LoadScene("LevelTest");
+        SceneManager.UnloadSceneAsync(_currentScene);
+        SceneManager.LoadScene("LevelTest", LoadSceneMode.Additive);
+        _currentScene = SceneManager.GetSceneAt(1);
         ChangeState(GameState.Starting);
     }
 
