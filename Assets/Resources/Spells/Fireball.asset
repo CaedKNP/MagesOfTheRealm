@@ -18,7 +18,7 @@ MonoBehaviour:
   Prefab: {fileID: 4769410748247290066, guid: c137b1f385cd7164c8d9298ca0837c26, type: 3}
   DMG: 9
   conditions: []
-  speed: 3
+  speed: 8
   destroyTime: 4
   caster: {fileID: 0}
   CastFromHeroeNoStaff: 0
