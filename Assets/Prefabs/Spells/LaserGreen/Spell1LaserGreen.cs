@@ -5,11 +5,12 @@ using UnityEngine;
 public class Spell1LaserGreen : SpellProjectileBase
 {
     List<AttackHandler> unitsInCollision = new();
-    GameObject laserPoint;
+    public GameObject laserPoint;
     protected void Awake()
     {
         base.MyAwake();
-        Invoke("TimeOut", 0.5f);
+        Invoke("TimeOut", 3f);
+        Invoke("TimeToShoot", 1f);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -17,7 +18,9 @@ public class Spell1LaserGreen : SpellProjectileBase
         if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
             unitsInCollision.Add(unit);
+            Debug.Log("dsdsdsd "+unitsInCollision.Count);
         }
+
     }
     private void MoveLaserToUnits(ref GameObject laserPointPref)
     {
