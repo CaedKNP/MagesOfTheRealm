@@ -1,10 +1,7 @@
-﻿using Assets._Scripts.Utilities;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
+﻿using Assets._Scripts.Spells;
 using UnityEngine;
 
-public class Spell1Thunder : SpellBase
+public class Spell1Thunder : SpellProjectileBase
 {
     public GameObject prefabPart2;
     public GameObject prefabPart3;
@@ -13,8 +10,7 @@ public class Spell1Thunder : SpellBase
 
     protected void Awake()
     {
-        SetSpeedDestroyTime(13f, 100f); // Nowe wartości dla speed i destroyTime
-        base.MyAwake();
+        MyAwake();
         InvokeRepeating("SpawnThunder", 0.1f, interval); // Wywołanie metody SpawnThunder z interwałem 0.3 sekundy
     }
 

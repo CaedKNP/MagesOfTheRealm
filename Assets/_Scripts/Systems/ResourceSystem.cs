@@ -14,7 +14,7 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
     private Dictionary<ExampleEnemyType, ScriptableExampleEnemy> _ExampleEnemiesDict;
 
     public List<Spell> AllSpells { get; private set; }
-    private Dictionary<int, Spell> _AllSpellsDict;
+    private Dictionary<string, Spell> _AllSpellsDict;
 
     protected override void Awake()
     {
@@ -31,14 +31,14 @@ public class ResourceSystem : StaticInstance<ResourceSystem>
         _ExampleEnemiesDict = ExampleEnemies.ToDictionary(e => e.EnemyType, e => e);
 
         AllSpells = Resources.LoadAll<Spell>("Spells").ToList();
-        _AllSpellsDict = AllSpells.ToDictionary(s => s.ID, s => s);
+        _AllSpellsDict = AllSpells.ToDictionary(s => s.Name, s => s);
     }
 
     public ScriptableExampleHero GetExampleHero(string heroName) => _ExampleHeroesDict[heroName];
 
     public ScriptableExampleEnemy GetExampleEnemy(ExampleEnemyType enemyType) => _ExampleEnemiesDict[enemyType];
 
-    public Spell GetExampleSpell(int spellID) => _AllSpellsDict[spellID];
+    public Spell GetExampleSpell(string spellName) => _AllSpellsDict[spellName];
 
     public ScriptableExampleHero GetRandomHero() => ExampleHeroes[Random.Range(0, ExampleHeroes.Count)];
 

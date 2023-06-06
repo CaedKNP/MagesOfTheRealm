@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: ToxinBall
   m_EditorClassIdentifier: 
+  Name: Toxin Ball
+  Description: 
   image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 829aaf36111d6a747a0f42d20fe7c44f, type: 3}
+  Prefab: {fileID: -5791720838747138197, guid: 829aaf36111d6a747a0f42d20fe7c44f, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
   CastFromHeroeNoStaff: 0
-  ID: 18
   cooldown: 4.5
   spellSlot: 0
-  Name: 
-  Description: 

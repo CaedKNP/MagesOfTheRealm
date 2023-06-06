@@ -1,4 +1,5 @@
 using Assets._Scripts.Utilities;
+using Assets.Resources.SOs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -213,14 +214,14 @@ public class HeroUnitBase : UnitBase
 
     private void ConditionAffect(List<ConditionBase> conditions)
     {
-        if (conditions.Count > 0 && conditions != null)
+        if (conditions != null && conditions.Count > 0)
             foreach (ConditionBase condition in conditions)
                 Affect(condition);
     }
 
     private void Affect(ConditionBase condition)
     {
-        switch (condition.Conditions)
+        switch (condition.Condition)
         {
             case global::Conditions.Burn:
 
@@ -512,13 +513,13 @@ public class HeroUnitBase : UnitBase
 
     void OnStart()
     {
-        if(GameManager.Instance.State == GameState.Hub)
+        if (GameManager.Instance.State == GameState.Hub)
             GameManager.Instance.ChangeState(GameState.ChangeLevel);
     }
 
     void OnRestart()
     {
-        if(GameManager.Instance.State == GameState.Playing)
+        if (GameManager.Instance.State == GameState.Playing)
             GameManager.Instance.ChangeState(GameState.Hub);
     }
 
@@ -536,11 +537,13 @@ public class HeroUnitBase : UnitBase
         {
             if (spell.CastFromHeroeNoStaff)
             {
-                Instantiate(spell.Prefab, transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
+                spell.caster = collider;
+                spell.Attack(transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
             else
             {
-                Instantiate(spell.Prefab, spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);//.GetComponent<SpellBase>().caster = this.collider;
+                spell.caster = collider;
+                spell.Attack(spellRotator.WizandStaffFirePint.transform.position, spellRotator.WizandStaffFirePint.transform.rotation);
             }
         }
         else
@@ -564,7 +567,7 @@ public class HeroUnitBase : UnitBase
         HideWand();
         _anim.CrossFade("Death", 0, 0);
         _canMove = false;
-        Destroy(this.gameObject, 3f);
+        Destroy(gameObject, 3f);
         GameManager.Instance.ChangeState(GameState.Lose);
     }
 }

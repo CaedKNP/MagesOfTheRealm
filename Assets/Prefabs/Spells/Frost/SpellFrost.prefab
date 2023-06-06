@@ -147,6 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc7dc6302ae6e3646a320fa7008cf672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Frost
 --- !u!95 &6446294594402300159
 Animator:
   serializedVersion: 5

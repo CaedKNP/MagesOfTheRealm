@@ -1,19 +1,19 @@
-﻿using Assets._Scripts.Utilities;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class SpellSwordLvl1 : SpellBase
 {
+    public float radius;
     public Animator animator;
     protected void Awake()
     {
+        SetSpellStats();
         Animation();
     }
 
     void Animation()
     {
-        animator.speed=animator.speed*2.5f;
+        animator.speed *= 2.5f;
         animator.enabled = true; // Enable the Animator
         StartCoroutine(WaitForAnimationToEnd());
         ExplosiveDamage();
@@ -33,12 +33,12 @@ public class SpellSwordLvl1 : SpellBase
 
     private void ExplosiveDamage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 4.5f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), radius);
 
         foreach (var collider in hitColliders)
         {
-            if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(7, new List<ConditionBase>());
+            if (collider.TryGetComponent(out AttackHandler unit))
+                unit.DAMAGE(DMG, conditions);
         }
     }
 }

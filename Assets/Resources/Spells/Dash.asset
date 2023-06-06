@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 20cfdc76e330fab45907dacdad5603f1, type: 3}
-  CastFromHeroeNoStaff: 1
-  ID: 6
-  cooldown: 1.4
-  spellSlot: 4
   Name: Dash
   Description: Cast a spell and you are pulled by it
+  image: {fileID: 0}
+  Prefab: {fileID: 7441837701071593043, guid: b3d65f9d36d725449969ca0f76059b8d, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
+  CastFromHeroeNoStaff: 1
+  cooldown: 1.4
+  spellSlot: 4

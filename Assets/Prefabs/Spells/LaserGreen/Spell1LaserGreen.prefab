@@ -146,5 +146,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 971c945247054a84a934c397f64a5cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  caster: {fileID: 0}
-  laserPoint: {fileID: 639514538004180302, guid: 7e0db7ff55ce8d54c88e412db3ce9193, type: 3}
+  Name: Laser Green

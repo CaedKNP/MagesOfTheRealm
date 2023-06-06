@@ -1,18 +1,21 @@
-﻿namespace Assets._Scripts.Utilities
+﻿using System;
+
+namespace Assets._Scripts.Utilities
 {
+    [Serializable]
     public struct ConditionBase
     {
         public ConditionBase(Conditions conditions, float affectTime, float affectOnTick)
         {
-            Conditions = conditions;
+            Condition = conditions;
             AffectOnTick = affectOnTick;
             AffectTime = affectTime;
         }
 
-        public Conditions Conditions { get; set; }
+        public Conditions Condition;
 
-        public float AffectTime { get; set; }
+        public float AffectTime;
 
-        public float AffectOnTick { get; set;}
+        public float AffectOnTick;
     }
 }

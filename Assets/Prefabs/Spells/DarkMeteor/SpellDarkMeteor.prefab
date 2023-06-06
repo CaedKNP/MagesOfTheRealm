@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec6479572fa6ca48820cd319d21c7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Dark Meteor
   darkMeteorAnimator: {fileID: -1784028112217949627}
 --- !u!95 &-1784028112217949627
 Animator:

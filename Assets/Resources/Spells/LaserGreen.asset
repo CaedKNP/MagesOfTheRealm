@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: LaserGreen
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 71948148399f3da4095ad3c93ec0edb1, type: 3}
-  CastFromHeroeNoStaff: 0
-  ID: 24
-  cooldown: 1
-  spellSlot: 3
   Name: Laser Green
   Description: 
+  image: {fileID: 0}
+  Prefab: {fileID: 3632144445134128473, guid: 71948148399f3da4095ad3c93ec0edb1, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 40
+  destroyTime: 1
+  caster: {fileID: 0}
+  CastFromHeroeNoStaff: 0
+  cooldown: 1
+  spellSlot: 0

@@ -1,17 +1,27 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
+﻿using Assets._Scripts.Utilities;
+using System.Collections.Generic;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spell")]
 public class Spell : ScriptableObject
 {
+    public string Name;
+    public string Description;
     public Sprite image;
-    public GameObject Prefab; //MonoBehaviour
+    public SpellBase Prefab; //MonoBehaviour
+
+    public float DMG;
+    public List<ConditionBase> conditions;
+    public float speed;
+    public float destroyTime;
+    public Collider2D caster;
+
     public bool CastFromHeroeNoStaff = false;
-    public int ID;
     public float cooldown;
     public SpellSlot spellSlot;
 
-    // Used in menus
-    public string Name;
-    public string Description;
+    public void Attack(Vector3 position, Quaternion rotation)
+    {
+        Instantiate(Prefab, position, rotation);
+    }
 }

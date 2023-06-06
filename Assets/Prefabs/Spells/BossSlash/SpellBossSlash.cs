@@ -1,19 +1,21 @@
-using Assets._Scripts.Utilities;
+using Assets._Scripts.Spells;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellBossSlash : SpellBase
+public class SpellBossSlash : SpellProjectileBase
 {
+    public float radius;
     public Animator animator;
+
     protected void Awake()
     {
+        MyAwake();
         Animation();
     }
 
     void Animation()
     {
-        animator.speed = animator.speed * 2.5f;
+        animator.speed *= 2.5f;
         animator.enabled = true; // Enable the Animator
         StartCoroutine(WaitForAnimationToEnd());
         ExplosiveDamage();
@@ -33,12 +35,12 @@ public class SpellBossSlash : SpellBase
 
     private void ExplosiveDamage()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), 4.5f);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y), radius);
 
         foreach (var collider in hitColliders)
         {
-            if (collider.TryGetComponent(out UnitBase unit))
-                unit.TakeDamage(15, new List<ConditionBase>());
+            if (collider.TryGetComponent(out AttackHandler unit))
+                unit.DAMAGE(DMG, conditions);
         }
     }
 }

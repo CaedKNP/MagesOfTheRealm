@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellDash2 : MonoBehaviour
+public class SpellDash2 : SpellBase
 {
     Vector2 dir;
     GameObject player;
@@ -10,6 +8,7 @@ public class SpellDash2 : MonoBehaviour
 
     private void Awake()
     {
+        SetSpellStats();
         player = GameManager.Player;
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = player.transform.position;

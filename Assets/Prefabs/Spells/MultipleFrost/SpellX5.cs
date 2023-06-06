@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpellX5 : MonoBehaviour
+public class SpellX5 : SpellBase
 {
     public GameObject prefab;
     private void Awake()

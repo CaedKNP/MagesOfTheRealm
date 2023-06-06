@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cacbea3919a5c3d42ac537197be2b9c1, type: 3}
   m_Name: PissFrost
   m_EditorClassIdentifier: 
+  Name: Piss Frost
+  Description: 
   image: {fileID: 0}
-  Prefab: {fileID: 639514538004180302, guid: 55f7cd3278042b44f9f04d1633ab8e1d, type: 3}
+  Prefab: {fileID: 235982382515569504, guid: 55f7cd3278042b44f9f04d1633ab8e1d, type: 3}
+  DMG: 0
+  conditions: []
+  speed: 3
+  destroyTime: 4
+  caster: {fileID: 0}
   CastFromHeroeNoStaff: 0
-  ID: 17
   cooldown: 4
   spellSlot: 0
-  Name: 
-  Description: 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 639514538004180300}
   - component: {fileID: 639514538004180303}
   - component: {fileID: 1343789464}
+  - component: {fileID: 6266901698719867264}
   m_Layer: 6
   m_Name: MagicSwordCore
   m_TagString: Untagged
@@ -107,6 +108,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &6266901698719867264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639514538004180302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50a44dae83ed3f8478c68a16ea3a2877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Mage Sword
+  rotationSpeed: 7
+  rotationImpact: -65
+  speedTransitio: 0.3
 --- !u!1 &3973264777350401841
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a44dae83ed3f8478c68a16ea3a2877, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
   rotationSpeed: 7
   rotationImpact: -65
   speedTransitio: 0.38
