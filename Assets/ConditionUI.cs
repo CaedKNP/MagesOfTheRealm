@@ -17,20 +17,15 @@ public class ConditionUI : MonoBehaviour
 
     public void AddConditionSprite(int condition)
     {
-        Debug.Log("AddConditionSprite");
-        
         SetImageSprite(imageSlots[_currentConditionCount], sprites[condition]);
 
         _currentConditionCount++;
 
         SetRectWidth(_currentConditionCount);
-
-        Debug.Log("condition: added");
     }
 
     public void RemoveConditionSprite(int condition)
     {
-        Debug.Log("delito");
         if (_currentConditionCount - 1 >= 0)
         {
             Image imageWithSprite = this.imageSlots.Find(image => image.sprite == sprites[condition]);
@@ -52,14 +47,12 @@ public class ConditionUI : MonoBehaviour
             }
             _currentConditionCount--;
             SetRectWidth(_currentConditionCount);
-            Debug.Log("condition: removed");
         }
     }
 
     void Awake()
     {
         _rectTransform = GetComponent<RectTransform>();
-        Debug.Log("wrrr");
         //Uncomment for testing
         //should be: [Burn,DmgUp,Cooldown]
 

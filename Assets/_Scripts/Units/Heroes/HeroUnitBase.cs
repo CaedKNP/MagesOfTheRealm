@@ -498,7 +498,7 @@ public class HeroUnitBase : UnitBase
 
     void OnRestart()
     {
-        if (GameManager.Instance.State == GameState.Playing)
+        if (GameManager.Instance.State == GameState.Starting)
             GameManager.Instance.ChangeState(GameState.Hub);
     }
 
@@ -510,8 +510,6 @@ public class HeroUnitBase : UnitBase
 
     void CastSpell(Spell spell)
     {
-        Debug.Log("Casting spell " + spell);
-
         if (spellRotator != null)
         {
             if (spell.CastFromHeroeNoStaff)

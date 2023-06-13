@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : StaticInstance<GameManager>
 {
@@ -15,6 +16,14 @@ public class GameManager : StaticInstance<GameManager>
     public static int[,] map;
     public static Vector2[,] mapPositions;
     public static List<GameObject> enemies;
+
+    public Text waveName;
+    public Text enemyCounter;
+
+    public List<GameObject> gameObjects;
+
+    //Bool if hub wasn`t already initialized
+    bool _isFirstHub = true;
 
     //private HighScore highScore;
     //private List<HighScore> highScores;
@@ -27,19 +36,13 @@ public class GameManager : StaticInstance<GameManager>
 
     public GameState State { get; private set; }
 
+    private Scene _currentScene;
+
     void Start()
     {
-        switch (SceneManager.GetActiveScene().name)
-        {
-            case "LevelTest":
-                ChangeState(GameState.Starting);
-                break;
-            case "LevelHub":
-                ChangeState(GameState.Hub);
-                break;
-            default:
-                break;
-        }
+        enemies = new();
+
+        ChangeState(GameState.Hub);
     }
 
     public void ChangeState(GameState newState)
@@ -58,15 +61,6 @@ public class GameManager : StaticInstance<GameManager>
             case GameState.Starting:
                 HandleStarting();
                 break;
-            case GameState.SpawningHero:
-                HandleSpawningHero();
-                break;
-            case GameState.SpawningEnemies:
-                HandleSpawningEnemies();
-                break;
-            case GameState.Playing:
-                HandlePlaying();
-                break;
             case GameState.Win:
                 HandleWin();
                 break;
@@ -84,43 +78,43 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleHub()
     {
-        if (SceneManager.GetActiveScene().name != "LevelHub")
+        var _ = StartCoroutine(LoadAsync("LevelHub", GameState.Null));
+
+        if (_isFirstHub)
         {
-            SceneManager.LoadScene("LevelHub");
-            //highScore = new();
+            Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
+            _isFirstHub = false;
+        }
+    }
+
+    IEnumerator LoadAsync(string SceneName, GameState state)
+    {
+        SceneManager.LoadScene(SceneName, LoadSceneMode.Additive);
+        _currentScene = SceneManager.GetSceneAt(1);
+
+        while (!_currentScene.isLoaded)
+        {
+            yield return null;
         }
 
-        Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
+        SceneManager.SetActiveScene(_currentScene);
+
+        if (state != GameState.Null)
+            ChangeState(state);
     }
 
     void HandleLevelChange()
     {
-        SceneManager.LoadScene("LevelTest");
-        ChangeState(GameState.Starting);
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+
+        SceneManager.UnloadScene("LevelHub");
+
+        var _ = StartCoroutine(LoadAsync("LevelTest", GameState.Starting));
     }
 
     void HandleStarting()
     {
-        enemies = new();//not sure where to put it
-        map = FindObjectOfType<LevelGenerator>().GenerateMap();
-        ChangeState(GameState.SpawningHero);
-    }
-
-    void HandleSpawningHero()
-    {
-        Player = UnitManager.Instance.SpawnHero(mageNameSO.String);
-
-        ChangeState(GameState.SpawningEnemies);
-    }
-
-    void HandleSpawningEnemies()
-    {
-        ChangeState(GameState.Playing);
-    }
-
-    void HandlePlaying()
-    {
-
+        FindObjectOfType<LevelGenerator>().GenerateMap();
     }
 
     void HandleLose()
@@ -132,7 +126,7 @@ public class GameManager : StaticInstance<GameManager>
         //highScores.Add(highScore);
         scoreSO.Int = 0;
 
-        var asd = StartCoroutine(WaitSomeSecs());
+        var _ = StartCoroutine(WaitSomeSecs());
     }
 
     IEnumerator WaitSomeSecs()
@@ -144,7 +138,21 @@ public class GameManager : StaticInstance<GameManager>
             yield return null;
         }
 
+        HandleLevelChangeToHub();
         ChangeState(GameState.Hub);
+    }
+
+    void HandleLevelChangeToHub()
+    {
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+
+        //foreach (var item in UnitManager.Instance.transform)
+        //{
+            //delete all childrens
+        //}
+        
+        _isFirstHub = true;
+        SceneManager.UnloadScene("LevelTest");
     }
 
     void HandleWin()
