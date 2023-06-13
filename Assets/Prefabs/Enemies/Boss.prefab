@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8324945444546159093}
   - component: {fileID: 7061813054309352363}
   - component: {fileID: 8109268066809691}
+  - component: {fileID: -5191531559772631539}
+  - component: {fileID: -8138470197479937915}
   - component: {fileID: 3214218647730200590}
   m_Layer: 9
   m_Name: Boss
@@ -154,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ef9441cb3edd0647bdfd6214935e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarManagerObj: {fileID: 0}
   movementFilter:
     useTriggers: 0
     useLayerMask: 0
@@ -175,7 +178,8 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 16
-  conditionsBar: {fileID: 4971127554512380848}
+  aiData: {fileID: -5191531559772631539}
+  contextSolver: {fileID: -8138470197479937915}
   scoreSO: {fileID: 11400000, guid: a537fb5d8087b124a8e1e8f4b21500ba, type: 2}
   attackFromCenter: 0
   rangeOfAttack: 1
@@ -183,6 +187,43 @@ MonoBehaviour:
   rangeOfChase: 15
   attackCooldown: 2
   spell: {fileID: 11400000, guid: e1fb58d9855315c4290acf3c2bed5924, type: 2}
+--- !u!114 &-5191531559772631539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6262015385233187950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4bd51ddf360aca489f30e0335e40f03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
+  obstacles: []
+  currentTarget: {x: 0, y: 0}
+  direction:
+  - {x: 0, y: 1}
+  - {x: 0.70710677, y: 0.70710677}
+  - {x: 1, y: 0}
+  - {x: 0.70710677, y: -0.70710677}
+  - {x: 0, y: -1}
+  - {x: -0.70710677, y: -0.70710677}
+  - {x: -1, y: 0}
+  - {x: -0.70710677, y: 0.70710677}
+--- !u!114 &-8138470197479937915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6262015385233187950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84ce78120740c324aa675ad1f87a539f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiData: {fileID: -5191531559772631539}
 --- !u!95 &3214218647730200590
 Animator:
   serializedVersion: 5
