@@ -26,7 +26,6 @@ namespace Assets._Scripts.Managers
 
     public class WaveManager : StaticInstance<WaveManager>
     {
-        public Animator animator;
         public Text waveName;
         public Text enemyCounter;
 
@@ -44,9 +43,15 @@ namespace Assets._Scripts.Managers
         int spawnCountNow;
         int totalEnemies;
 
+        private void Start()
+        {
+            waveName = GameManager.Instance.waveName;
+            enemyCounter = GameManager.Instance.enemyCounter;
+        }
+
         private void Update()
         {
-            if (!gameOver)
+            if (!gameOver && GameManager.map != null)
             {
                 TrySpawn();
                 //totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
