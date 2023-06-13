@@ -67,7 +67,8 @@ public class MapFunctions
 
                 else if (map[x, y] == 2)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
+                    //tilemap.SetTile(new Vector3Int(x, y, 0), tileSpawner);
+                    tilemap.SetTile(new Vector3Int(x, y, 0), null);
                 }
             }
         }

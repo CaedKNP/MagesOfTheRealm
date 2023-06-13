@@ -37,6 +37,7 @@ public class BasicEnemy : EnemyBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = States.Moving;
         _anim = GetComponent<Animator>();
+        aiData.currentTarget = player.transform;
     }
 
     private void OnDrawGizmos()
@@ -54,37 +55,6 @@ public class BasicEnemy : EnemyBase
         //Gizmos.DrawRay(transform.position, upRayDirection);
         //Gizmos.DrawRay(transform.position, downRayDirection);
         //Gizmos.DrawLine(transform.position + downRayDirection, transform.position + upRayDirection);
-
-        if (!Application.isPlaying)
-            return;
-        Vector2[] dir = new Vector2[8];//possible directions
-        dir[0] = new Vector2(0, 1).normalized;
-        dir[1] = new Vector2(1, 1).normalized;
-        dir[2] = new Vector2(1, 0).normalized;
-        dir[3] = new Vector2(1, -1).normalized;
-        dir[4] = new Vector2(0, -1).normalized;
-        dir[5] = new Vector2(-1, -1).normalized;
-        dir[6] = new Vector2(-1, 0).normalized;
-        dir[7] = new Vector2(-1, 1).normalized;
-
-        if (wages != null)
-        {
-            for (int i = 0; i < wages.Length; i++)
-            {
-                if (wages[i] < 0)
-                {
-                    Gizmos.color = Color.red;
-                    wages[i] = -wages[i];
-                }
-                else
-                    Gizmos.color = Color.green;
-
-                Gizmos.DrawRay(transform.position, dir[i] * wages[i] * 2);
-            }
-        }
-
-        if (avoid.Length == 0)
-            return;
 
         //Gizmos.color = Color.red;
 
@@ -166,7 +136,7 @@ public class BasicEnemy : EnemyBase
     private void Moving()
     {
         dotColor = Color.green;
-        Move(player.position - transform.position);
+        Move();
         if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
             ChangeState(States.Attacking);
         if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
@@ -218,6 +188,6 @@ public class BasicEnemy : EnemyBase
 
     private void Escape()
     {
-        Move(-(player.position - transform.position));
+        Move();//need to find trasform of running away
     }
 }
