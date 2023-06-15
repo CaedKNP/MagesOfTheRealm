@@ -146,11 +146,17 @@ public class GameManager : StaticInstance<GameManager>
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
 
-        //foreach (var item in UnitManager.Instance.transform)
-        //{
+        foreach (Transform item in UnitManager.Instance.transform)
+        {
             //delete all childrens
+            Destroy(item.gameObject);
+        }
+
+        //foreach (Transform child in transform)
+        //{
+        //    Destroy(child.gameObject);
         //}
-        
+
         _isFirstHub = true;
         SceneManager.UnloadScene("LevelTest");
     }
