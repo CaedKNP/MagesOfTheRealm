@@ -540,6 +540,8 @@ public class HeroUnitBase : UnitBase
 
     public override void Die()
     {
+        if (_isDead)
+            return;
         base.Die();
         _anim.CrossFade("Death", 0, 0);
         HideWand();

@@ -40,7 +40,7 @@ public class GameManager : StaticInstance<GameManager>
     {
         enemies = new();
 
-        highScores = XMLManager.Instance.LoadScores();
+        //highScores = XMLManager.Instance.LoadScores();
 
         ChangeState(GameState.Hub);
     }
@@ -122,11 +122,11 @@ public class GameManager : StaticInstance<GameManager>
         WaveManager.Instance.gameOver = true;
         WaveManager.Instance.waveName.text = "YOU DIED!";
 
-        highScore.score = scoreSO.Int;
-        highScores.Add(highScore);
-        scoreSO.Int = 0;
-
+        //highScore.score = scoreSO.Int;
+        //highScores.Add(highScore);
+        //scoreSO.Int = 0;
         var _ = StartCoroutine(WaitSomeSecs());
+       // ChangeState(GameState.Hub);
     }
 
     IEnumerator WaitSomeSecs()
@@ -139,21 +139,23 @@ public class GameManager : StaticInstance<GameManager>
         }
 
         LevelChangeToHub();
+        ChangeState(GameState.Hub);
     }
 
     void LevelChangeToHub()
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+        foreach (Transform children in UnitManager.Instance.transform)
+        {
+            Destroy(children.gameObject);
+        }
 
-        SceneManager.UnloadScene("LevelTest");
-
-        //foreach (Transform children in UnitManager.Instance.transform)
+        //foreach (GameObject e in enemies)
         //{
-        //    Destroy(children.gameObject);
+        //    e.GetComponent<EnemyBase>().Die();
         //}
-
-        ChangeState(GameState.Hub);
-
+        //Destroy(Player);
+        SceneManager.UnloadScene("LevelTest");
     }
 
     private void OnApplicationQuit()
