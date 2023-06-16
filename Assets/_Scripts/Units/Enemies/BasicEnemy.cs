@@ -1,6 +1,7 @@
 using Assets._Scripts.Utilities;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BasicEnemy : EnemyBase
@@ -69,27 +70,28 @@ public class BasicEnemy : EnemyBase
 
     void Update()
     {
-        switch (currentState)
-        {
-            case States.Idle:
-                Idle();
-                break;
-            case States.Moving:
-                Moving();
-                break;
-            case States.Attacking:
-                Attacking();
-                break;
-            case States.Rest:
-                Resting();
-                break;
-            case States.Die:
-                Death();
-                break;
-            default:
-                Debug.LogWarning($"Invalid state: {currentState}");
-                break;
-        }
+        if (!transform.IsDestroyed())
+            switch (currentState)
+            {
+                case States.Idle:
+                    Idle();
+                    break;
+                case States.Moving:
+                    Moving();
+                    break;
+                case States.Attacking:
+                    Attacking();
+                    break;
+                case States.Rest:
+                    Resting();
+                    break;
+                case States.Die:
+                    Death();
+                    break;
+                default:
+                    Debug.LogWarning($"Invalid state: {currentState}");
+                    break;
+            }
     }
 
     private void Death()

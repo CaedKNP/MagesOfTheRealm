@@ -1,4 +1,5 @@
 using Assets._Scripts.Managers;
+using Assets.Resources.Entities;
 using Assets.Resources.SOs;
 using System;
 using System.Collections;
@@ -22,11 +23,8 @@ public class GameManager : StaticInstance<GameManager>
 
     public List<GameObject> gameObjects;
 
-    //Bool if hub wasn`t already initialized
-    bool _isFirstHub = true;
-
-    //private HighScore highScore;
-    //private List<HighScore> highScores;
+    private HighScore highScore;
+    private List<HighScore> highScores;
 
     [SerializeField]
     private intSO scoreSO;
@@ -41,6 +39,8 @@ public class GameManager : StaticInstance<GameManager>
     void Start()
     {
         enemies = new();
+
+        highScores = XMLManager.Instance.LoadScores();
 
         ChangeState(GameState.Hub);
     }
@@ -61,9 +61,6 @@ public class GameManager : StaticInstance<GameManager>
             case GameState.Starting:
                 HandleStarting();
                 break;
-            case GameState.Win:
-                HandleWin();
-                break;
             case GameState.Lose:
                 HandleLose();
                 break;
@@ -80,11 +77,14 @@ public class GameManager : StaticInstance<GameManager>
     {
         var _ = StartCoroutine(LoadAsync("LevelHub", GameState.Null));
 
-        if (_isFirstHub)
+        Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
+
+        WaveManager.Instance.waveName.text = "Press 'L' to start";
+
+        highScore = new()
         {
-            Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
-            _isFirstHub = false;
-        }
+            score = 0
+        };
     }
 
     IEnumerator LoadAsync(string SceneName, GameState state)
@@ -122,8 +122,8 @@ public class GameManager : StaticInstance<GameManager>
         WaveManager.Instance.gameOver = true;
         WaveManager.Instance.waveName.text = "YOU DIED!";
 
-        //highScore.score = scoreSO.Int;
-        //highScores.Add(highScore);
+        highScore.score = scoreSO.Int;
+        highScores.Add(highScore);
         scoreSO.Int = 0;
 
         var _ = StartCoroutine(WaitSomeSecs());
@@ -138,31 +138,27 @@ public class GameManager : StaticInstance<GameManager>
             yield return null;
         }
 
-        HandleLevelChangeToHub();
-        ChangeState(GameState.Hub);
+        LevelChangeToHub();
     }
 
-    void HandleLevelChangeToHub()
+    void LevelChangeToHub()
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
 
-        foreach (Transform item in UnitManager.Instance.transform)
-        {
-            //delete all childrens
-            Destroy(item.gameObject);
-        }
+        SceneManager.UnloadScene("LevelTest");
 
-        //foreach (Transform child in transform)
+        //foreach (Transform children in UnitManager.Instance.transform)
         //{
-        //    Destroy(child.gameObject);
+        //    Destroy(children.gameObject);
         //}
 
-        _isFirstHub = true;
-        SceneManager.UnloadScene("LevelTest");
+        ChangeState(GameState.Hub);
+
     }
 
-    void HandleWin()
+    private void OnApplicationQuit()
     {
-
+        if (highScores != null)
+            XMLManager.Instance.SaveScores(highScores);
     }
 }
