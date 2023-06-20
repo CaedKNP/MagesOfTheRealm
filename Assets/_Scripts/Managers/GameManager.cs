@@ -23,8 +23,8 @@ public class GameManager : StaticInstance<GameManager>
 
     public List<GameObject> gameObjects;
 
-    private HighScore highScore;
     private List<HighScore> highScores;
+    private HighScore highScore;
 
     [SerializeField]
     private intSO scoreSO;
@@ -79,6 +79,8 @@ public class GameManager : StaticInstance<GameManager>
 
         Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
 
+        //waveName.text = "Press L To Start";
+
         highScore = new()
         {
             score = 0
@@ -117,14 +119,14 @@ public class GameManager : StaticInstance<GameManager>
 
     void HandleLose()
     {
-        WaveManager.Instance.gameOver = true;
-        WaveManager.Instance.waveName.text = "YOU DIED!";
+        waveName.text = "YOU DIED!";
+        WaveManager.Instance.StopAllCoroutines();
 
         //highScore.score = scoreSO.Int;
         //highScores.Add(highScore);
         //scoreSO.Int = 0;
+
         var _ = StartCoroutine(WaitSomeSecs());
-       // ChangeState(GameState.Hub);
     }
 
     IEnumerator WaitSomeSecs()
@@ -136,6 +138,8 @@ public class GameManager : StaticInstance<GameManager>
             yield return null;
         }
 
+        waveName.text = "Press L To Start";
+        Destroy(WaveManager.Instance.gameObject);
         LevelChangeToHub();
         ChangeState(GameState.Hub);
     }
@@ -143,16 +147,14 @@ public class GameManager : StaticInstance<GameManager>
     void LevelChangeToHub()
     {
         SceneManager.SetActiveScene(SceneManager.GetSceneAt(0));
+
+        enemies.Clear();
+
         foreach (Transform children in UnitManager.Instance.transform)
         {
             Destroy(children.gameObject);
         }
 
-        //foreach (GameObject e in enemies)
-        //{
-        //    e.GetComponent<EnemyBase>().Die();
-        //}
-        //Destroy(Player);
         SceneManager.UnloadScene("LevelTest");
     }
 

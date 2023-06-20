@@ -80,6 +80,7 @@ public abstract class EnemyBase : UnitBase
         _anim.CrossFade("Death", 0, 0);
         _isDead = true;
         GameManager.enemies.Remove(this.gameObject);
+        Destroy(gameObject, 3f);
     }
     protected void StopAnimation()
     {
