@@ -60,6 +60,8 @@ public class LevelGenerator : MonoBehaviour {
 		//Render the result
 		MapFunctions.RenderMap(map, tilemap, tile,tileSpawner);
 
+		GameManager.map = map;
+
 		return map;
     }
 

@@ -1,17 +1,26 @@
 using Assets._Scripts.Utilities;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// State machine and its logic for enemy
+/// </summary>
 public class BasicEnemy : EnemyBase
 {
-    public bool attackFromCenter;
-
-    public float rangeOfAttack = 0.1f;
-    public float rangeOfRest = 2f;
-    public float rangeOfChase = 5f;
-    public float attackCooldown = 5;
-    public Spell spell;
+    [SerializeField]
+    private bool attackFromCenter;
+    [SerializeField]
+    private float rangeOfAttack = 0.1f;
+    [SerializeField]
+    private float rangeOfRest = 2f;
+    [SerializeField]
+    private float rangeOfChase = 5f;
+    [SerializeField]
+    private float attackCooldown = 5;
+    [SerializeField]
+    private Spell spell;
     bool onCooldown = false;
 
     private float dotSize = 0.2f;
@@ -19,7 +28,7 @@ public class BasicEnemy : EnemyBase
 
     private float lastAttack = 0;
 
-    public enum States
+    private enum States
     {
         Idle,
         Moving,
@@ -37,6 +46,7 @@ public class BasicEnemy : EnemyBase
         spriteRenderer = GetComponent<SpriteRenderer>();
         currentState = States.Moving;
         _anim = GetComponent<Animator>();
+        aiData.currentTarget = player.transform;
     }
 
     private void OnDrawGizmos()
@@ -54,37 +64,6 @@ public class BasicEnemy : EnemyBase
         //Gizmos.DrawRay(transform.position, upRayDirection);
         //Gizmos.DrawRay(transform.position, downRayDirection);
         //Gizmos.DrawLine(transform.position + downRayDirection, transform.position + upRayDirection);
-
-        if (!Application.isPlaying)
-            return;
-        Vector2[] dir = new Vector2[8];//possible directions
-        dir[0] = new Vector2(0, 1).normalized;
-        dir[1] = new Vector2(1, 1).normalized;
-        dir[2] = new Vector2(1, 0).normalized;
-        dir[3] = new Vector2(1, -1).normalized;
-        dir[4] = new Vector2(0, -1).normalized;
-        dir[5] = new Vector2(-1, -1).normalized;
-        dir[6] = new Vector2(-1, 0).normalized;
-        dir[7] = new Vector2(-1, 1).normalized;
-
-        if (wages != null)
-        {
-            for (int i = 0; i < wages.Length; i++)
-            {
-                if (wages[i] < 0)
-                {
-                    Gizmos.color = Color.red;
-                    wages[i] = -wages[i];
-                }
-                else
-                    Gizmos.color = Color.green;
-
-                Gizmos.DrawRay(transform.position, dir[i] * wages[i] * 2);
-            }
-        }
-
-        if (avoid.Length == 0)
-            return;
 
         //Gizmos.color = Color.red;
 
@@ -166,7 +145,7 @@ public class BasicEnemy : EnemyBase
     private void Moving()
     {
         dotColor = Color.green;
-        Move(player.position - transform.position);
+        Move();
         if (Vector2.Distance(transform.position, player.position) <= rangeOfAttack)
             ChangeState(States.Attacking);
         if (Vector2.Distance(transform.position, player.position) <= rangeOfRest)
@@ -196,6 +175,9 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
+    /// <summary>
+    /// Execute attached spell in direction of player
+    /// </summary>
     public void Attack()
     {
         if (onCooldown)
@@ -218,6 +200,6 @@ public class BasicEnemy : EnemyBase
 
     private void Escape()
     {
-        Move(-(player.position - transform.position));
+        Move();//need to find trasform of running away
     }
 }

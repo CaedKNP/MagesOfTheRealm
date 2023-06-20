@@ -11,10 +11,6 @@ public class HeroUnitBase : UnitBase
     public float collisionOffset = 0.05f;
     public ContactFilter2D movementFilter;
 
-    Stats stats;
-    bool _canMove = true;
-    bool _isDead = false;
-
     Vector2 movementInput;
     SpriteRenderer spriteRenderer;
     Rigidbody2D rb;
@@ -50,12 +46,7 @@ public class HeroUnitBase : UnitBase
 
     ConditionUI _conditionUI;
 
-    [SerializeField]
-    public GameObject healthBarManagerObj;
-    HealthBarManager healthBar;
     private Animator _anim;
-
-    Coroutine changeRoutine, burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
 
     void Start()
     {
@@ -192,22 +183,10 @@ public class HeroUnitBase : UnitBase
 
     #endregion
 
-    public override void SetStats(Stats stats)
-    {
-        this.stats = stats;
-    }
-
     public override void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
-        //stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor); DMG UP
-        stats.CurrentHp -= Convert.ToInt32(dmgToTake / stats.Armor); //Armor up
-
+        base.TakeDamage(dmgToTake, conditions);
         healthBar.SetHealth(stats.CurrentHp);
-
-        if (stats.CurrentHp <= 0)
-            Die();
-
-        ConditionAffect(conditions);
     }
 
     #region Conditions
@@ -519,7 +498,7 @@ public class HeroUnitBase : UnitBase
 
     void OnRestart()
     {
-        if (GameManager.Instance.State == GameState.Playing)
+        if (GameManager.Instance.State == GameState.Starting)
             GameManager.Instance.ChangeState(GameState.Hub);
     }
 
@@ -531,8 +510,6 @@ public class HeroUnitBase : UnitBase
 
     void CastSpell(Spell spell)
     {
-        Debug.Log("Casting spell " + spell);
-
         if (spellRotator != null)
         {
             if (spell.CastFromHeroeNoStaff)
@@ -563,11 +540,12 @@ public class HeroUnitBase : UnitBase
 
     public override void Die()
     {
-        Debug.Log($"{name} is dead");
-        HideWand();
+        if (_isDead)
+            return;
+
+        base.Die();
         _anim.CrossFade("Death", 0, 0);
-        _canMove = false;
-        Destroy(gameObject, 3f);
+        HideWand();
         GameManager.Instance.ChangeState(GameState.Lose);
     }
 }

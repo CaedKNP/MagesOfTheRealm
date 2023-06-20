@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SpellBossSlash : SpellProjectileBase
 {
-    public float radius;
-    public Animator animator;
+    [SerializeField]
+    private float radius;
+    [SerializeField]
+    private Animator animator;
 
     protected void Awake()
     {

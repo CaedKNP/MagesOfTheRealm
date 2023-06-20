@@ -6,15 +6,16 @@ using UnityEngine;
 
 public class SpellDarkMeteor : SpellProjectileBase
 {
-    public Animator darkMeteorAnimator; // Komponent Animator dla obiektu darkMeteor 
-    private bool hasPlayedAnimation = false; // Flaga, czy animacja została odtworzona 
+    [SerializeField]
+    private Animator darkMeteorAnimator;
+    private bool hasPlayedAnimation = false;
 
     protected void Awake()
     {
         MyAwake();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
@@ -24,7 +25,7 @@ public class SpellDarkMeteor : SpellProjectileBase
         }
     }
 
-    public override bool BeforeDestroy()
+    protected override bool BeforeDestroy()
     {
         StartCoroutine(AnimateTextureChange());
         rb.velocity = Vector2.zero;
