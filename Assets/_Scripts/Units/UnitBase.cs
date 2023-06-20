@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Base class for every unit in game
+/// </summary>
 public abstract class UnitBase : MonoBehaviour
 {
     protected Assets._Scripts.Utilities.Stats stats;

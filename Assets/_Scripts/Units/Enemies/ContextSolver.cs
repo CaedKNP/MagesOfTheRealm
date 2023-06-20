@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
+/// <summary>
+/// Solve for best direction and maange context steering logic
+/// </summary>
 public class ContextSolver : MonoBehaviour
 {
     [SerializeField]
@@ -20,6 +23,10 @@ public class ContextSolver : MonoBehaviour
         wages = new float[aiData.direction.Length];
     }
 
+    /// <summary>
+    /// Solve context steering to choose best directions to move
+    /// </summary>
+    /// <returns>Direction that is best to move</returns>
     public Vector2 ChooseDirection()
     {
         Vector2 heading = Vector2.zero;
