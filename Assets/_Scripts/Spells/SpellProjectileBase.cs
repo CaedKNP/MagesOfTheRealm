@@ -2,6 +2,7 @@
 
 namespace Assets._Scripts.Spells
 {
+    /// <summary></summary>
     public class SpellProjectileBase : SpellBase
     {
         protected Rigidbody2D rb;
@@ -16,7 +17,8 @@ namespace Assets._Scripts.Spells
                 Destroy(gameObject, destroyTime);
         }
 
-        public virtual bool BeforeDestroy()
+        /// <summary>the last function called before the spell prefab is destroyed</summary>
+        protected virtual bool BeforeDestroy()
         {
             return true;
         }

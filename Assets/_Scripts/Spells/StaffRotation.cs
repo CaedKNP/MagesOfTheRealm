@@ -2,20 +2,27 @@
 
 public class StaffRotation : MonoBehaviour
 {
-    public GameObject pfSpell;
-    public Transform spellTransform;
+    [SerializeField]
+    private GameObject pfSpell;
+    [SerializeField]
+    private Transform spellTransform;
+
+    /// <summary> Transformation of the spell casting place for player</summary>
     public Transform WizandStaffFirePint;
 
-    Camera mainCam;
-    public Vector2 mousePos;
-    Vector2 rotation;
+    private Camera mainCam;
 
-    void Start()
+    [SerializeField] 
+    private Vector2 mousePos;
+
+    private Vector2 rotation;
+
+    private void Start()
     {
         mainCam = Camera.main;
     }
 
-    void Update()
+    private void Update()
     {
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         rotation = mousePos - (Vector2)transform.position;
