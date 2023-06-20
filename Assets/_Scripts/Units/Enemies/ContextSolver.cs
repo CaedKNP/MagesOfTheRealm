@@ -4,6 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements.Experimental;
 
+/// <summary>
+/// Solve for best direction and maange context steering logic
+/// </summary>
 public class ContextSolver : MonoBehaviour
 {
     [SerializeField]

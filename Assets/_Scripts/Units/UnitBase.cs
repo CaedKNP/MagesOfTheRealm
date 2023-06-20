@@ -6,6 +6,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
+/// <summary>
+/// Base class for every unit in game
+/// </summary>
 public abstract class UnitBase : MonoBehaviour
 {
     protected Assets._Scripts.Utilities.Stats stats;

@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// State machine and its logic for enemy
+/// </summary>
 public class BasicEnemy : EnemyBase
 {
     [SerializeField]

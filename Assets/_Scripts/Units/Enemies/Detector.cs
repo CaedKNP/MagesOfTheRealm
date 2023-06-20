@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Class for detecting stuff on map
+/// </summary>
 public class Detector : MonoBehaviour
 {
     [SerializeField]

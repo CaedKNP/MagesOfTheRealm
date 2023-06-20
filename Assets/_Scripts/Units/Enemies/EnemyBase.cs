@@ -9,6 +9,9 @@ using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 using Stats = Assets._Scripts.Utilities.Stats;
 
+/// <summary>
+/// Base logic for enemy
+/// </summary>
 public abstract class EnemyBase : UnitBase
 {
     #region MovementParam
