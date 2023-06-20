@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class BasicEnemy : EnemyBase
 {
-    public bool attackFromCenter;
-
-    public float rangeOfAttack = 0.1f;
-    public float rangeOfRest = 2f;
-    public float rangeOfChase = 5f;
-    public float attackCooldown = 5;
-    public Spell spell;
+    [SerializeField]
+    private bool attackFromCenter;
+    [SerializeField]
+    private float rangeOfAttack = 0.1f;
+    [SerializeField]
+    private float rangeOfRest = 2f;
+    [SerializeField]
+    private float rangeOfChase = 5f;
+    [SerializeField]
+    private float attackCooldown = 5;
+    [SerializeField]
+    private Spell spell;
     bool onCooldown = false;
 
     private float dotSize = 0.2f;
@@ -20,7 +25,7 @@ public class BasicEnemy : EnemyBase
 
     private float lastAttack = 0;
 
-    public enum States
+    private enum States
     {
         Idle,
         Moving,
@@ -70,28 +75,27 @@ public class BasicEnemy : EnemyBase
 
     void Update()
     {
-        if (!transform.IsDestroyed())
-            switch (currentState)
-            {
-                case States.Idle:
-                    Idle();
-                    break;
-                case States.Moving:
-                    Moving();
-                    break;
-                case States.Attacking:
-                    Attacking();
-                    break;
-                case States.Rest:
-                    Resting();
-                    break;
-                case States.Die:
-                    Death();
-                    break;
-                default:
-                    Debug.LogWarning($"Invalid state: {currentState}");
-                    break;
-            }
+        switch (currentState)
+        {
+            case States.Idle:
+                Idle();
+                break;
+            case States.Moving:
+                Moving();
+                break;
+            case States.Attacking:
+                Attacking();
+                break;
+            case States.Rest:
+                Resting();
+                break;
+            case States.Die:
+                Death();
+                break;
+            default:
+                Debug.LogWarning($"Invalid state: {currentState}");
+                break;
+        }
     }
 
     private void Death()
@@ -168,6 +172,9 @@ public class BasicEnemy : EnemyBase
     }
     #endregion
 
+    /// <summary>
+    /// Execute attached spell in direction of player
+    /// </summary>
     public void Attack()
     {
         if (onCooldown)

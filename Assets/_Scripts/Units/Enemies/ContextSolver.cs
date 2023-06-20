@@ -20,6 +20,10 @@ public class ContextSolver : MonoBehaviour
         wages = new float[aiData.direction.Length];
     }
 
+    /// <summary>
+    /// Solve context steering to choose best directions to move
+    /// </summary>
+    /// <returns>Direction that is best to move</returns>
     public Vector2 ChooseDirection()
     {
         Vector2 heading = Vector2.zero;
