@@ -1,9 +1,7 @@
 using Assets._Scripts.Utilities;
-using Assets.Resources.SOs;
 using System.Collections;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public abstract class UnitBase : MonoBehaviour
@@ -32,9 +30,9 @@ public abstract class UnitBase : MonoBehaviour
         if (_isDead)
             return;
 
+        _canMove = true;
         Debug.Log($"{name} is dead");
         _canMove = false;
-        Destroy(gameObject, 3f);
     }
     /// <summary>
     /// Modify hp of unit and attach condition

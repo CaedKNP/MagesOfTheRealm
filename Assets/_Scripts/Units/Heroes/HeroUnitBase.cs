@@ -542,6 +542,7 @@ public class HeroUnitBase : UnitBase
     {
         if (_isDead)
             return;
+
         base.Die();
         _anim.CrossFade("Death", 0, 0);
         HideWand();
