@@ -9,10 +9,19 @@ using UnityEngine.SocialPlatforms.Impl;
 using Random = UnityEngine.Random;
 using Stats = Assets._Scripts.Utilities.Stats;
 
+/// <summary>
+/// Base logic for enemy
+/// </summary>
 public abstract class EnemyBase : UnitBase
 {
     #region MovementParam
+    /// <summary>
+    /// Filter for collisons detection
+    /// </summary>
     public ContactFilter2D movementFilter;
+    /// <summary>
+    /// Offset for collisons detection
+    /// </summary>
     public float collisionOffset = 0.05f;
 
     protected Rigidbody2D rb;
@@ -24,13 +33,16 @@ public abstract class EnemyBase : UnitBase
     #endregion
 
     #region PatrolParam
-    public Vector2 PatrolPoint;
-    public float PatrolRadius;
+    protected Vector2 PatrolPoint;
+    protected float PatrolRadius;
     private Vector2 randomDestination;
     private float lastPatrol = 0;
     #endregion
 
     #region SensesParam
+    /// <summary>
+    /// Distance of player detection
+    /// </summary>
     public float seeDistance = 10f;
     protected float coneAngle = 45f;
     protected float coneDistance = 5f;
@@ -58,7 +70,9 @@ public abstract class EnemyBase : UnitBase
 
         _conditionUI = conditionsBar.GetComponent<ConditionUI>();
     }
-
+    /// <summary>
+    /// Add Score, play death animation and remove enity form enemies list 
+    /// </summary>
     public override void Die()
     {
         base.Die();
@@ -67,12 +81,16 @@ public abstract class EnemyBase : UnitBase
         _isDead = true;
         GameManager.enemies.Remove(this.gameObject);
     }
-
-    public void StopAnimation()
+    protected void StopAnimation()
     {
         _anim.CrossFade("Idle", 0, 0);
     }
 
+    /// <summary>
+    /// Check if the next position is valid for movement
+    /// </summary>
+    /// <param name="direction">Direction to be checked</param>
+    /// <returns></returns>
     public override bool TryMove(Vector2 direction)
     {
         if (!_canMove)
@@ -169,23 +187,23 @@ public abstract class EnemyBase : UnitBase
         }
     }
 
-    private Vector2 GetClosestEnemy()
-    {
-        Vector2 pos = rb.position;
-        Vector2 closestEnemy = rb.position;
-        float closestDist = float.MaxValue;
-        foreach (GameObject e in GameManager.enemies)
-        {
-            float tempDist = Vector2.Distance((Vector2)e.transform.position, pos);
-            if (tempDist == 0)
-                continue;
-            if (tempDist < closestDist)
-            {
-                closestDist = tempDist;
-                closestEnemy = e.transform.position;
-            }
-        }
+    //private Vector2 GetClosestEnemy()
+    //{
+    //    Vector2 pos = rb.position;
+    //    Vector2 closestEnemy = rb.position;
+    //    float closestDist = float.MaxValue;
+    //    foreach (GameObject e in GameManager.enemies)
+    //    {
+    //        float tempDist = Vector2.Distance((Vector2)e.transform.position, pos);
+    //        if (tempDist == 0)
+    //            continue;
+    //        if (tempDist < closestDist)
+    //        {
+    //            closestDist = tempDist;
+    //            closestEnemy = e.transform.position;
+    //        }
+    //    }
 
-        return closestEnemy;
-    }
+    //    return closestEnemy;
+    //}
 }
