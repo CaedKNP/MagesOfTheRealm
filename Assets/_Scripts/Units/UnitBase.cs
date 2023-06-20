@@ -33,6 +33,7 @@ public abstract class UnitBase : MonoBehaviour
         if (_isDead)
             return;
 
+        _isDead = true;
         _canMove = true;
         Debug.Log($"{name} is dead");
         _canMove = false;
