@@ -15,18 +15,32 @@ public abstract class UnitBase : MonoBehaviour
 
     protected Component conditionsBar;
     protected ConditionUI _conditionUI;
+    /// <summary>
+    /// Health bar 
+    /// </summary>
     public GameObject healthBarManagerObj;
     protected HealthBarManager healthBar;
 
     protected Coroutine changeRoutine, burnRoutine, freezeRoutine, slowRoutine, speedUpRoutine, poisonRoutine, armorUpRoutine, armorDownRoutine, hasteRoutine, dmgUpRoutine;
     public abstract bool TryMove(Vector2 direction);
 
+    /// <summary>
+    /// Destroy gameObject
+    /// </summary>
     public virtual void Die()
     {
+        if (_isDead)
+            return;
+
         Debug.Log($"{name} is dead");
         _canMove = false;
         Destroy(gameObject, 3f);
     }
+    /// <summary>
+    /// Modify hp of unit and attach condition
+    /// </summary>
+    /// <param name="dmgToTake">Amount of dmg to be </param>
+    /// <param name="conditions">List of condition to be attach to unit</param>
     public virtual void TakeDamage(float dmgToTake, List<ConditionBase> conditions)
     {
         //stats.CurrentHp -= Convert.ToInt32(dmgToTake * stats.Armor); DMG UP
@@ -37,6 +51,10 @@ public abstract class UnitBase : MonoBehaviour
 
         ConditionAffect(conditions);
     }
+    /// <summary>
+    /// Attach stats structure to unit
+    /// </summary>
+    /// <param name="stats"></param>
     public virtual void SetStats(Assets._Scripts.Utilities.Stats stats)
     {
         this.stats = stats;

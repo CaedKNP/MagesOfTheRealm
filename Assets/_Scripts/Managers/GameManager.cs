@@ -79,8 +79,6 @@ public class GameManager : StaticInstance<GameManager>
 
         Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
 
-        WaveManager.Instance.waveName.text = "Press 'L' to start";
-
         highScore = new()
         {
             score = 0
