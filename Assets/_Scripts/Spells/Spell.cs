@@ -5,31 +5,31 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Spell")]
 public class Spell : ScriptableObject
 {
-    /// <summary></summary>
+    /// <summary> Spell name </summary>
     public string Name;
-    /// <summary></summary>
+    /// <summary> Spell description </summary>
     public string Description;
-    /// <summary></summary>
+    /// <summary> Spell icon </summary>
     public Sprite image;
-    /// <summary></summary>
+    /// <summary> Spell prefab</summary>
     public SpellBase Prefab; //MonoBehaviour
 
-    /// <summary></summary>
+    /// <summary> Spell damage</summary>
     public float DMG;
-    /// <summary></summary>
+    /// <summary> Spell conditions for example burn enemy </summary>
     public List<ConditionBase> conditions;
-    /// <summary></summary>
+    /// <summary> Spell Speed </summary>
     public float speed;
-    /// <summary></summary>
+    /// <summary> Spell live time </summary>
     public float destroyTime;
-    /// <summary></summary>
+    /// <summary> Spell caster</summary>
     public Collider2D caster;
 
-    /// <summary></summary>
+    /// <summary> Cast from heroe or from magic staff</summary>
     public bool CastFromHeroeNoStaff = false;
-    /// <summary></summary>
+    /// <summary> Spell cooldown </summary>
     public float cooldown;
-    /// <summary></summary>
+    /// <summary> Spell Slot</summary>
     public SpellSlot spellSlot;
 
     /// <summary>position and rotation to create spell prefab</summary>
