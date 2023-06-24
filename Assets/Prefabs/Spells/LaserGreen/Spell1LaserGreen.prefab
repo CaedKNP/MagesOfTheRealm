@@ -256,3 +256,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Laser Green
+  laserPoint: {fileID: 639514538004180302, guid: ed4d63c41bcae5b40913cecd0b0eaef2, type: 3}

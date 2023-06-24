@@ -4,35 +4,39 @@ using UnityEngine;
 
 public class Spell1LaserGreen : SpellProjectileBase
 {
-    List<AttackHandler> unitsInCollision = new();
-    GameObject laserPoint;
+    List<AttackHandler> _unitsInCollision = new();
+    public GameObject laserPoint;
+    StaffRotation staff;
     protected void Awake()
     {
+        staff = GetComponentInChildren<StaffRotation>();
         base.MyAwake();
-        Invoke("TimeOut", 0.5f);
+        Invoke("TimeToShoot", 1f);
+        Invoke("TimeOut", 3f);  
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out AttackHandler unit))
         {
-            unitsInCollision.Add(unit);
+            _unitsInCollision.Add(unit);
         }
     }
-    private void MoveLaserToUnits(ref GameObject laserPointPref)
+    private void TimeToShoot()
     {
-        foreach (AttackHandler unit in unitsInCollision)
+        Debug.Log("UnitsInCllision " + "laserPointPref before spawn");
+        GameObject laserPointPref = Instantiate(laserPoint, staff.WizandStaffFirePint.transform.position, staff.WizandStaffFirePint.transform.rotation);
+        Debug.Log("UnitsInCllision " + "laserPointPref after spawn");
+        foreach (var unit in _unitsInCollision)
         {
             laserPointPref.transform.position = unit.transform.position;
+            Debug.Log("UnitsInCllision " + unit.transform.position);
         }
     }
 
     void TimeOut()
     {
-        laserPoint = GetComponent<GameObject>();
-        GameObject laserPointPref = Instantiate(laserPoint, transform.position, transform.rotation);
-        MoveLaserToUnits(ref laserPointPref);
         Destroy(gameObject);
-        Destroy(laserPointPref);//nie działa
+        Destroy(laserPoint);//nie działa
     }
 }
