@@ -5,16 +5,20 @@ public class SpellDash : SpellBase
     GameObject player;
     HeroUnitBase playerScript;
     StaffRotation staffRotation;
-    public float moveSpeed = 40f;
+    [SerializeField]
+    private float moveSpeed = 40f;
     private Rigidbody2D rb;
-    public ContactFilter2D movementFilter;
+    [SerializeField]
+    private ContactFilter2D movementFilter;
     private Vector2 mousePosition;
-    public float destroyDelay = 0.5f; // Czas opóźnienia przed zniszczeniem
-    public float positionThreshold = 0.1f; // Prog odchylenia od pozycji docelowej
+    [SerializeField]
+    private float destroyDelay = 0.5f;
+    [SerializeField]
+    private float positionThreshold = 0.1f;
 
-    private float destroyTimer; // Licznik czasu
-    private bool isDashing; // Flaga określająca, czy trwa dash
-    private bool moved = false; // Flaga określająca, czy trwa dash
+    private float destroyTimer;
+    private bool isDashing;
+    private bool moved = false;
 
     private void Awake()
     {

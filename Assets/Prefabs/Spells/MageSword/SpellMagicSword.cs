@@ -2,11 +2,14 @@ using UnityEngine;
 
 public class SpellMagicSword : SpellBase
 {
-    private GameObject spellCore; // Reference to the spellCore object
-    public float rotationSpeed = 7f;
+    GameObject spellCore; // Reference to the spellCore object
+    [SerializeField]
+    float rotationSpeed = 7f;
     float constRotationSpeed;
-    public float rotationImpact = -65f;
-    public float speedTransitio = 0.3f;
+    [SerializeField]
+    float rotationImpact = -65f;
+    [SerializeField]
+    float speedTransitio = 0.3f;
 
     protected void Awake()
     {

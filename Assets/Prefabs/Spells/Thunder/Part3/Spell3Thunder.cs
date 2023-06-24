@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Spell3Thunder : SpellBase
 {
-    public float timeOut = 0.3f;
+    [SerializeField]
+    float timeOut = 0.3f;
     private void Awake()
     {
         SetSpellStats();

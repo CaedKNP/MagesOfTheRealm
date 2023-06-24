@@ -3,7 +3,8 @@
 public class AttachSwordToCaller : SpellBase
 {
     //GameObject player;
-    public GameObject swordPrefab; // Sword prefab
+    [SerializeField]
+    GameObject swordPrefab; // Sword prefab
 
     void Start()
     {

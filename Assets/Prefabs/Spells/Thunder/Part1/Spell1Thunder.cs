@@ -3,22 +3,26 @@ using UnityEngine;
 
 public class Spell1Thunder : SpellProjectileBase
 {
-    public GameObject prefabPart2;
-    public GameObject prefabPart3;
-    public float interval = 0.3f; // Zmieniono wartość interwału na 0.3f
-    public int counter = 4; // Zmieniono liczbę powtórzeń na 4
+    [SerializeField]
+    GameObject prefabPart2;
+    [SerializeField]
+    GameObject prefabPart3;
+    [SerializeField]
+    float interval = 0.3f;
+    [SerializeField]
+    int counter = 4;
 
     protected void Awake()
     {
         MyAwake();
-        InvokeRepeating("SpawnThunder", 0.1f, interval); // Wywołanie metody SpawnThunder z interwałem 0.3 sekundy
+        InvokeRepeating("SpawnThunder", 0.1f, interval);
     }
 
     private void SpawnThunder()
     {
         counter--;
 
-        if (counter < 0) // Sprawdzenie, czy licznik jest mniejszy od zera
+        if (counter < 0) 
         {
             CancelInvoke("SpawnThunder");
             Destroy(gameObject);

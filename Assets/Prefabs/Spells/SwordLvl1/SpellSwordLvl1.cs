@@ -3,8 +3,10 @@ using UnityEngine;
 
 public class SpellSwordLvl1 : SpellBase
 {
-    public float radius;
-    public Animator animator;
+    [SerializeField]
+    float radius;
+    [SerializeField]
+    Animator animator;
     protected void Awake()
     {
         SetSpellStats();

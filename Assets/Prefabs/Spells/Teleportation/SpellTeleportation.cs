@@ -6,12 +6,15 @@ public class SpellTeleportation : SpellBase
     StaffRotation staffrotator;
     Camera mainCam;
     Vector2 mousePos;
-    public float maxDistance = 20f; // Maksymalna odległość od gracza
-    public float chekingSafePlaceSpeed = 10f;
+    [SerializeField]
+    float maxDistance = 20f; // Maksymalna odległość od gracza
+    [SerializeField]
+    float chekingSafePlaceSpeed = 10f;
     bool isMoving = true; // Czy prefab ma się poruszać
     public Collider2D bigPrefabCollider; // Referencja do Collidera większego Prefabu
-    public float moveSpeed = 5f;
-    private bool isOnWater = false;
+    [SerializeField]
+    float moveSpeed = 5f;
+    bool isOnWater = false;
 
     private void Awake()
     {
@@ -39,7 +42,7 @@ public class SpellTeleportation : SpellBase
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Water"))
         {
@@ -50,13 +53,13 @@ public class SpellTeleportation : SpellBase
         }
     }
 
-    private void StopMovement()
+    void StopMovement()
     {
         // Zatrzymanie ruchu prefabrykatu
         isMoving = false;
     }
 
-    private bool CheckIfOnWater()
+    bool CheckIfOnWater()
     {
         Collider2D[] colliders = Physics2D.OverlapPointAll(transform.position); // Sprawdź kolizję w punkcie pozycji Prefabu "dash"
 

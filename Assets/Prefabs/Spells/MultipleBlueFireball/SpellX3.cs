@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class SpellX3 : SpellBase
 {
-    public GameObject prefab;
+    [SerializeField]
+    GameObject prefab;
     private void Awake()
     {
         Spawn();
