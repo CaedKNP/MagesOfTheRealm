@@ -27,7 +27,7 @@ public abstract class Singleton<T> : StaticInstance<T> where T : MonoBehaviour {
 }
 
 /// <summary>
-/// Finally we have a persistent version of the singleton. This will survive through scene
+/// Persistent version of the singleton. This will survive through scene
 /// loads. Perfect for system classes which require stateful, persistent data. Or audio sources
 /// where music plays through loading screens, etc
 /// </summary>

@@ -12,16 +12,33 @@ public class UnitManager : StaticInstance<UnitManager>
     [SerializeField]
     private Canvas worldSpaceCanvas;
 
+    /// <summary>
+    /// Spawns hero on the map
+    /// </summary>
+    /// <param name="mageName">name of the mage you want to spawn</param>
+    /// <returns>reference to spawned character</returns>
     public GameObject SpawnHero(string mageName)
     {
         return SpawnUnit(mageName, GetPlayerSpawner());
     }
 
+    /// <summary>
+    /// spawn hero on given position
+    /// </summary>
+    /// <param name="mageName">name of the mage you want to spawn</param>
+    /// <param name="vector2">position on map where you want player to be</param>
+    /// <returns>reference to spawned character</returns>
     public GameObject SpawnHero(string mageName, Vector2 vector2)
     {
         return SpawnUnit(mageName, vector2);
     }
 
+    /// <summary>
+    /// Spawns enemy on the map
+    /// </summary>
+    /// <param name="e">type of the enemy to spawn</param>
+    /// <param name="scaleMultiplier">multiplier to spawned enemy stats</param>
+    /// <returns>reference to spawned enemy</returns>
     public GameObject SpawnEnemy(ExampleEnemyType e, float scaleMultiplier)
     {
         GameManager.enemies.Add(SpawnUnit(e, GetRandomSpawner(), scaleMultiplier));
