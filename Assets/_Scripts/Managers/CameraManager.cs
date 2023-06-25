@@ -1,10 +1,23 @@
 using UnityEngine;
 
+/// <summary>
+/// Controls the camera and its movement
+/// </summary>
 public class CameraManager : MonoBehaviour
 {
+    /// <summary>
+    /// position of looking object (player)
+    /// </summary>
     public Transform target;
+
+    /// <summary>
+    /// value of smoothing camera movement
+    /// </summary>
     public float smoothing;
 
+    /// <summary>
+    /// limitation of camera movement
+    /// </summary>
     public Vector2 minPos;
     public Vector2 maxPos;
 

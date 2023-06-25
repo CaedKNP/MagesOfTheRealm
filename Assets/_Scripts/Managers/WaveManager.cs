@@ -5,13 +5,33 @@ using Random = UnityEngine.Random;
 
 namespace Assets._Scripts.Managers
 {
+    /// <summary>
+    /// Class to store information about waves (current game situation)
+    /// </summary>
     [System.Serializable]
     public class Wave
     {
+        /// <summary>
+        /// name of the wave
+        /// </summary>
         public string waveName;
+
+        /// <summary>
+        /// number of enemies that will spawn at this wave
+        /// </summary>
         public int noOfEnemies;
+
+        /// <summary>
+        /// the time of pause after wave
+        /// </summary>
         public float nextSpawnTime;
 
+        /// <summary>
+        /// constructor to initiate waves
+        /// </summary>
+        /// <param name="waveName">name of the wave</param>
+        /// <param name="noOfEnemies">number of enemies that will spawn at this wave</param>
+        /// <param name="nextSpawnTime">the time of pause after wave</param>
         public Wave(string waveName, int noOfEnemies, float nextSpawnTime)
         {
             this.waveName = waveName;
@@ -24,9 +44,19 @@ namespace Assets._Scripts.Managers
         }
     }
 
+    /// <summary>
+    /// Class that handle waves
+    /// </summary>
     public class WaveManager : StaticInstance<WaveManager>
     {
+        /// <summary>
+        /// name of the current wave
+        /// </summary>
         public Text waveName;
+
+        /// <summary>
+        /// text that contains number of enemies alive
+        /// </summary>
         public Text enemyCounter;
 
         bool _canSpawn = true;
@@ -54,7 +84,6 @@ namespace Assets._Scripts.Managers
             if (!gameOver && GameManager.map != null)
             {
                 TrySpawn();
-                //totalEnemies = GameObject.FindGameObjectsWithTag("Enemy").Length;
                 totalEnemies = GameManager.enemies.Count;
 
                 if (currentWaveNumber % 10 == 0)
@@ -63,7 +92,6 @@ namespace Assets._Scripts.Managers
                     enemyCounter.text = "";
 
                 Debug.Log(currentWave.waveName);
-                //animator.SetTrigger("WaveComplete");
             }
         }
 
@@ -72,7 +100,6 @@ namespace Assets._Scripts.Managers
             if (_canSpawn && Time.time > nextSpawnTime)
             {
                 currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, currentWaveNumber + 4);
-                //currentWave = new Wave("Wave: " + currentWaveNumber, currentWaveNumber + 4, 1);
 
                 if (currentWaveNumber % 10 == 0)
                 {
@@ -112,6 +139,7 @@ namespace Assets._Scripts.Managers
                         UnitManager.Instance.SpawnEnemy(ExampleEnemyType.Boss, scaleMultiplier);
                         _bossSpawned = true;
                     }
+
                     if (totalEnemies == 0)
                     {
                         allEnemiesToSpawn--;

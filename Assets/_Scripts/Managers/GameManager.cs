@@ -8,20 +8,65 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the game behavior
+/// </summary>
 public class GameManager : StaticInstance<GameManager>
 {
+    /// <summary>
+    /// Invoked before state would change to new one
+    /// </summary>
     public static event Action<GameState> OnBeforeStateChanged;
+
+    /// <summary>
+    /// Invoked after state would change to new one
+    /// </summary>
     public static event Action<GameState> OnAfterStateChanged;
 
+    /// <summary>
+    /// Current game state
+    /// </summary>
+    public GameState State { get; private set; }
+
+    /// <summary>
+    /// Reference to player
+    /// </summary>
     public static GameObject Player;
+
+    /// <summary>
+    /// game map in numeric representation
+    /// </summary>
     public static int[,] map;
+
+    /// <summary>
+    /// ?????
+    /// </summary>
     public static Vector2[,] mapPositions;
+
+    /// <summary>
+    /// List of all enemies alive
+    /// </summary>
     public static List<GameObject> enemies;
 
+    /// <summary>
+    /// Contains info about wave name
+    /// </summary>
     public Text waveName;
+
+    /// <summary>
+    /// Contains info about amount of enemies alive
+    /// </summary>
     public Text enemyCounter;
 
+    /// <summary>
+    /// ?????
+    /// </summary>
     public List<GameObject> gameObjects;
+
+    /// <summary>
+    /// flag that shows if the Scores were saved
+    /// </summary>
+    public bool ScoresWasSaved = false;
 
     private List<HighScore> highScores;
     private HighScore highScore;
@@ -32,19 +77,32 @@ public class GameManager : StaticInstance<GameManager>
     [SerializeField]
     private stringSO mageNameSO;
 
-    public GameState State { get; private set; }
-
     private Scene _currentScene;
 
     void Start()
     {
         enemies = new();
 
-        //highScores = XMLManager.Instance.LoadScores();
+        var _ = StartCoroutine(LoadScoresAsync());
 
         ChangeState(GameState.Hub);
     }
 
+    IEnumerator LoadScoresAsync()
+    {
+        while (XMLManager.Instance == null)
+        {
+            yield return null;
+        }
+
+        highScores = XMLManager.Instance.LoadScores();
+    }
+
+    /// <summary>
+    /// Method that allows to manage current game state
+    /// </summary>
+    /// <param name="newState">new game state</param>
+    /// <exception cref="ArgumentOutOfRangeException">if the new state is not handled</exception>
     public void ChangeState(GameState newState)
     {
         OnBeforeStateChanged?.Invoke(newState);
@@ -79,12 +137,7 @@ public class GameManager : StaticInstance<GameManager>
 
         Player = UnitManager.Instance.SpawnHero(mageNameSO.String, new Vector2(27, 42));
 
-        //waveName.text = "Press L To Start";
-
-        highScore = new()
-        {
-            score = 0
-        };
+        highScore = new() { score = 0 };
     }
 
     IEnumerator LoadAsync(string SceneName, GameState state)
@@ -122,9 +175,9 @@ public class GameManager : StaticInstance<GameManager>
         waveName.text = "YOU DIED!";
         WaveManager.Instance.StopAllCoroutines();
 
-        //highScore.score = scoreSO.Int;
-        //highScores.Add(highScore);
-        //scoreSO.Int = 0;
+        highScore.score = scoreSO.Int;
+        highScores.Add(highScore);
+        scoreSO.Int = 0;
 
         var _ = StartCoroutine(WaitSomeSecs());
     }
@@ -158,9 +211,27 @@ public class GameManager : StaticInstance<GameManager>
         SceneManager.UnloadScene("LevelTest");
     }
 
-    private void OnApplicationQuit()
+    /// <summary>
+    /// Returns value of hight scores or new list if null
+    /// </summary>
+    /// <returns></returns>
+    public List<HighScore> GetHightScores()
     {
-        if (highScores != null)
-            XMLManager.Instance.SaveScores(highScores);
+        return highScores ??= new List<HighScore>();
+    }
+
+    protected override void OnApplicationQuit()
+    {
+        var _ = StartCoroutine(WaitToSave());
+    }
+
+    IEnumerator WaitToSave()
+    {
+        while (!ScoresWasSaved)
+        {
+            yield return null;
+        }
+
+        base.OnApplicationQuit();
     }
 }
