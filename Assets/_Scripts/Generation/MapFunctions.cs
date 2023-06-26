@@ -304,7 +304,14 @@ public class MapFunctions
             }
         }
 
+        for (int i = 0; i < 9; i++)
+        {
+            int xPointToRemove = rand.Next(map.GetUpperBound(0));
+            int yPoitintToRemove = rand.Next(map.GetUpperBound(1));
+            if (map[xPointToRemove, yPoitintToRemove] == 1)
+                map[xPointToRemove, yPoitintToRemove] = 0;
 
+        }
 
         return map;
     } 
